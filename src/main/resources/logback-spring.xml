@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Dev -->
+    <springProfile name="dev">
+      <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+          <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) [%15.15thread] %cyan(%-40.40logger{39}) : %msg%n</pattern>
+        </encoder>
+      </appender>
+      <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
+      </root>
+      <logger name="com.cloudsolux.foods" level="DEBUG" />
+      <logger name="org.springframework" level="WARN" />
+    </springProfile>
+
+    <!-- Prod -->
+    <springProfile name="prod">
+      <appender name="STRUCTURED_JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+          <customFields>{"application":"cloudsolux-foods","foods":"cloudsolux"}</customFields>
+          <includeMdc>true</includeMdc>
+        </encoder>
+      </appender>
+      <root level="INFO">
+        <appender-ref ref="STRUCTURED_JSON" />
+      </root>
+    </springProfile>
+</configuration>
