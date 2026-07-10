@@ -25,4 +25,8 @@ public class GlobalMsgCreator {
   public static String insuficcientAmount(String className, BigDecimal requiredAmount, BigDecimal currentAmount) {
     return "Falha ao processar '"+className+"' por quantidade em estoque insuficiente. Quantidade solicitada: ['"+requiredAmount+"']. Quantidade disponível: ['"+currentAmount+"'].";
   }
+
+  public static String emptyFieldValue(String className, String fieldName) {
+    return "Falha ao processar '"+className+"'. Valor 'vazio' para o campo: ['"+fieldName+"'].";
+  }
 }

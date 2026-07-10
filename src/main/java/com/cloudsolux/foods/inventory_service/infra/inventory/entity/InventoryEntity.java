@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor(access=AccessLevel.PRIVATE)
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
-@Table(name="inventory_item")
+@Table(name="inventory")
 @Entity
 @Builder
 @Getter
-public class InventoryItemEntity {
+public class InventoryEntity {
 	
 	@Version
 	private Long version;
