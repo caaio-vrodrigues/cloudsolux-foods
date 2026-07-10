@@ -13,7 +13,11 @@ public class GlobalMsgCreator {
   }
 
   public static String positiveMsg(String className, String fieldName, BigDecimal amount) {
-    return "Falha ao processar '"+className+"'. Valor não positivo para o campo ['"+fieldName+"': '"+amount+"'].";
+    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o campo ['"+fieldName+"': '"+amount+"'].";
+  }
+
+  public static String positiveOrZeroMsg(String className, String fieldName, BigDecimal amount) {
+    return "Falha ao processar '"+className+"'. Valor menor que '0' para o campo ['"+fieldName+"': '"+amount+"'].";
   }
 
   public static String invalidUnitOfMeasureMsg(

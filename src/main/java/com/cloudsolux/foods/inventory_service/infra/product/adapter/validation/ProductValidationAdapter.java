@@ -2,7 +2,7 @@ package com.cloudsolux.foods.inventory_service.infra.product.adapter.validation;
 
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreateCommand;
+import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidation;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 
@@ -15,7 +15,7 @@ public class ProductValidationAdapter implements ProductValidation {
   }
 
   @Override
-  public void validateCreationRequest(ProductCreateCommand command) {
+  public void validateCreationRequest(ProductCreationCommand command) {
     throw new UnsupportedOperationException("Unimplemented method 'validateCreationRequest'");
   }
 }

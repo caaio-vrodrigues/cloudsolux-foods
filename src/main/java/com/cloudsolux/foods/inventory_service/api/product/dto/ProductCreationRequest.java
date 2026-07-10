@@ -3,7 +3,7 @@ package com.cloudsolux.foods.inventory_service.api.product.dto;
 import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
-import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreateCommand;
+import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,8 +35,8 @@ public class ProductCreationRequest {
 	@NotNull
 	private UnitOfMeasure unitOfMeasure;
 
-  public ProductCreateCommand toCommand() {
-    return ProductCreateCommand.builder()
+  public ProductCreationCommand toCommand() {
+    return ProductCreationCommand.builder()
       .name(name)
       .model(model)
       .brand(brand)

@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.inventory_service.domain.inventory.dto.InventoryCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.saving.ProductSavingKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 
-public class ProductCreateCommand {
+public class ProductCreationCommand {
 
   private final String name;
   private final String model;
@@ -17,7 +18,7 @@ public class ProductCreateCommand {
 	private final BigDecimal amount;
 	private final UnitOfMeasure unitOfMeasure;
 
-  private ProductCreateCommand(ProductCreateCommandBuilder builder) {
+  private ProductCreationCommand(ProductCreateCommandBuilder builder) {
     name = builder.name;
     model = builder.model;
     brand = builder.brand;
@@ -78,7 +79,7 @@ public class ProductCreateCommand {
       }
       if(amount.compareTo(BigDecimal.ZERO) < 0) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .positiveMsg("ProductCreateCommand", "amount", amount));
+          .positiveOrZeroMsg("ProductCreateCommand", "amount", amount));
       }
       this.amount = amount;
       return this;
@@ -93,13 +94,21 @@ public class ProductCreateCommand {
       return this;
     }
 
-    public ProductCreateCommand build() {
-      return new ProductCreateCommand(this);
+    public ProductCreationCommand build() {
+      return new ProductCreationCommand(this);
     }
   }
 
   public static ProductCreateCommandBuilder builder() {
     return new ProductCreateCommandBuilder();
+  }
+
+  public InventoryCreationCommand toInventoryCreationCommand(Long id) {
+    return InventoryCreationCommand.builder()
+      .id(id)
+      .amount(amount)
+      .unitOfMeasure(unitOfMeasure)
+      .build();
   }
 
   public ProductCreationKey getProductCreationKey() {
@@ -124,13 +133,5 @@ public class ProductCreateCommand {
 
   public String getBrand() {
     return brand;
-  }
-
-  public BigDecimal getAmount() {
-    return amount;
-  }
-
-  public UnitOfMeasure getUnitOfMeasure() {
-    return unitOfMeasure;
   }
 }
