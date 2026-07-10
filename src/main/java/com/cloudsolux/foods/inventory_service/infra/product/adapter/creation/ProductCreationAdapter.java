@@ -12,7 +12,7 @@ public class ProductCreationAdapter implements ProductCreation {
 
   @Override
   public ProductCreationKey getKey() {
-    return ProductCreationKey.CREATE;
+    return ProductCreationKey.PRODUCT_CREATION;
   }
 
   @Override

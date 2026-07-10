@@ -2,7 +2,7 @@ package com.cloudsolux.foods.inventory_service.domain.product.model.creation;
 
 public enum ProductCreationKey {
 
-  CREATE("CREATE");
+  PRODUCT_CREATION("PRODUCT_CREATION");
 
   public final String key;
 

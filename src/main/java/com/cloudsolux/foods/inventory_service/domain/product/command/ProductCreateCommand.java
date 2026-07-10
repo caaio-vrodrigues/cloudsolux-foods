@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 
 public class ProductCreateCommand {
 
@@ -97,6 +99,14 @@ public class ProductCreateCommand {
 
   public static ProductCreateCommandBuilder builder() {
     return new ProductCreateCommandBuilder();
+  }
+
+  public ProductCreationKey getProductCreationKey() {
+    return ProductCreationKey.PRODUCT_CREATION;
+  }
+
+  public ProductValidationKey getRequestValidationKey() {
+    return ProductValidationKey.VALIDATE_CREATION_REQUEST;
   }
 
   public String getName() {
