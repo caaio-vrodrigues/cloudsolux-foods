@@ -3,7 +3,7 @@ package com.cloudsolux.foods.inventory_service.infra.inventory.adapter.creation;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
-import com.cloudsolux.foods.inventory_service.domain.inventory.dto.InventoryCreationCommand;
+import com.cloudsolux.foods.inventory_service.domain.inventory.command.InventoryCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactory;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactoryKey;
 

@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.inventory_service.domain.inventory.dto;
+package com.cloudsolux.foods.inventory_service.domain.inventory.command;
 
 import java.math.BigDecimal;
 

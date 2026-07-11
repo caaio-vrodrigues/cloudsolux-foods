@@ -1,6 +1,6 @@
 package com.cloudsolux.foods.inventory_service.domain.product.model.creation;
 
-public interface ProductCreationPort {
+public interface ProductFactoryPort {
   
-  public ProductCreationKey getKey();
+  public ProductFactoryKey getKey();
 }

@@ -8,12 +8,12 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationPort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryPort;
-import com.cloudsolux.foods.inventory_service.domain.product.model.saving.ProductSavingKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.saving.ProductSavingPort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationPort;
 
@@ -21,12 +21,12 @@ import com.cloudsolux.foods.inventory_service.domain.product.model.validation.Pr
 public class ProductAdaptersRegistry {
   
   @Bean
-  Map<ProductCreationKey, ProductCreationPort> productFactories(
-    List<ProductCreationPort> factories
+  Map<ProductFactoryKey, ProductFactoryPort> productFactories(
+    List<ProductFactoryPort> factories
   ) {
     return factories.stream()
       .collect(Collectors.toMap(
-        ProductCreationPort::getKey, 
+        ProductFactoryPort::getKey, 
         Function.identity()
       ));
   }
@@ -43,12 +43,12 @@ public class ProductAdaptersRegistry {
   }
 
   @Bean
-  Map<ProductSavingKey, ProductSavingPort> productSavers(
-    List<ProductSavingPort> savers
+  Map<ProductPersistenceKey, ProductPersistencePort> productPersistences(
+    List<ProductPersistencePort> savers
   ) {
     return savers.stream()
       .collect(Collectors.toMap(
-        ProductSavingPort::getKey, 
+        ProductPersistencePort::getKey, 
         Function.identity()
       ));
   }

@@ -19,7 +19,7 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.model.validation.
 public class InventoryAdaptersRegistry {
  
   @Bean
-  Map<InventoryValidationKey, InventoryValidationPort> getInventoryValidators(
+  Map<InventoryValidationKey, InventoryValidationPort> inventoryValidators(
     List<InventoryValidationPort> validators
   ) {
     return validators.stream()
@@ -30,7 +30,7 @@ public class InventoryAdaptersRegistry {
   }
 
   @Bean
-  Map<InventoryFactoryKey, InventoryFactoryPort> getInventoryFactories(
+  Map<InventoryFactoryKey, InventoryFactoryPort> inventoryFactories(
     List<InventoryFactoryPort> factories
   ) {
     return factories.stream()
@@ -41,7 +41,7 @@ public class InventoryAdaptersRegistry {
   }
 
   @Bean
-  Map<InventoryPersistenceKey, InventoryPersistencePort> getInventoryPersistences(
+  Map<InventoryPersistenceKey, InventoryPersistencePort> inventoryPersistences(
     List<InventoryPersistencePort> factories
   ) {
     return factories.stream()

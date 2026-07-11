@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
-import com.cloudsolux.foods.inventory_service.domain.inventory.dto.InventoryCreationCommand;
+import com.cloudsolux.foods.inventory_service.domain.inventory.command.InventoryCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.saving.ProductSavingKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 
 public class ProductCreationCommand {
@@ -112,16 +112,16 @@ public class ProductCreationCommand {
       .build();
   }
 
-  public ProductCreationKey getProductCreationKey() {
-    return ProductCreationKey.PRODUCT_CREATION;
+  public ProductFactoryKey getProductCreationKey() {
+    return ProductFactoryKey.PRODUCT_CREATION;
   }
 
   public ProductValidationKey getRequestValidationKey() {
     return ProductValidationKey.VALIDATE_CREATION_REQUEST;
   }
 
-  public ProductSavingKey getProductSavingKey() {
-    return ProductSavingKey.SAVE_PRODUCT;
+  public ProductPersistenceKey getProductSavingKey() {
+    return ProductPersistenceKey.PRODUCT_PERSISTENCE;
   }
 
   public ProductDTOFactoryKey getResponseCreationKey() {

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
-import com.cloudsolux.foods.inventory_service.domain.inventory.dto.InventoryCreationCommand;
+import com.cloudsolux.foods.inventory_service.domain.inventory.command.InventoryCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.InventoryAdaptersGetter;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistence;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.validation.InventoryCreationCommandValidation;

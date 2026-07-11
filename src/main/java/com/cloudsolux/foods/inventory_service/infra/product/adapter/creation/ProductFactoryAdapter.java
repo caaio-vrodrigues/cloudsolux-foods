@@ -4,15 +4,15 @@ import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.inventory_service.domain.product.Product;
 import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreation;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactory;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
 
 @Component
-public class ProductCreationAdapter implements ProductCreation {
+public class ProductFactoryAdapter implements ProductFactory {
 
   @Override
-  public ProductCreationKey getKey() {
-    return ProductCreationKey.PRODUCT_CREATION;
+  public ProductFactoryKey getKey() {
+    return ProductFactoryKey.PRODUCT_CREATION;
   }
 
   @Override

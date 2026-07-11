@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.inventory_service.infra.inventory.adapter.validation;
+package com.cloudsolux.foods.inventory_service.infra.inventory.adapter;
 
 import java.util.Map;
 
@@ -18,22 +18,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class InventoryAdaptersGetterAdapter implements InventoryAdaptersGetter {
 
-  private Map<InventoryValidationKey, InventoryValidationPort> getInventoryValidators;
-  private Map<InventoryFactoryKey, InventoryFactoryPort> getInventoryFactories;
-  private Map<InventoryPersistenceKey, InventoryPersistencePort> getInventoryPersistences;
+  private Map<InventoryValidationKey, InventoryValidationPort> inventoryValidators;
+  private Map<InventoryFactoryKey, InventoryFactoryPort> inventoryFactories;
+  private Map<InventoryPersistenceKey, InventoryPersistencePort> inventoryPersistences;
 
   @Override
   public InventoryValidationPort getValidator(InventoryValidationKey key) {
-    return getInventoryValidators.get(key);
+    return inventoryValidators.get(key);
   }
 
   @Override
   public InventoryFactoryPort getFactory(InventoryFactoryKey key) {
-    return getInventoryFactories.get(key);
+    return inventoryFactories.get(key);
   }
 
   @Override
   public InventoryPersistencePort getPersistence(InventoryPersistenceKey key) {
-    return getInventoryPersistences.get(key);
+    return inventoryPersistences.get(key);
   }
 }

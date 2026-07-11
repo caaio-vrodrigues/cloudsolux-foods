@@ -5,25 +5,25 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.inventory_service.domain.product.model.ProductAdaptersGetter;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationPort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryPort;
-import com.cloudsolux.foods.inventory_service.domain.product.model.saving.ProductSavingKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.saving.ProductSavingPort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationPort;
 
 @Component
 public class ProductAdaptersGetterAdapter implements ProductAdaptersGetter {
 
-  private Map<ProductCreationKey, ProductCreationPort> productFactories;
+  private Map<ProductFactoryKey, ProductFactoryPort> productFactories;
   private Map<ProductValidationKey, ProductValidationPort> productValidators;
-  private Map<ProductSavingKey, ProductSavingPort> productSavers;
+  private Map<ProductPersistenceKey, ProductPersistencePort> productPersistences;
   private Map<ProductDTOFactoryKey, ProductDTOFactoryPort> productDTOFactories;
 
   @Override
-  public ProductCreationPort getProductFactory(ProductCreationKey key) {
+  public ProductFactoryPort getProductFactory(ProductFactoryKey key) {
     return productFactories.get(key);
   }
 
@@ -38,7 +38,7 @@ public class ProductAdaptersGetterAdapter implements ProductAdaptersGetter {
   }
 
   @Override
-  public ProductSavingPort getSavers(ProductSavingKey key) {
-    return productSavers.get(key);
+  public ProductPersistencePort getPersistence(ProductPersistenceKey key) {
+    return productPersistences.get(key);
   }
 }

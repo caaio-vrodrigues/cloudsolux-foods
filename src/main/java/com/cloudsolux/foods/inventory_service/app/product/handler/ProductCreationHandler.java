@@ -9,9 +9,9 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.product.Product;
 import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.product.model.ProductAdaptersGetter;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreation;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactory;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationResponse;
-import com.cloudsolux.foods.inventory_service.domain.product.model.saving.ProductSaving;
+import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistence;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidation;
 
 import lombok.RequiredArgsConstructor;
@@ -29,20 +29,20 @@ public class ProductCreationHandler {
       .getValidator(command.getRequestValidationKey());
     requestValidator.validateCreationRequest(command);
 
-    ProductCreation productFactory = (ProductCreation) adapters
+    ProductFactory productFactory = (ProductFactory) adapters
       .getProductFactory(command.getProductCreationKey());
     Product product = productFactory.create(command);
 
-    ProductSaving saver = (ProductSaving) adapters
-      .getSavers(command.getProductSavingKey());
-    saver.save(product);
+    ProductPersistence persistence = (ProductPersistence) adapters
+      .getPersistence(command.getProductSavingKey());
+    persistence.save(product);
 
     Inventory inventory = inventoryHandler
       .create(command.toInventoryCreationCommand(null));
 
-    ProductCreationResponse response = (ProductCreationResponse) adapters
+    ProductCreationResponse responseFactory = (ProductCreationResponse) adapters
       .getProductDTOFactory(command.getResponseCreationKey());
 
-    return response.toProductResponse(product, inventory);
+    return responseFactory.toProductResponse(product, inventory);
   }
 }
