@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
+import com.cloudsolux.foods.inventory_service.domain.inventory.model.validation.InventoryValidationKey;
 
 public class InventoryCreationCommand {
   
@@ -65,6 +66,10 @@ public class InventoryCreationCommand {
 
   public static InventoryCreationCommandBuilder builder() {
     return new InventoryCreationCommandBuilder();
+  }
+
+  public InventoryValidationKey getValidationKey() {
+    return InventoryValidationKey.VALIDATE_CREATION_COMMAND;
   }
 
   public Long getId() {
