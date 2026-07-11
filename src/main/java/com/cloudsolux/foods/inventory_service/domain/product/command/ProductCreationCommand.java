@@ -7,6 +7,7 @@ import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.dto.InventoryCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.saving.ProductSavingKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 
@@ -121,6 +122,10 @@ public class ProductCreationCommand {
 
   public ProductSavingKey getProductSavingKey() {
     return ProductSavingKey.SAVE_PRODUCT;
+  }
+
+  public ProductDTOFactoryKey getResponseCreationKey() {
+    return ProductDTOFactoryKey.CREATE_RESPONSE;
   }
 
   public String getName() {
