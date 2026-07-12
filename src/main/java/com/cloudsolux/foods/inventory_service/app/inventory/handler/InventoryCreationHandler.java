@@ -7,7 +7,6 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.inventory.command.InventoryCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.InventoryAdaptersGetter;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistence;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.validation.InventoryCreationCommandValidation;
 import com.cloudsolux.foods.inventory_service.infra.inventory.adapter.creation.InventoryFactoryAdapter;
 
 import lombok.RequiredArgsConstructor;
@@ -20,10 +19,6 @@ public class InventoryCreationHandler {
 
   @Transactional
   public Inventory create(InventoryCreationCommand command) {
-    InventoryCreationCommandValidation validator = (InventoryCreationCommandValidation) adapters
-      .getValidator(command.getValidationKey());
-    validator.validateCreationCommand(command);
-
     InventoryFactoryAdapter factory = (InventoryFactoryAdapter) adapters
       .getFactory(command.getFactoryKey());
     Inventory inventory = factory.create(command);

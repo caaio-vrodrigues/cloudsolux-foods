@@ -12,23 +12,10 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.In
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistencePort;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.validation.InventoryValidationKey;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.validation.InventoryValidationPort;
 
 @Configuration
 public class InventoryAdaptersRegistry {
- 
-  @Bean
-  Map<InventoryValidationKey, InventoryValidationPort> inventoryValidators(
-    List<InventoryValidationPort> validators
-  ) {
-    return validators.stream()
-      .collect(Collectors.toMap(
-        InventoryValidationPort::getKey, 
-        Function.identity()
-      ));
-  }
-
+  
   @Bean
   Map<InventoryFactoryKey, InventoryFactoryPort> inventoryFactories(
     List<InventoryFactoryPort> factories
