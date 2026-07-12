@@ -22,7 +22,7 @@ public class Inventory {
 		public InventoryBuilder catalogId(Long id) {
 			if(id == null) {
 				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("InventoryItem", "catalogId"));
+					.nullFieldValueMsg("Inventory", "catalogId"));
 			}
 			if(id < 1) {
 				throw new InventoryInvalidArgumentException(GlobalMsgCreator
@@ -35,13 +35,19 @@ public class Inventory {
 		public InventoryBuilder stock(Stock stock) {
 			if(stock == null) {
 				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("InventoryItem", "stock"));
+					.nullFieldValueMsg("Inventory", "stock"));
 			}
 			this.stock = stock;
 			return this;
 		}
 		
 		public Inventory build() {
+			if(catalogId == null)
+				throw new InventoryInvalidArgumentException(GlobalMsgCreator
+					.nullFieldValueMsg("Inventory", "catalogId"));
+			if(stock == null)
+				throw new InventoryInvalidArgumentException(GlobalMsgCreator
+					.nullFieldValueMsg("Inventory", "stock"));
 			return new Inventory(this);
 		}
 	}
@@ -61,7 +67,7 @@ public class Inventory {
 	public void receiveStock(Stock incoming) {
 		if(incoming == null) {
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.nullFieldValueMsg("InventoryItem", "incoming"));
+				.nullFieldValueMsg("Inventory", "incoming"));
 		}
 		stock = stock.add(incoming);
 	}
@@ -69,7 +75,7 @@ public class Inventory {
 	public void dispatchStock(Stock outgoing) {
 		if(outgoing == null) {
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.nullFieldValueMsg("InventoryItem", "outgoing"));
+				.nullFieldValueMsg("Inventory", "outgoing"));
 		}
 		stock = stock.subtract(outgoing);
 	}

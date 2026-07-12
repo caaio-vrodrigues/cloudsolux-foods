@@ -67,6 +67,18 @@ public class Product extends Catalog {
 		}
 		
 		public Product build() {
+			if(id == null)
+        throw new ProductInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("Product", "id"));
+			if(name == null)
+        throw new ProductInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("Product", "name"));
+			if(model == null)
+        throw new ProductInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("Product", "model"));
+			if(brand == null)
+        throw new ProductInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("Product", "brand"));
 			return new Product(this);
 		}
 	}

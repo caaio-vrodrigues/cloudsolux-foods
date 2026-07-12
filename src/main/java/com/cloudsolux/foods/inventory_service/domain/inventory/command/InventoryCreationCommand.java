@@ -61,6 +61,15 @@ public class InventoryCreationCommand {
     }
 
     public InventoryCreationCommand build() {
+      if(id == null) 
+        throw new InventoryInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("InventoryCreationCommand", "id"));
+      if(amount == null)
+        throw new InventoryInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("InventoryCreationCommand", "amount"));
+      if(unitOfMeasure == null)
+        throw new InventoryInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("InventoryCreationCommand", "unitOfMeasure"));
       return new InventoryCreationCommand(this);
     }
   }

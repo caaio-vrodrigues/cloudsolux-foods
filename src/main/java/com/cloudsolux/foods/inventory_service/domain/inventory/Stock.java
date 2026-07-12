@@ -44,6 +44,12 @@ public class Stock {
 		}
 		
 		public Stock build() {
+			if(amount == null)
+				throw new InventoryInvalidArgumentException(GlobalMsgCreator
+					.nullFieldValueMsg("Stock", "amount"));
+			if(unitOfMeasure == null)
+				throw new InventoryInvalidArgumentException(GlobalMsgCreator
+					.nullFieldValueMsg("Stock", "unitOfMeasure"));
 			return new Stock(this);
 		}
 	}
