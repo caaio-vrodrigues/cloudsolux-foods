@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
-import com.cloudsolux.foods.inventory_service.domain.inventory.command.InventoryCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryKey;
@@ -19,7 +18,7 @@ public class ProductCreationCommand {
 	private final BigDecimal amount;
 	private final UnitOfMeasure unitOfMeasure;
 
-  private ProductCreationCommand(ProductCreateCommandBuilder builder) {
+  private ProductCreationCommand(ProductCreationCommandBuilder builder) {
     name = builder.name;
     model = builder.model;
     brand = builder.brand;
@@ -27,89 +26,96 @@ public class ProductCreationCommand {
     unitOfMeasure = builder.unitOfMeasure;
   }
 
-  public static class ProductCreateCommandBuilder {
+  public static class ProductCreationCommandBuilder {
     private String name;
     private String model;
     private String brand;
     private BigDecimal amount;
     private UnitOfMeasure unitOfMeasure;
 
-    public ProductCreateCommandBuilder name(String name) {
+    public ProductCreationCommandBuilder name(String name) {
       if(name == null) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreateCommand", "name"));
+          .nullFieldValueMsg("ProductCreationCommand", "name"));
       }
       if(name.isBlank()) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .emptyFieldValue("ProductCreateCommand", "name"));
+          .emptyFieldValue("ProductCreationCommand", "name"));
       }
       this.name = name;
       return this;
     }
 
-    public ProductCreateCommandBuilder model(String model) {
+    public ProductCreationCommandBuilder model(String model) {
       if(model == null) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreateCommand", "model"));
+          .nullFieldValueMsg("ProductCreationCommand", "model"));
       }
       if(model.isBlank()) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .emptyFieldValue("ProductCreateCommand", "model"));
+          .emptyFieldValue("ProductCreationCommand", "model"));
       }
       this.model = model;
       return this;
     }
 
-    public ProductCreateCommandBuilder brand(String brand) {
+    public ProductCreationCommandBuilder brand(String brand) {
       if(brand == null) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreateCommand", "brand"));
+          .nullFieldValueMsg("ProductCreationCommand", "brand"));
       }
       if(brand.isBlank()) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .emptyFieldValue("ProductCreateCommand", "brand"));
+          .emptyFieldValue("ProductCreationCommand", "brand"));
       }
       this.brand = brand;
       return this;
     }
 
-    public ProductCreateCommandBuilder amount(BigDecimal amount) {
+    public ProductCreationCommandBuilder amount(BigDecimal amount) {
       if(amount == null) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreateCommand", "amount"));
+          .nullFieldValueMsg("ProductCreationCommand", "amount"));
       }
       if(amount.compareTo(BigDecimal.ZERO) < 0) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .positiveOrZeroMsg("ProductCreateCommand", "amount", amount));
+          .positiveOrZeroMsg("ProductCreationCommand", "amount", amount));
       }
       this.amount = amount;
       return this;
     }
 
-    public ProductCreateCommandBuilder unitOfMeasure(UnitOfMeasure unitOfMeasure) {
+    public ProductCreationCommandBuilder unitOfMeasure(UnitOfMeasure unitOfMeasure) {
       if(unitOfMeasure == null) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreateCommand", "unitOfMeasure"));
+          .nullFieldValueMsg("ProductCreationCommand", "unitOfMeasure"));
       }
       this.unitOfMeasure = unitOfMeasure;
       return this;
     }
 
     public ProductCreationCommand build() {
+      if(name == null) 
+        throw new ProductInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("ProductCreationCommand", "name"));
+      if(model == null) 
+        throw new ProductInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("ProductCreationCommand", "model"));
+      if(brand == null) 
+        throw new ProductInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("ProductCreationCommand", "brand"));
+      if(amount == null)
+        throw new ProductInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("ProductCreationCommand", "amount"));
+      if(unitOfMeasure == null)
+        throw new ProductInvalidArgumentException(GlobalMsgCreator
+          .nullFieldValueMsg("ProductCreationCommand", "unitOfMeasure"));
       return new ProductCreationCommand(this);
     }
   }
 
-  public static ProductCreateCommandBuilder builder() {
-    return new ProductCreateCommandBuilder();
-  }
-
-  public InventoryCreationCommand toInventoryCreationCommand(Long id) {
-    return InventoryCreationCommand.builder()
-      .id(id)
-      .amount(amount)
-      .unitOfMeasure(unitOfMeasure)
-      .build();
+  public static ProductCreationCommandBuilder builder() {
+    return new ProductCreationCommandBuilder();
   }
 
   public ProductFactoryKey getProductCreationKey() {
@@ -138,5 +144,13 @@ public class ProductCreationCommand {
 
   public String getBrand() {
     return brand;
+  }
+
+  public BigDecimal getAmount() {
+    return amount;
+  }
+
+  public UnitOfMeasure getUnitOfMeasure() {
+    return unitOfMeasure;
   }
 }

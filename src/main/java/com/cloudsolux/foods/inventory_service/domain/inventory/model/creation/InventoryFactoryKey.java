@@ -2,7 +2,8 @@ package com.cloudsolux.foods.inventory_service.domain.inventory.model.creation;
 
 public enum InventoryFactoryKey {
 
-  INVENTORY_CREATION("INVENTORY_CREATION");
+  INVENTORY_CREATION("INVENTORY_CREATION"),
+  INVENTORY_CREATION_COMMAND_CREATION("INVENTORY_CREATION_COMMAND_CREATION");
 
   public final String key;
   

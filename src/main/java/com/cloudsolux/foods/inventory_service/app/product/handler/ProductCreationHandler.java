@@ -37,8 +37,7 @@ public class ProductCreationHandler {
       .getPersistence(command.getProductSavingKey());
     persistence.save(product);
 
-    Inventory inventory = inventoryHandler
-      .create(command.toInventoryCreationCommand(null));
+    Inventory inventory = inventoryHandler.create(command, null);
 
     ProductCreationResponse responseFactory = (ProductCreationResponse) adapters
       .getProductDTOFactory(command.getResponseCreationKey());

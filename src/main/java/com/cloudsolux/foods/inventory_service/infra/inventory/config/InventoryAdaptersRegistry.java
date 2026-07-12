@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryCommandFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
@@ -31,9 +32,9 @@ public class InventoryAdaptersRegistry {
 
   @Bean
   Map<InventoryPersistenceKey, InventoryPersistencePort> inventoryPersistences(
-    List<InventoryPersistencePort> factories
+    List<InventoryPersistencePort> persistences
   ) {
-    return factories.stream()
+    return persistences.stream()
       .collect(Collectors.toMap(
         InventoryPersistencePort::getKey, 
         Function.identity()
@@ -47,6 +48,17 @@ public class InventoryAdaptersRegistry {
     return mappers.stream()
       .collect(Collectors.toMap(
         InventoryMapperPort::getKey, 
+        Function.identity()
+      ));
+  }
+
+  @Bean
+  Map<InventoryFactoryKey, InventoryCommandFactoryPort> inventoryCreationCommandFactories(
+    List<InventoryCommandFactoryPort> factories
+  ) {
+    return factories.stream()
+      .collect(Collectors.toMap(
+        InventoryCommandFactoryPort::getKey, 
         Function.identity()
       ));
   }
