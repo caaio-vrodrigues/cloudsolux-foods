@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class InventoryCreationHandler {
 
-  private InventoryAdaptersGetter adapters;
+  private final InventoryAdaptersGetter adapters;
 
   @Transactional
   public Inventory create(InventoryCreationCommand command) {

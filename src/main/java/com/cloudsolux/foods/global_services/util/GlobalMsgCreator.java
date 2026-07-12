@@ -12,6 +12,10 @@ public class GlobalMsgCreator {
     return "Falha ao processar '"+className+"'. Valor 'null' para o campo: ['"+fieldName+"'].";
   }
 
+  public static String nullArgumentMsg(String className, String argument) {
+    return "Falha ao processar '"+className+"'. Valor 'null' para o argumento: ['"+argument+"'].";
+  }
+
   public static String positiveMsg(String className, String fieldName, BigDecimal amount) {
     return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o campo ['"+fieldName+"': '"+amount+"'].";
   }

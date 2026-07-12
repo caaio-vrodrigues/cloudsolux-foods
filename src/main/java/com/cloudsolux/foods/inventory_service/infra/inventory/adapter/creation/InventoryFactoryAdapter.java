@@ -2,8 +2,11 @@ package com.cloudsolux.foods.inventory_service.infra.inventory.adapter.creation;
 
 import org.springframework.stereotype.Component;
 
+import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
+import com.cloudsolux.foods.inventory_service.domain.inventory.Stock;
 import com.cloudsolux.foods.inventory_service.domain.inventory.command.InventoryCreationCommand;
+import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactory;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactoryKey;
 
@@ -17,6 +20,17 @@ public class InventoryFactoryAdapter implements InventoryFactory {
 
   @Override
   public Inventory create(InventoryCreationCommand command) {
-    throw new UnsupportedOperationException("Unimplemented method 'create'");
+    if(command == null) {
+      throw new InventoryInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Inventory", "InventoryCreationCommand"));
+    }
+    Stock stock = Stock.builder()
+      .amount(command.getAmount())
+      .unitOfMeasure(command.getUnitOfMeasure())
+      .build();
+    return Inventory.builder()
+      .catalogId(command.getId())
+      .stock(stock)
+      .build();
   }
 }
