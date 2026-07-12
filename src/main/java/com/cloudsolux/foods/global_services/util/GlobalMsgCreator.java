@@ -37,4 +37,12 @@ public class GlobalMsgCreator {
   public static String emptyFieldValue(String className, String fieldName) {
     return "Falha ao processar '"+className+"'. Valor 'vazio' para o campo: ['"+fieldName+"'].";
   }
+
+  public static String persistenceFailLogMsg(String className) {
+		return "Falha ao tentar persistir entidade: '"+className+"'.";
+	}
+
+  public static String concurrentPersistenceMsg(String className) {
+    return "Falha interna desconhecida ao tentar persistir entidade: '"+className+"'.";
+  }
 }

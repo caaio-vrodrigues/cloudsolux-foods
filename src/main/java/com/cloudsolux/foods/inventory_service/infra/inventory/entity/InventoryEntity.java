@@ -27,5 +27,5 @@ public class InventoryEntity {
 	private Long catalogId;
 	
 	@Embedded @Valid
-	private StockQuantityEmbeddable stockQuantity;
+	private StockEmbeddable stock;
 }
