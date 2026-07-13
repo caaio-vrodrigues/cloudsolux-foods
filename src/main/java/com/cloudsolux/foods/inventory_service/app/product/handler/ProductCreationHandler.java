@@ -27,7 +27,7 @@ public class ProductCreationHandler {
   public ProductResponse create(ProductCreationCommand command) {
     ProductValidation requestValidator = (ProductValidation) adapters
       .getValidator(command.getRequestValidationKey());
-    requestValidator.validateCreationRequest(command);
+    requestValidator.validateProductUniqueness(command);
 
     ProductFactory productFactory = (ProductFactory) adapters
       .getProductFactory(command.getProductCreationKey());

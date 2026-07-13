@@ -12,4 +12,8 @@ public class ProductMsgCreator {
   public static final String RESPONSE_409 = "Conflito — violação de regras de negócio";
 
   private ProductMsgCreator() {}
+
+  public static String alreadyExistsMsg(String name, String model, String brand) {
+    return "Falha ao processar 'ProductEntity'. Os argumentos fornecidos para criação do produto já estão em uso: [name: '"+name+"', model: '"+model+"', brand: '"+brand+"'].";
+  }
 }

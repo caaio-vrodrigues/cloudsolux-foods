@@ -4,5 +4,5 @@ import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCrea
 
 public interface ProductValidation extends ProductValidationPort {
  
-  void validateCreationRequest(ProductCreationCommand requestDTO);
+  void validateProductUniqueness(ProductCreationCommand requestDTO);
 }
