@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.inventory_service.domain.product.model.creation;
+package com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto;
 
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;

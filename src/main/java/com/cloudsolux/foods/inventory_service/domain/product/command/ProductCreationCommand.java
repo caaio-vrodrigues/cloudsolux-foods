@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 

@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.product.Product;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationResponse;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductCreationResponse;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryKey;
 
 @Component
 public class ProductCreationResponseAdapter implements ProductCreationResponse {

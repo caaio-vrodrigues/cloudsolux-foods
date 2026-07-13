@@ -9,8 +9,8 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.product.Product;
 import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.product.model.ProductAdaptersGetter;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactory;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductCreationResponse;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactory;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductCreationResponse;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistence;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidation;
 
@@ -31,7 +31,7 @@ public class ProductCreationHandler {
 
     ProductFactory productFactory = (ProductFactory) adapters
       .getProductFactory(command.getProductCreationKey());
-    Product product = productFactory.create(command);
+    Product product = productFactory.create(command, null);
 
     ProductPersistence persistence = (ProductPersistence) adapters
       .getPersistence(command.getProductSavingKey());

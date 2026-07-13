@@ -1,9 +1,9 @@
 package com.cloudsolux.foods.inventory_service.domain.product.model;
 
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryPort;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductDTOFactoryPort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryPort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
