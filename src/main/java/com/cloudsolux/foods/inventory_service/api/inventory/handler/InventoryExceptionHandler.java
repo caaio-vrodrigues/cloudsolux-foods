@@ -1,0 +1,37 @@
+package com.cloudsolux.foods.inventory_service.api.inventory.handler;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.cloudsolux.foods.global_services.util.GlobalExceptionResponseCreator;
+import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryConcurrentException;
+import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
+
+@RestControllerAdvice
+public class InventoryExceptionHandler {
+ 
+  @ExceptionHandler(InventoryConcurrentException.class)
+  public ProblemDetail handleInventoryConcurrent(
+    InventoryConcurrentException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.CONFLICT, 
+				GlobalMsgCreator.CONCURRENCY_TITLE);
+  }
+
+  @ExceptionHandler(InventoryInvalidArgumentException.class)
+  public ProblemDetail handleInventoryInvalidArgument(
+    InventoryInvalidArgumentException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.CONFLICT, 
+				GlobalMsgCreator.INVALID_ARGUMENT_TITLE);
+  }
+}

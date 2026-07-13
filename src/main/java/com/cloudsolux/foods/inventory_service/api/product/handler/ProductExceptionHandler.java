@@ -1,0 +1,49 @@
+package com.cloudsolux.foods.inventory_service.api.product.handler;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.cloudsolux.foods.global_services.util.GlobalExceptionResponseCreator;
+import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductAlreadyExistsException;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductConcurrentException;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
+
+@RestControllerAdvice
+public class ProductExceptionHandler {
+  
+  @ExceptionHandler(ProductAlreadyExistsException.class)
+  public ProblemDetail handleProductAlreadyExists(
+    ProductAlreadyExistsException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.CONFLICT, 
+				GlobalMsgCreator.DUPLICATED_ENTITY_TITLE);
+  }
+
+  @ExceptionHandler(ProductConcurrentException.class)
+  public ProblemDetail handleProductConcurrent(
+    ProductConcurrentException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.CONFLICT, 
+				GlobalMsgCreator.CONCURRENCY_TITLE);
+  }
+
+  @ExceptionHandler(ProductInvalidArgumentException.class)
+  public ProblemDetail handleProductInvalidArgument(
+    ProductInvalidArgumentException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.CONFLICT, 
+				GlobalMsgCreator.INVALID_ARGUMENT_TITLE);
+  }
+}

@@ -1,0 +1,71 @@
+package com.cloudsolux.foods.global_services.infra.handler;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ProblemDetail;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestControllerAdvice
+public class MethodArgumentExceptionHandler {
+	
+	private ProblemDetail setProperties(
+		ProblemDetail problemDetail, String traceId, List<String> errorList
+	) {
+		problemDetail.setProperty(
+			GlobalMsgCreator.TIME_STAMP, 
+			LocalDateTime.now()
+		);
+		problemDetail.setProperty(
+			GlobalMsgCreator.TRACE_ID, 
+			traceId
+		);
+		problemDetail.setProperty(
+			GlobalMsgCreator.ERRORS, 
+			errorList
+		);
+		return problemDetail;
+	}
+	
+	private List<String> getBindingResultList(List<FieldError> fieldErrors){
+		return fieldErrors.stream().map(error -> {
+			String msg = switch(error.getCode()) {
+				case GlobalMsgCreator.NOT_BLANK -> GlobalMsgCreator.NOT_BLANK_MSG;
+				case GlobalMsgCreator.NOT_NULL -> GlobalMsgCreator.NOT_NULL_MSG;
+				case GlobalMsgCreator.NOT_EMPTY -> GlobalMsgCreator.NOT_EMPTY_MSG;
+				case GlobalMsgCreator.POSITIVE -> GlobalMsgCreator.POSITIVE_MSG;
+				case GlobalMsgCreator.POSITIVE_OR_ZERO -> GlobalMsgCreator.POSITIVE_OR_ZERO_MSG;
+				case GlobalMsgCreator.ASSERT_FALSE -> error.getDefaultMessage();
+				default -> error.getDefaultMessage();
+			};
+			return error.getCode().equals("NotEmpty") ?
+				GlobalMsgCreator.errorListMsg(error.getField(), msg) 
+				: GlobalMsgCreator.errorFieldMsg(error.getField(), msg);
+		})
+		.toList();
+	}
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ProblemDetail handleMethodArgumentNotValidException(
+		MethodArgumentNotValidException e
+	) {
+		String traceId = UUID.randomUUID().toString();
+		List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+		List<String> errorList = getBindingResultList(fieldErrors);
+		ProblemDetail problemDetail = ProblemDetail
+			.forStatus(HttpStatusCode.valueOf(400));
+		problemDetail.setTitle(GlobalMsgCreator.INVALID_ARGUMENT_TITLE);	
+		log.error("traceId={} fieldErrors={}", traceId, fieldErrors);
+		return setProperties(problemDetail, traceId, errorList);
+	}
+}

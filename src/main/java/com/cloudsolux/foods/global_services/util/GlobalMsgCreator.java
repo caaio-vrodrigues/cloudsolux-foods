@@ -6,6 +6,32 @@ import java.util.List;
 import com.cloudsolux.foods.global_services.model.unit_measure.UnitOfMeasure;
 
 public class GlobalMsgCreator {
+
+  public static final String TIME_STAMP = "timestamp";
+	public static final String TRACE_ID = "traceId";
+	public static final String ERRORS = "errors";
+	public static final String ASSERT_FALSE = "AssertFalse";
+	public static final String NOT_BLANK = "NotBlank";
+	public static final String NOT_NULL = "NotNull";
+	public static final String NOT_EMPTY = "NotEmpty";
+	public static final String POSITIVE = "Positive";
+	public static final String POSITIVE_OR_ZERO = "PositiveOrZero";
+	
+	public static final String INTERNAL_FAILURE_MSG = "Falha interna, acione o suporte.";
+	public static final String NOT_BLANK_MSG = "não pode ser vazio";
+	public static final String NOT_NULL_MSG = "não pode ser nulo";
+	public static final String NOT_EMPTY_MSG = "não pode ser vazia";
+	public static final String POSITIVE_MSG = "deve ser maior que zero";
+	public static final String POSITIVE_OR_ZERO_MSG = "deve ser igual ou maior que zero";
+	public static final String INVALID_JSON_FORMAT_MSG = "O corpo da requisição não pôde ser interpretado. Verifique a sintaxe JSON e se os tipos dos campos correspondem ao esperado pelo endpoint.";
+  public static final String INVALID_TYPE_MSG = "O valor fornecido para o discriminador de tipo não corresponde a nenhum tipo conhecido. Consulte a documentação da API para os tipos suportados.";
+	
+	public static final String INVALID_TYPE_TITLE = "Tipo inválido.";
+	public static final String INVALID_JSON_FORMAT_TITLE = "Corpo da requisição inválido.";
+	public static final String UNEXPECTED_FAILURE_TITLE = "Falha inesperada";
+	public static final String INVALID_ARGUMENT_TITLE = "Argumento inválido";
+	public static final String CONCURRENCY_TITLE = "Falha interna";
+	public static final String DUPLICATED_ENTITY_TITLE = "Entidade duplicada";
   
   private GlobalMsgCreator() {}
 
@@ -50,4 +76,12 @@ public class GlobalMsgCreator {
   public static String concurrentPersistenceMsg(String className) {
     return "Falha interna desconhecida ao tentar persistir entidade: '"+className+"'.";
   }
+
+  public static String errorListMsg(String field, String msg) {
+		return "A lista: `"+field+"` "+msg+".";
+	}
+	
+	public static String errorFieldMsg(String field, String msg) {
+		return "O campo: `"+field+"` "+msg+".";
+	}
 }
