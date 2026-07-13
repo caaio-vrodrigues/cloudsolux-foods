@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.global_services.model;
+package com.cloudsolux.foods.global_services.model.unit_measure;
 
 public enum UnitOfMeasure {
 

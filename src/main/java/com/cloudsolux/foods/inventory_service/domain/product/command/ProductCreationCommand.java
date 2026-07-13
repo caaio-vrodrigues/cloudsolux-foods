@@ -2,7 +2,7 @@ package com.cloudsolux.foods.inventory_service.domain.product.command;
 
 import java.math.BigDecimal;
 
-import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
+import com.cloudsolux.foods.global_services.model.unit_measure.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryKey;

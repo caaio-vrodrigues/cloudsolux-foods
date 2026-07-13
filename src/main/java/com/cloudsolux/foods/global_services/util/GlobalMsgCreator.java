@@ -3,7 +3,7 @@ package com.cloudsolux.foods.global_services.util;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
+import com.cloudsolux.foods.global_services.model.unit_measure.UnitOfMeasure;
 
 public class GlobalMsgCreator {
   

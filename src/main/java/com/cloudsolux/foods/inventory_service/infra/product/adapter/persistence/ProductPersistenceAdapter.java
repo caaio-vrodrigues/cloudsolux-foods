@@ -1,7 +1,7 @@
 package com.cloudsolux.foods.inventory_service.infra.product.adapter.persistence;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.dao.TransientDataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
@@ -44,7 +44,7 @@ public class ProductPersistenceAdapter implements ProductPersistence {
     try{
       repo.save(entity);
     }
-    catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
+    catch(DataIntegrityViolationException | TransientDataAccessException  e) {
       log.error(GlobalMsgCreator.concurrentPersistenceMsg("ProductEntity")+". {}", 
         e.getMessage(), e);
       throw new ProductConcurrentException(GlobalMsgCreator

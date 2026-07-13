@@ -2,7 +2,7 @@ package com.cloudsolux.foods.inventory_service.app.product.dto;
 
 import java.math.BigDecimal;
 
-import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
+import com.cloudsolux.foods.global_services.model.unit_measure.UnitOfMeasure;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
