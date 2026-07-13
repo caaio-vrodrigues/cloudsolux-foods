@@ -39,7 +39,7 @@ public class InventoryMapperAdapter implements InventoryMapper {
   public Inventory toDomain(InventoryEntity entity) {
     if(entity == null) {
       throw new InventoryInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Inventory", "InventoryEntity"));
+        .nullArgumentMsg("InventoryEntity", "InventoryEntity"));
     }
     Stock stock = Stock.builder()
       .amount(entity.getStock().getAmount())

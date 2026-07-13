@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.inventory_service.domain.product.model;
+package com.cloudsolux.foods.inventory_service.domain.product.model.util;
 
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryPort;
@@ -15,4 +15,5 @@ public interface ProductAdaptersGetter {
   ProductValidationPort getValidator(ProductValidationKey key);
   ProductPersistencePort getPersistence(ProductPersistenceKey key);
   ProductDTOFactoryPort getProductDTOFactory(ProductDTOFactoryKey key);
+  ProductMapperPort getProductMapper(ProductMapperKey key);
 }

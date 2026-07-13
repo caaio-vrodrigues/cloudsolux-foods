@@ -1,16 +1,18 @@
-package com.cloudsolux.foods.inventory_service.infra.product.adapter;
+package com.cloudsolux.foods.inventory_service.infra.product.adapter.util;
 
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.inventory_service.domain.product.model.ProductAdaptersGetter;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductAdaptersGetter;
+import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductMapperKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductMapperPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationPort;
 
@@ -21,6 +23,7 @@ public class ProductAdaptersGetterAdapter implements ProductAdaptersGetter {
   private Map<ProductValidationKey, ProductValidationPort> productValidators;
   private Map<ProductPersistenceKey, ProductPersistencePort> productPersistences;
   private Map<ProductDTOFactoryKey, ProductDTOFactoryPort> productDTOFactories;
+  private Map<ProductMapperKey, ProductMapperPort> productMappers;
 
   @Override
   public ProductFactoryPort getProductFactory(ProductFactoryKey key) {
@@ -40,5 +43,10 @@ public class ProductAdaptersGetterAdapter implements ProductAdaptersGetter {
   @Override
   public ProductPersistencePort getPersistence(ProductPersistenceKey key) {
     return productPersistences.get(key);
+  }
+
+  @Override
+  public ProductMapperPort getProductMapper(ProductMapperKey key) {
+    return productMappers.get(key);
   }
 }

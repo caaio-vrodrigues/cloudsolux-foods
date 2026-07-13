@@ -1,13 +1,31 @@
 package com.cloudsolux.foods.inventory_service.infra.product.adapter.persistence;
 
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Component;
 
+import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.Product;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductConcurrentException;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistence;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductAdaptersGetter;
+import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductMapper;
+import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductMapperKey;
+import com.cloudsolux.foods.inventory_service.infra.product.entity.ProductEntity;
+import com.cloudsolux.foods.inventory_service.infra.product.repo.ProductRepo;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class ProductPersistenceAdapter implements ProductPersistence {
+
+  private final ProductRepo repo;
+  private final ProductAdaptersGetter adapters;
 
   @Override
   public ProductPersistenceKey getKey() {
@@ -16,6 +34,21 @@ public class ProductPersistenceAdapter implements ProductPersistence {
 
   @Override
   public void save(Product product) {
-    throw new UnsupportedOperationException("Unimplemented method 'save'");
+    if(product == null) {
+      throw new ProductInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("ProductEntity", "Product"));
+    }
+    ProductMapper mapper = (ProductMapper) adapters
+      .getProductMapper(ProductMapperKey.PRODUCT_MAPPING);
+    ProductEntity entity = mapper.toEntity(product);
+    try{
+      repo.save(entity);
+    }
+    catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
+      log.error(GlobalMsgCreator.concurrentPersistenceMsg("ProductEntity")+". {}", 
+        e.getMessage(), e);
+      throw new ProductConcurrentException(GlobalMsgCreator
+        .concurrentPersistenceMsg("ProductEntity"));
+    }
   }
 }
