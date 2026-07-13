@@ -41,7 +41,6 @@ public class ProductCreationHandler {
 
     ProductCreationResponse responseFactory = (ProductCreationResponse) adapters
       .getProductDTOFactory(command.getResponseCreationKey());
-
     return responseFactory.toProductResponse(product, inventory);
   }
 }

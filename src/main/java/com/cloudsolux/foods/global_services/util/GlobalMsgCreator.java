@@ -1,6 +1,7 @@
 package com.cloudsolux.foods.global_services.util;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.cloudsolux.foods.global_services.model.UnitOfMeasure;
 
@@ -14,6 +15,10 @@ public class GlobalMsgCreator {
 
   public static String nullArgumentMsg(String className, String argument) {
     return "Falha ao processar '"+className+"'. Valor 'null' para o argumento: ['"+argument+"'].";
+  }
+
+  public static String nullArgumentMsg(String className, List<String> nullArguments) {
+    return "Falha ao processar '"+className+"'. Valor 'null' para os argumentos: ['"+nullArguments+"'].";
   }
 
   public static String positiveMsg(String className, String fieldName, BigDecimal amount) {
