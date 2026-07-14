@@ -13,8 +13,6 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.In
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistencePort;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.util.InventoryMapperKey;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.util.InventoryMapperPort;
 
 @Configuration
 public class InventoryAdaptersRegistry {
@@ -37,17 +35,6 @@ public class InventoryAdaptersRegistry {
     return persistences.stream()
       .collect(Collectors.toMap(
         InventoryPersistencePort::getKey, 
-        Function.identity()
-      ));
-  }
-
-  @Bean
-  Map<InventoryMapperKey, InventoryMapperPort> inventoryMappers(
-    List<InventoryMapperPort> mappers
-  ) {
-    return mappers.stream()
-      .collect(Collectors.toMap(
-        InventoryMapperPort::getKey, 
         Function.identity()
       ));
   }

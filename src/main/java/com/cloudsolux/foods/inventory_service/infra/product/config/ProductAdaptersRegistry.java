@@ -14,8 +14,6 @@ import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
-import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductMapperKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductMapperPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationPort;
 
@@ -62,17 +60,6 @@ public class ProductAdaptersRegistry {
     return factories.stream()
       .collect(Collectors.toMap(
         ProductDTOFactoryPort::getKey, 
-        Function.identity()
-      ));
-  }
-
-  @Bean
-  Map<ProductMapperKey, ProductMapperPort> productMappers(
-    List<ProductMapperPort> mappers
-  ) {
-    return mappers.stream()
-      .collect(Collectors.toMap(
-        ProductMapperPort::getKey, 
         Function.identity()
       ));
   }

@@ -9,9 +9,9 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.In
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistence;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.util.InventoryAdaptersGetter;
 import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
 import com.cloudsolux.foods.inventory_service.infra.inventory.adapter.creation.InventoryFactoryAdapter;
+import com.cloudsolux.foods.inventory_service.infra.inventory.util.InventoryAdaptersGetter;
 
 import lombok.RequiredArgsConstructor;
 

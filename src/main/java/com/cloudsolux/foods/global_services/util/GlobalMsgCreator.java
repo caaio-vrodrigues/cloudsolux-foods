@@ -84,4 +84,12 @@ public class GlobalMsgCreator {
 	public static String errorFieldMsg(String field, String msg) {
 		return "O campo: `"+field+"` "+msg+".";
 	}
+
+  public static String nullIngectionFailureMsg(String interfaceName, String beanName) {
+    return "Falha na injeção de: '"+interfaceName+"'. Valor 'null' ao acessar bean: '"+beanName+"'.";
+  }
+
+  public static String emptyInjectionList(String interfaceName, String beanName) {
+    return "Falha na injeção de: '"+interfaceName+"'. Lista de implementações vazia ao acessar bean: '"+beanName+"'.";
+  }
 }

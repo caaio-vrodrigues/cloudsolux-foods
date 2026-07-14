@@ -13,8 +13,8 @@ import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCrea
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactory;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductCreationResponse;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistence;
-import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductAdaptersGetter;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidation;
+import com.cloudsolux.foods.inventory_service.infra.product.adapter.util.ProductAdaptersGetter;
 
 import lombok.RequiredArgsConstructor;
 
