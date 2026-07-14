@@ -16,14 +16,17 @@ import com.cloudsolux.foods.inventory_service.domain.product.model.util.ProductM
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationPort;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class ProductAdaptersGetterAdapter implements ProductAdaptersGetter {
 
-  private Map<ProductFactoryKey, ProductFactoryPort> productFactories;
-  private Map<ProductValidationKey, ProductValidationPort> productValidators;
-  private Map<ProductPersistenceKey, ProductPersistencePort> productPersistences;
-  private Map<ProductDTOFactoryKey, ProductDTOFactoryPort> productDTOFactories;
-  private Map<ProductMapperKey, ProductMapperPort> productMappers;
+  private final Map<ProductFactoryKey, ProductFactoryPort> productFactories;
+  private final Map<ProductValidationKey, ProductValidationPort> productValidators;
+  private final Map<ProductPersistenceKey, ProductPersistencePort> productPersistences;
+  private final Map<ProductDTOFactoryKey, ProductDTOFactoryPort> productDTOFactories;
+  private final Map<ProductMapperKey, ProductMapperPort> productMappers;
 
   @Override
   public ProductFactoryPort getProductFactory(ProductFactoryKey key) {

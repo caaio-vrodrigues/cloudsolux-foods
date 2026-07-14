@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.model.unit_measure.UnitOfMeasure;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,10 +19,21 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ProductResponse {
   
+  @NotNull @Positive
   private Long id;
+
+  @NotBlank
   private String name;
+
+  @NotBlank
   private String model;
+
+  @NotBlank
   private String brand;
+
+  @NotNull @Positive
 	private BigDecimal amount;
+
+  @NotNull
 	private UnitOfMeasure unitOfMeasure;
 }

@@ -3,6 +3,7 @@ package com.cloudsolux.foods.global_services.infra.handler;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.exc.InvalidTypeIdException;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Order(2)
 @Slf4j
 @RestControllerAdvice
 public class HttpMessageNotReadableExceptionHandler {

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.validation.FieldError;
@@ -15,6 +16,7 @@ import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Order(2)
 @Slf4j
 @RestControllerAdvice
 public class MethodArgumentExceptionHandler {

@@ -3,7 +3,6 @@ package com.cloudsolux.foods.global_services.infra.handler.ordered;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -15,7 +14,7 @@ import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Order(Ordered.LOWEST_PRECEDENCE)
+@Order(3)
 @RestControllerAdvice
 public class LowestExceptionHandler {
 

@@ -1,5 +1,6 @@
 package com.cloudsolux.foods.inventory_service.api.inventory.handler;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,6 +11,7 @@ import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryConcurrentException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
 
+@Order(1)
 @RestControllerAdvice
 public class InventoryExceptionHandler {
  

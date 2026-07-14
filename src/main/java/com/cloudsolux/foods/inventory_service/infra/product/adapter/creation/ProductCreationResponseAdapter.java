@@ -42,6 +42,7 @@ public class ProductCreationResponseAdapter implements ProductCreationResponse {
       .id(product.getId())
       .name(product.getName())
       .model(product.getModel())
+      .brand(product.getBrand())
       .amount(inventory.getStock().getAmount())
       .unitOfMeasure(inventory.getStock().getUnitOfMeasure())
       .build();

@@ -19,10 +19,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class InventoryAdaptersGetterAdapter implements InventoryAdaptersGetter {
 
-  private Map<InventoryFactoryKey, InventoryFactoryPort> inventoryFactories;
-  private Map<InventoryPersistenceKey, InventoryPersistencePort> inventoryPersistences;
-  private Map<InventoryMapperKey, InventoryMapperPort> inventoryMappers;
-  private Map<InventoryFactoryKey, InventoryCommandFactoryPort> inventoryCreationCommandFactories;
+  private final  Map<InventoryFactoryKey, InventoryFactoryPort> inventoryFactories;
+  private final Map<InventoryPersistenceKey, InventoryPersistencePort> inventoryPersistences;
+  private final Map<InventoryMapperKey, InventoryMapperPort> inventoryMappers;
+  private final Map<InventoryFactoryKey, InventoryCommandFactoryPort> inventoryCreationCommandFactories;
 
   @Override
   public InventoryFactoryPort getFactory(InventoryFactoryKey key) {

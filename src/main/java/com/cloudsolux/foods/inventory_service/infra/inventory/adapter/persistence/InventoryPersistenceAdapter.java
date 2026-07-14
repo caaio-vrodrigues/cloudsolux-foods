@@ -10,11 +10,9 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.exception.Invento
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistence;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.util.InventoryAdaptersGetter;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.util.InventoryMapperKey;
+import com.cloudsolux.foods.inventory_service.infra.inventory.adapter.util.InventoryMapperAdapter;
 import com.cloudsolux.foods.inventory_service.infra.inventory.entity.InventoryEntity;
 import com.cloudsolux.foods.inventory_service.infra.inventory.repo.InventoryRepo;
-import com.cloudsolux.foods.inventory_service.infra.inventory.util.InventoryMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class InventoryPersistenceAdapter implements InventoryPersistence {
 
-  private final InventoryAdaptersGetter adapters;
+  private final InventoryMapperAdapter mapper;
   private final InventoryRepo repo;
 
   @Override
@@ -38,8 +36,6 @@ public class InventoryPersistenceAdapter implements InventoryPersistence {
       throw new InventoryInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("InventoryEntity", "Inventory"));
     }
-    InventoryMapper mapper = (InventoryMapper) adapters
-      .getMapper(InventoryMapperKey.INVENTORY_MAPPING);
     InventoryEntity entity = mapper.toEntity(inventory);
     try {
       repo.save(entity);
