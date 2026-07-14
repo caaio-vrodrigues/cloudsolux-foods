@@ -10,9 +10,9 @@ import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductCo
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistence;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
-import com.cloudsolux.foods.inventory_service.infra.product.adapter.util.ProductMapper;
 import com.cloudsolux.foods.inventory_service.infra.product.entity.ProductEntity;
 import com.cloudsolux.foods.inventory_service.infra.product.repo.ProductRepo;
+import com.cloudsolux.foods.inventory_service.infra.product.util.ProductMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

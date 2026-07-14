@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.inventory_service.infra.product.adapter.util;
+package com.cloudsolux.foods.inventory_service.infra.product.util;
 
 import java.util.Map;
 
