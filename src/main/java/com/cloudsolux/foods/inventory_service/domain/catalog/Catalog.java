@@ -24,4 +24,9 @@ public abstract class Catalog {
   public Long getId() {
     return id;
   }
+
+  @Override
+  public String toString() {
+    return "Catalog ['id="+id+"']";
+  }
 }

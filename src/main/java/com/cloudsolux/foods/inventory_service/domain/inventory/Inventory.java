@@ -89,4 +89,9 @@ public class Inventory {
 	public int hashCode() {
 		return Objects.hash(catalogId);
 	}
+
+	@Override
+	public String toString() {
+		return "Inventory ['catalogId="+catalogId+"', "+stock+"]";
+	}
 }

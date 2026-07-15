@@ -39,4 +39,9 @@ public class ProductEntity extends CatalogEntity {
 	@Include 
 	@Column(name="brand", nullable=false, updatable=false)
 	private String brand;
+
+	@Override
+	public String toString() {
+		return "ProductEntity ['id="+getId()+"', 'name="+name+"', 'model="+model+"', 'brand="+brand+"']";
+	}
 }

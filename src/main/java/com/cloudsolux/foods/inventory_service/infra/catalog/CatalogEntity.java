@@ -26,4 +26,9 @@ public abstract class CatalogEntity {
 	
 	@Id
 	private Long id;
+
+	@Override
+  public String toString() {
+    return "CatalogEntity ['id="+id+"']";
+  }
 }

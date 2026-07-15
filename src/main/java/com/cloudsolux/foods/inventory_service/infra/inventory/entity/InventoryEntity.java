@@ -28,4 +28,9 @@ public class InventoryEntity {
 	
 	@Embedded @Valid
 	private StockEmbeddable stock;
+
+	@Override
+	public String toString() {
+		return "InventoryEntity ['catalogId="+catalogId+"', "+stock+"]";
+	}
 }

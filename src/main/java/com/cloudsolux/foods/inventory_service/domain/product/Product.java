@@ -44,6 +44,10 @@ public class Product extends Catalog {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
           .nullFieldValueMsg("Product", "name"));
       }
+			if(name.isBlank()) {
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+					.emptyFieldValue("Product", "name"));
+			}
 			this.name = name;
 			return this;
 		}
@@ -53,6 +57,10 @@ public class Product extends Catalog {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
           .nullFieldValueMsg("Product", "model"));
       }
+			if(model.isBlank()) {
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+					.emptyFieldValue("Product", "model"));
+			}
 			this.model = model;
 			return this;
 		}
@@ -62,6 +70,10 @@ public class Product extends Catalog {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
           .nullFieldValueMsg("Product", "brand"));
       }
+			if(brand.isBlank()) {
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+					.emptyFieldValue("Product", "brand"));
+			}
 			this.brand = brand;
 			return this;
 		}
@@ -109,5 +121,10 @@ public class Product extends Catalog {
 	
 	public int hashCode() {
 		return Objects.hash(name, model, brand);
+	}
+
+	@Override
+	public String toString() {
+		return "Product ['id="+getId()+"', 'name="+name+"', 'model="+model+"', 'brand="+brand+"']";
 	}
 }

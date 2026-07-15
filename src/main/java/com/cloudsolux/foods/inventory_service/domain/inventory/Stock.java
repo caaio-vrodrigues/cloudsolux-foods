@@ -114,4 +114,9 @@ public class Stock {
 	public int hashCode() {
 		return Objects.hash(amount, unitOfMeasure);
 	}
+
+	@Override
+	public String toString() {
+		return "Stock ['amount="+amount+"', 'unitOfMeasure="+unitOfMeasure+"']";
+	}
 }

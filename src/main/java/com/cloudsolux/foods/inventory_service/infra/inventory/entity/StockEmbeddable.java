@@ -27,4 +27,9 @@ public class StockEmbeddable {
 	@Enumerated(EnumType.STRING)
 	@Column(name="unit_measure", nullable=false)
 	private UnitOfMeasure unitOfMeasure;
+
+	@Override
+	public String toString() {
+		return "StockEmbeddable ['amount="+amount+"', 'unitOfMeasure="+unitOfMeasure+"']";
+	}
 }
