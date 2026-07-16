@@ -1,16 +1,27 @@
 package com.cloudsolux.foods.hr_service.app.department.handler;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudsolux.foods.hr_service.app.department.dto.DepartmentResponse;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;
+import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
+import com.cloudsolux.foods.hr_service.infra.department.util.DepartmentAdaptersGetter;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class DepartmentCreationHandler {
 
+  private final DepartmentAdaptersGetter adapters;
+
+  @Transactional
   public DepartmentResponse create(DepartmentCreationCommand command) {
-    // TODO Auto-generated method stub
+    DepartmentValidation validator = (DepartmentValidation) adapters
+      .getValidator(command.getValidationKey());
+    validator.validateUniqueness(command);
+    
     throw new UnsupportedOperationException("Unimplemented method 'create'");
   }
-  
 }
