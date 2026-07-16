@@ -10,11 +10,11 @@ import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.product.Product;
 import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactory;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductCreationResponse;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactory;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistence;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidation;
 import com.cloudsolux.foods.inventory_service.infra.product.util.ProductAdaptersGetter;
+import com.cloudsolux.foods.inventory_service.infra.product.util.ProductResponseGenarator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +25,7 @@ public class ProductCreationHandler {
   private final ProductAdaptersGetter adapters;
   private final InventoryCreationHandler inventoryHandler;
   private final IdGenerator idGenerator;
+  private final ProductResponseGenarator reponseGenerator;
 
   @Transactional
   public ProductResponse create(ProductCreationCommand command) {
@@ -43,9 +44,6 @@ public class ProductCreationHandler {
     persistence.save(product);
 
     Inventory inventory = inventoryHandler.create(command, id);
-
-    ProductCreationResponse responseFactory = (ProductCreationResponse) adapters
-      .getProductDTOFactory(command.getResponseCreationKey());
-    return responseFactory.toProductResponse(product, inventory);
+    return reponseGenerator.toProductResponse(product, inventory);
   }
 }

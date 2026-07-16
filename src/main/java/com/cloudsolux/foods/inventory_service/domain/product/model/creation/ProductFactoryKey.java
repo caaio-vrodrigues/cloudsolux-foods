@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain;
+package com.cloudsolux.foods.inventory_service.domain.product.model.creation;
 
 public enum ProductFactoryKey {
 

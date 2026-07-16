@@ -8,10 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryPort;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryPort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
@@ -49,17 +47,6 @@ public class ProductAdaptersRegistry {
     return savers.stream()
       .collect(Collectors.toMap(
         ProductPersistencePort::getKey, 
-        Function.identity()
-      ));
-  }
-
-  @Bean
-  Map<ProductDTOFactoryKey, ProductDTOFactoryPort> productDTOFactories(
-    List<ProductDTOFactoryPort> factories
-  ) {
-    return factories.stream()
-      .collect(Collectors.toMap(
-        ProductDTOFactoryPort::getKey, 
         Function.identity()
       ));
   }

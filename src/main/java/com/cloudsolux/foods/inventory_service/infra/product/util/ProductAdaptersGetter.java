@@ -7,10 +7,8 @@ import org.springframework.stereotype.Component;
 import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInjectionFailureException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryPort;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryPort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
@@ -25,7 +23,6 @@ public class ProductAdaptersGetter {
   private final Map<ProductFactoryKey, ProductFactoryPort> productFactories;
   private final Map<ProductValidationKey, ProductValidationPort> productValidators;
   private final Map<ProductPersistenceKey, ProductPersistencePort> productPersistences;
-  private final Map<ProductDTOFactoryKey, ProductDTOFactoryPort> productDTOFactories;
 
   private void validateImplementations(
     Map<?, ?> bean, String beanName, String portName, Object key
@@ -47,14 +44,6 @@ public class ProductAdaptersGetter {
       "ProductFactoryPort", key
     );
     return productFactories.get(key);
-  }
-
-  public ProductDTOFactoryPort getProductDTOFactory(ProductDTOFactoryKey key) {
-    validateImplementations(
-      productDTOFactories, "productDTOFactories", 
-      "ProductDTOFactoryPort", key
-    );
-    return productDTOFactories.get(key);
   }
 
   public ProductValidationPort getValidator(ProductValidationKey key) {

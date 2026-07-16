@@ -6,8 +6,8 @@ import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.Product;
 import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactory;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.domain.ProductFactoryKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactory;
+import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
 
 @Component
 public class ProductFactoryAdapter implements ProductFactory {

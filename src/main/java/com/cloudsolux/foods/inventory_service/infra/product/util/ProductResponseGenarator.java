@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.inventory_service.infra.product.adapter.creation;
+package com.cloudsolux.foods.inventory_service.infra.product.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +10,15 @@ import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.product.Product;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductCreationResponse;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.dto.ProductDTOFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductMsgCreator;
 
 @Component
-public class ProductCreationResponseAdapter implements ProductCreationResponse {
-
-  @Override
-  public ProductDTOFactoryKey getKey() {
-    return ProductDTOFactoryKey.CREATE_RESPONSE;
-  }
-
-  @Override
-  public ProductResponse toProductResponse(Product product, Inventory inventory) {
+public class ProductResponseGenarator {
+  
+  public ProductResponse toProductResponse(
+    Product product, 
+    Inventory inventory
+  ) {
     List<String> nullArguments = new ArrayList<>();
     if(product == null) nullArguments.add("Product");
     if(inventory == null) nullArguments.add("Inventory");
