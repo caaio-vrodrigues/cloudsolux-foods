@@ -59,6 +59,14 @@ public class ProductCreationController {
 					mediaType = "application/json",
 					schema = @Schema(implementation=ProblemDetail.class)
 				)
+			),
+			@ApiResponse(
+				responseCode = "500",
+				description = "Erro interno inesperado",
+				content = @Content(
+					mediaType = "application/json",
+					schema = @Schema(implementation=ProblemDetail.class)
+				)
 			)
     }
 	)
