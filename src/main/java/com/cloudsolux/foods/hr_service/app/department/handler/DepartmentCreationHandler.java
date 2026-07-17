@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudsolux.foods.hr_service.app.department.dto.DepartmentResponse;
+import com.cloudsolux.foods.hr_service.domain.department.Department;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;
+import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreation;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
 import com.cloudsolux.foods.hr_service.infra.department.util.DepartmentAdaptersGetter;
 
@@ -21,7 +23,11 @@ public class DepartmentCreationHandler {
     DepartmentValidation validator = (DepartmentValidation) adapters
       .getValidator(command.getValidationKey());
     validator.validateUniqueness(command);
-    
+
+    DepartmentCreation factory = (DepartmentCreation) adapters
+      .getFactory(command.getFactoryKey());
+    Department department = factory.create(command);
+
     throw new UnsupportedOperationException("Unimplemented method 'create'");
   }
 }

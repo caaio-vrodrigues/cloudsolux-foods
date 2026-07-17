@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationKey;
+import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationPort;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationPort;
 
@@ -20,6 +22,16 @@ public class DepartmentAdaptersRegistry {
   ) {
     return validators.stream().collect(Collectors.toMap(
       DepartmentValidationPort::getKey, 
+      Function.identity()
+    ));
+  }
+
+  @Bean
+  public Map<DepartmentCreationKey, DepartmentCreationPort> departmentFactories(
+    List<DepartmentCreationPort> factories
+  ) {
+    return factories.stream().collect(Collectors.toMap(
+      DepartmentCreationPort::getKey, 
       Function.identity()
     ));
   }
