@@ -10,6 +10,7 @@ import com.cloudsolux.foods.hr_service.domain.department.model.creation.Departme
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistence;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
 import com.cloudsolux.foods.hr_service.infra.department.util.DepartmentAdaptersGetter;
+import com.cloudsolux.foods.hr_service.infra.department.util.DepartmentResponseGenerator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class DepartmentCreationHandler {
 
   private final DepartmentAdaptersGetter adapters;
+  private final DepartmentResponseGenerator responseGenerator;
 
   @Transactional
   public DepartmentResponse create(DepartmentCreationCommand command) {
@@ -33,6 +35,6 @@ public class DepartmentCreationHandler {
       .getPersistence(command.getPersistenceKey());
     persistence.saveDepartment(department);
 
-    throw new UnsupportedOperationException("Unimplemented method 'create'");
+    return responseGenerator.toDepartmentResponse(department);
   }
 }
