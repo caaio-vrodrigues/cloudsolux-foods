@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationKey;
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationPort;
+import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistenceKey;
+import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistencePort;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationPort;
 
@@ -32,6 +34,16 @@ public class DepartmentAdaptersRegistry {
   ) {
     return factories.stream().collect(Collectors.toMap(
       DepartmentCreationPort::getKey, 
+      Function.identity()
+    ));
+  }
+
+  @Bean
+  public Map<DepartmentPersistenceKey, DepartmentPersistencePort> departmentPersistences(
+    List<DepartmentPersistencePort> persistences
+  ) {
+    return persistences.stream().collect(Collectors.toMap(
+      DepartmentPersistencePort::getKey, 
       Function.identity()
     ));
   }

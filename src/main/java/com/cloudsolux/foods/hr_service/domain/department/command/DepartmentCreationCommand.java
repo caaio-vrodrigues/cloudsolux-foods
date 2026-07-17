@@ -1,6 +1,7 @@
 package com.cloudsolux.foods.hr_service.domain.department.command;
 
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationKey;
+import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
 
 public class DepartmentCreationCommand {
@@ -11,5 +12,9 @@ public class DepartmentCreationCommand {
 
   public DepartmentCreationKey getFactoryKey() {
     return DepartmentCreationKey.DEPARTMENT_CREATION;
+  }
+
+  public DepartmentPersistenceKey getPersistenceKey() {
+    return DepartmentPersistenceKey.DEPARTMENT_PERSISTENCE;
   }
 }
