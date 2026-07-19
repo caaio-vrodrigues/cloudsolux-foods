@@ -5,5 +5,5 @@ import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreat
 
 public interface DepartmentCreation extends DepartmentCreationPort {
  
-  Department create(DepartmentCreationCommand command);
+  Department create(DepartmentCreationCommand command, Long id);
 }

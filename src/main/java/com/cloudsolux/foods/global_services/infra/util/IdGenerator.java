@@ -1,29 +1,33 @@
-package com.cloudsolux.foods.global_services.infra.adapter;
+package com.cloudsolux.foods.global_services.infra.util;
 
 import org.springframework.stereotype.Component;
 
+import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
+import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 import com.cloudsolux.foods.global_services.infra.entity.IdControlEntity;
 import com.cloudsolux.foods.global_services.infra.repo.IdControlRepo;
-import com.cloudsolux.foods.global_services.model.id_control.IdControlKey;
-import com.cloudsolux.foods.global_services.model.id_control.IdGenerator;
+import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
 
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class IdGeneratorAdapter implements IdGenerator {
+public class IdGenerator {
 
   private final IdControlRepo repo;
 
-  @Override
   public Long getId(IdControlKey key) {
+		if(key == null) {
+			throw new IdControlInvalidArgumentException(GlobalMsgCreator
+				.nullArgumentMsg("IdControl", "IdControlKey"));
+		}
     IdControlEntity idControl = repo.findByKey(key)
 			.orElseGet(() -> {
-				IdControlEntity newIdControl = IdControlEntity.builder()
+				IdControlEntity firstId = IdControlEntity.builder()
 					.key(key)
 					.nextValue(1L)
 					.build();
-				return repo.save(newIdControl);
+				return repo.save(firstId);
 			});
 		Long currentAvailableId = idControl.getNextValue();
 		idControl.increment();

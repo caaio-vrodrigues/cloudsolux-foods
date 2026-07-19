@@ -2,7 +2,7 @@ package com.cloudsolux.foods.global_services.infra.entity;
 
 import org.springframework.data.domain.Persistable;
 
-import com.cloudsolux.foods.global_services.model.id_control.IdControlKey;
+import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
