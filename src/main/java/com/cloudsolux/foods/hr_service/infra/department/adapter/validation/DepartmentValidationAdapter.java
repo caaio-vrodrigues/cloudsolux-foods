@@ -2,7 +2,7 @@ package com.cloudsolux.foods.hr_service.infra.department.adapter.validation;
 
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentAlreadyExistsException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;

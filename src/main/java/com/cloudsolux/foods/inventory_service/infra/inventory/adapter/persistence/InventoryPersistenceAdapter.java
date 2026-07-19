@@ -4,7 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryConcurrentException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;

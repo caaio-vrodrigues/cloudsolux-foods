@@ -3,7 +3,7 @@ package com.cloudsolux.foods.hr_service.domain.department;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
 
 public class Department {

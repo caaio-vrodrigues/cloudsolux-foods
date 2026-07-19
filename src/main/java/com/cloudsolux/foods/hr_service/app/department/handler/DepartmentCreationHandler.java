@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.global_services.infra.util.IdGenerator;
+import com.cloudsolux.foods.global_services.infra.id_control.util.IdGenerator;
 import com.cloudsolux.foods.hr_service.app.department.dto.DepartmentResponse;
 import com.cloudsolux.foods.hr_service.domain.department.Department;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;

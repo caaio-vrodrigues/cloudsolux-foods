@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.global_services.infra.repo;
+package com.cloudsolux.foods.global_services.infra.id_control.repo;
 
 import java.util.Optional;
 
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.QueryHints;
 
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.global_services.infra.entity.IdControlEntity;
+import com.cloudsolux.foods.global_services.infra.id_control.entity.IdControlEntity;
 
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;

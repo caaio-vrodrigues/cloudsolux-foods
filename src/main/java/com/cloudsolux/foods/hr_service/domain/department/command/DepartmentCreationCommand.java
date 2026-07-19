@@ -1,6 +1,6 @@
 package com.cloudsolux.foods.hr_service.domain.department.command;
 
-import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationKey;
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistenceKey;

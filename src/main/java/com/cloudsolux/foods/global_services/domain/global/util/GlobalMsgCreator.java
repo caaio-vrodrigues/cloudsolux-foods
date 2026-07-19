@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.global_services.util;
+package com.cloudsolux.foods.global_services.domain.global.util;
 
 import java.math.BigDecimal;
 import java.util.List;

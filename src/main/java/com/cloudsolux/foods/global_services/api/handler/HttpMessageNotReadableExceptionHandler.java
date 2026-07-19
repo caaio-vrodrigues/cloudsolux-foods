@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.global_services.infra.handler;
+package com.cloudsolux.foods.global_services.api.handler;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.fasterxml.jackson.databind.exc.InvalidTypeIdException;
 
 import lombok.extern.slf4j.Slf4j;

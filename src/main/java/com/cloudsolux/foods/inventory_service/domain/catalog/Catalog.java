@@ -2,7 +2,7 @@ package com.cloudsolux.foods.inventory_service.domain.catalog;
 
 import java.math.BigDecimal;
 
-import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.catalog.exception.CatalogInvalidArgumentException;
 
 public abstract class Catalog {

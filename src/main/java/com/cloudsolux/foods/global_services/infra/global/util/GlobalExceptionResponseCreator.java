@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.global_services.util;
+package com.cloudsolux.foods.global_services.infra.global.util;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

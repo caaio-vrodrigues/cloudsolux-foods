@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.global_services.infra.entity;
+package com.cloudsolux.foods.global_services.infra.id_control.entity;
 
 import org.springframework.data.domain.Persistable;
 

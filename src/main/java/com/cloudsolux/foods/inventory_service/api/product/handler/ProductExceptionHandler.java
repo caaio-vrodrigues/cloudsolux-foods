@@ -6,8 +6,8 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.cloudsolux.foods.global_services.util.GlobalExceptionResponseCreator;
-import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductAlreadyExistsException;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductConcurrentException;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;

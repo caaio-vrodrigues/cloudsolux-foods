@@ -2,7 +2,7 @@ package com.cloudsolux.foods.inventory_service.infra.inventory.util;
 
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.global_services.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Stock;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
