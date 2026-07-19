@@ -37,7 +37,7 @@ public class ProductValidationAdapter implements ProductValidation {
         command.getBrand());
     if(existsByConstraint)
       throw new ProductAlreadyExistsException(ProductMsgCreator
-        .alreadyExistsMsg(
+        .uniquenessViolationMsg(
           command.getName(), 
           command.getModel(), 
           command.getBrand()));

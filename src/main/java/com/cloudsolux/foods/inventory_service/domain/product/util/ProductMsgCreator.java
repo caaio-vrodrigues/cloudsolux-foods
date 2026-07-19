@@ -13,7 +13,7 @@ public class ProductMsgCreator {
 
   private ProductMsgCreator() {}
 
-  public static String alreadyExistsMsg(String name, String model, String brand) {
+  public static String uniquenessViolationMsg(String name, String model, String brand) {
     return "Falha ao processar 'ProductEntity'. Os argumentos fornecidos para criação do produto já estão em uso: [name: '"+name+"', model: '"+model+"', brand: '"+brand+"'].";
   }
 

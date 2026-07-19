@@ -19,6 +19,8 @@ public class DepartmentCreationRequest {
   private String name;
 
   public DepartmentCreationCommand toCommand() {
-    return new DepartmentCreationCommand();
+    return DepartmentCreationCommand.builder()
+      .name(name)
+      .build();
   }
 }
