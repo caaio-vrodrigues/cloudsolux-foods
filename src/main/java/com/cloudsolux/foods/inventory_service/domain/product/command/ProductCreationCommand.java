@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
@@ -127,6 +128,10 @@ public class ProductCreationCommand {
 
   public ProductPersistenceKey getProductSavingKey() {
     return ProductPersistenceKey.PRODUCT_PERSISTENCE;
+  }
+
+  public IdControlKey getIdControlKey() {
+    return IdControlKey.CATALOG_ID;
   }
 
   public String getName() {

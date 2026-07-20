@@ -3,8 +3,7 @@ package com.cloudsolux.foods.inventory_service.app.product.handler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.global_services.infra.id_control.util.IdGenerator;
+import com.cloudsolux.foods.global_services.app.IdControl.handler.IdControlGeneratorHandler;
 import com.cloudsolux.foods.inventory_service.app.inventory.handler.InventoryCreationHandler;
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
@@ -24,7 +23,7 @@ public class ProductCreationHandler {
 
   private final ProductAdaptersGetter adapters;
   private final InventoryCreationHandler inventoryHandler;
-  private final IdGenerator idGenerator;
+  private final IdControlGeneratorHandler idGenerator;
   private final ProductResponseGenarator reponseGenerator;
 
   @Transactional
@@ -33,7 +32,7 @@ public class ProductCreationHandler {
       .getValidator(command.getRequestValidationKey());
     requestValidator.validateProductUniqueness(command);
 
-    Long id = idGenerator.getId(IdControlKey.CATALOG_ID);
+    Long id = idGenerator.generateId(command.getIdControlKey());
 
     ProductFactory productFactory = (ProductFactory) adapters
       .getProductFactory(command.getProductCreationKey());

@@ -12,6 +12,8 @@ import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Entity(name="id_control")
 @Table
-@Builder
+@Builder(toBuilder=true)
 @Getter
 public class IdControlEntity implements Persistable<IdControlKey> {
   
@@ -31,11 +33,8 @@ public class IdControlEntity implements Persistable<IdControlKey> {
 	@Enumerated(EnumType.STRING)
 	private IdControlKey key;
 	
+  @NotNull @Positive
 	private Long nextValue;
-	
-	public void increment() {
-		nextValue++;
-	}
 
   @Transient @Default
 	private boolean isNew = true;

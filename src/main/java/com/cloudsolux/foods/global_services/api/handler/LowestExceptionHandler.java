@@ -14,7 +14,7 @@ import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Order(3)
+@Order(4)
 @RestControllerAdvice
 public class LowestExceptionHandler {
 
@@ -38,7 +38,7 @@ public class LowestExceptionHandler {
 		log.error("traceId={} error={}", traceId, e.getMessage(), e);
 		return setProperties(problemDetail, traceId);
 	}
-	
+
 	@ExceptionHandler(RuntimeException.class)
 	public ProblemDetail handleRuntimeException(RuntimeException e) {
 		return createProblemDetailAndLog(

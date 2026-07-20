@@ -92,4 +92,12 @@ public class GlobalMsgCreator {
   public static String emptyInjectionList(String interfaceName, String beanName) {
     return "Falha na injeção de: '"+interfaceName+"'. Lista de implementações vazia ao acessar bean: '"+beanName+"'.";
   }
+
+  public static String dataAccessLogMsg(String className) {
+    return "Falha ao tentar buscar entidades: '"+className+"'.";
+  }
+
+  public static String dataAccesFailureMsg(String className) {
+    return "Falha ao acessar os dados. Não foi possível acessar as entidades '"+className+"'. Verifique o banco de dados e a integridade dos dados retornados.";
+  }
 }

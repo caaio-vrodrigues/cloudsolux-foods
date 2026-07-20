@@ -1,6 +1,7 @@
 package com.cloudsolux.foods.hr_service.domain.department.command;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationKey;
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistenceKey;
@@ -53,6 +54,10 @@ public class DepartmentCreationCommand {
 
   public DepartmentPersistenceKey getPersistenceKey() {
     return DepartmentPersistenceKey.DEPARTMENT_PERSISTENCE;
+  }
+
+  public IdControlKey getIdGenerationKey() {
+    return IdControlKey.DEPARTMENT_ID;
   }
 
   public String getName() {
