@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.global_services.api.handler;
+package com.cloudsolux.foods.global_services.api.global.handler;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataAccessException;

@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.global_services.api.handler;
+package com.cloudsolux.foods.global_services.api.global.handler;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

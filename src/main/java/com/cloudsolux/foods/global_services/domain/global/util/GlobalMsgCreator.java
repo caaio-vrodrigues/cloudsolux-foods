@@ -32,6 +32,8 @@ public class GlobalMsgCreator {
 	public static final String INVALID_ARGUMENT_TITLE = "Argumento inválido";
 	public static final String CONCURRENCY_TITLE = "Falha interna";
 	public static final String DUPLICATED_ENTITY_TITLE = "Entidade duplicada";
+  public static final String ACCESS_FAILURE_TITLE = "Falha de acesso";
+  public static final String PERSISTENCE_FAILURE_TITLE = "Falha de persistência";
   
   private GlobalMsgCreator() {}
 

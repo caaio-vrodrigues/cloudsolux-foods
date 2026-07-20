@@ -1,0 +1,51 @@
+package com.cloudsolux.foods.global_services.api.id_control.handler;
+
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlAccessException;
+import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
+import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlPersistenceException;
+import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
+
+@Order(1)
+@RestControllerAdvice
+public class IdControlExceptionHandler {
+  
+  @ExceptionHandler(IdControlAccessException.class)
+  public ProblemDetail handleIdControlAccess(
+    IdControlAccessException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.CONFLICT, 
+				GlobalMsgCreator.ACCESS_FAILURE_TITLE);
+  }
+
+  @ExceptionHandler(IdControlPersistenceException.class)
+  public ProblemDetail handleIdControlPersistence(
+    IdControlPersistenceException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.CONFLICT, 
+				GlobalMsgCreator.PERSISTENCE_FAILURE_TITLE);
+  }
+
+  @ExceptionHandler(IdControlInvalidArgumentException.class)
+  public ProblemDetail handleIIdControlInvalidArgument(
+    IdControlInvalidArgumentException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.CONFLICT, 
+				GlobalMsgCreator.INVALID_ARGUMENT_TITLE);
+  }
+}
