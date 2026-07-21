@@ -19,10 +19,12 @@ public class DepartmentCreationCommand {
     private String name;
 
     public DepartmentCreationCommandBuilder name(String name) {
-      if(name == null) {
-        throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-          .nullArgumentMsg("DepartmentEntity", "name"));
-      }
+      if(!(name instanceof String)) {
+				String receivedClassName = name != null ? 
+					name.getClass().getSimpleName() : "null";
+				throw new DepartmentInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("String", receivedClassName));
+			}
       if(name.isBlank()) {
         throw new DepartmentInvalidArgumentException(GlobalMsgCreator
           .emptyFieldValue("DepartmentEntity", "name"));

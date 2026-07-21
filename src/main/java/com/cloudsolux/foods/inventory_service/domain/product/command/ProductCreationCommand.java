@@ -34,10 +34,12 @@ public class ProductCreationCommand {
     private UnitOfMeasure unitOfMeasure;
 
     public ProductCreationCommandBuilder name(String name) {
-      if(name == null) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreationCommand", "name"));
-      }
+      if(!(name instanceof String)) {
+				String receivedClassName = name != null ? 
+					name.getClass().getSimpleName() : "null";
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("String", receivedClassName));
+			}
       if(name.isBlank()) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
           .emptyFieldValue("ProductCreationCommand", "name"));
@@ -47,10 +49,12 @@ public class ProductCreationCommand {
     }
 
     public ProductCreationCommandBuilder model(String model) {
-      if(model == null) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreationCommand", "model"));
-      }
+      if(!(model instanceof String)) {
+				String receivedClassName = model != null ? 
+					model.getClass().getSimpleName() : "null";
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("String", receivedClassName));
+			}
       if(model.isBlank()) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
           .emptyFieldValue("ProductCreationCommand", "model"));
@@ -60,10 +64,12 @@ public class ProductCreationCommand {
     }
 
     public ProductCreationCommandBuilder brand(String brand) {
-      if(brand == null) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreationCommand", "brand"));
-      }
+      if(!(brand instanceof String)) {
+				String receivedClassName = brand != null ? 
+					brand.getClass().getSimpleName() : "null";
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("String", receivedClassName));
+			}
       if(brand.isBlank()) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
           .emptyFieldValue("ProductCreationCommand", "brand"));
@@ -73,10 +79,12 @@ public class ProductCreationCommand {
     }
 
     public ProductCreationCommandBuilder amount(BigDecimal amount) {
-      if(amount == null) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreationCommand", "amount"));
-      }
+      if(!(amount instanceof BigDecimal)) {
+				String receivedClassName = amount != null ? 
+					amount.getClass().getSimpleName() : "null";
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("BigDecimal", receivedClassName));
+			}
       if(amount.compareTo(BigDecimal.ZERO) < 0) {
         throw new ProductInvalidArgumentException(GlobalMsgCreator
           .positiveOrZeroMsg("ProductCreationCommand", "amount", amount));
@@ -86,10 +94,12 @@ public class ProductCreationCommand {
     }
 
     public ProductCreationCommandBuilder unitOfMeasure(UnitOfMeasure unitOfMeasure) {
-      if(unitOfMeasure == null) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("ProductCreationCommand", "unitOfMeasure"));
-      }
+      if(!(unitOfMeasure instanceof UnitOfMeasure)) {
+				String receivedClassName = unitOfMeasure != null ? 
+					unitOfMeasure.getClass().getSimpleName() : "null";
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("UnitOfMeasure", receivedClassName));
+			}
       this.unitOfMeasure = unitOfMeasure;
       return this;
     }

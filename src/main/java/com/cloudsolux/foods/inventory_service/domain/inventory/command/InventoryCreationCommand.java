@@ -26,10 +26,12 @@ public class InventoryCreationCommand {
 	  private UnitOfMeasure unitOfMeasure;
 
     public InventoryCreationCommandBuilder id(Long id) {
-      if(id == null) {
-        throw new InventoryInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("InventoryCreationCommand", "id"));
-      }
+      if(!(id instanceof Long)) {
+				String receivedClassName = id != null ? 
+					id.getClass().getSimpleName() : "null";
+				throw new InventoryInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("Long", receivedClassName));
+			}
       if(id < 1) {
         throw new InventoryInvalidArgumentException(GlobalMsgCreator
           .positiveMsg("InventoryCreationCommand", "id", BigDecimal.valueOf(id)));
@@ -39,10 +41,12 @@ public class InventoryCreationCommand {
     }
 
     public InventoryCreationCommandBuilder amount(BigDecimal amount) {
-      if(amount == null) {
-        throw new InventoryInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("InventoryCreationCommand", "amount"));
-      }
+      if(!(amount instanceof BigDecimal)) {
+				String receivedClassName = amount != null ? 
+					amount.getClass().getSimpleName() : "null";
+				throw new InventoryInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("BigDecimal", receivedClassName));
+			}
       if(amount.compareTo(BigDecimal.ZERO) < 0) {
         throw new InventoryInvalidArgumentException(GlobalMsgCreator
           .positiveOrZeroMsg("InventoryCreationCommand", "amount", amount));
@@ -52,10 +56,12 @@ public class InventoryCreationCommand {
     }
 
     public InventoryCreationCommandBuilder unitOfMeasure(UnitOfMeasure unitOfMeasure) {
-      if(unitOfMeasure == null) {
-        throw new InventoryInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("InventoryCreationCommand", "unitOfMeasure"));
-      }
+      if(!(unitOfMeasure instanceof UnitOfMeasure)) {
+				String receivedClassName = unitOfMeasure != null ? 
+					unitOfMeasure.getClass().getSimpleName() : "null";
+				throw new InventoryInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("UnitOfMeasure", receivedClassName));
+			}
       this.unitOfMeasure = unitOfMeasure;
       return this;
     }
