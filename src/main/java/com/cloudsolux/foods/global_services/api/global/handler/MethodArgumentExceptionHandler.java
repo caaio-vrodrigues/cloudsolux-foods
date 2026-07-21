@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -64,8 +64,7 @@ public class MethodArgumentExceptionHandler {
 		String traceId = UUID.randomUUID().toString();
 		List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
 		List<String> errorList = getBindingResultList(fieldErrors);
-		ProblemDetail problemDetail = ProblemDetail
-			.forStatus(HttpStatusCode.valueOf(400));
+		ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
 		problemDetail.setTitle(GlobalMsgCreator.INVALID_ARGUMENT_TITLE);	
 		log.error("traceId={} fieldErrors={}", traceId, fieldErrors);
 		return setProperties(problemDetail, traceId, errorList);

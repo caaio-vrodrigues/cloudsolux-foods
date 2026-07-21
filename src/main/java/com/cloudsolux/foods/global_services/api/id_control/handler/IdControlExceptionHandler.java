@@ -39,13 +39,13 @@ public class IdControlExceptionHandler {
   }
 
   @ExceptionHandler(IdControlInvalidArgumentException.class)
-  public ProblemDetail handleIIdControlInvalidArgument(
+  public ProblemDetail handleIdControlInvalidArgument(
     IdControlInvalidArgumentException e
   ) {
     return GlobalExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
-				HttpStatus.CONFLICT, 
+				HttpStatus.BAD_REQUEST, 
 				GlobalMsgCreator.INVALID_ARGUMENT_TITLE);
   }
 }

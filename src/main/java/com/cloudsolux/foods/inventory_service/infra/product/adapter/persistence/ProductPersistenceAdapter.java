@@ -41,10 +41,10 @@ public class ProductPersistenceAdapter implements ProductPersistence {
       repo.save(entity);
     }
     catch(DataIntegrityViolationException | TransientDataAccessException  e) {
-      log.error(GlobalMsgCreator.concurrentPersistenceMsg("ProductEntity")+". {}", 
+      log.error(GlobalMsgCreator.persistenceFailureLogMsg("ProductEntity")+". {}", 
         e.getMessage(), e);
       throw new ProductConcurrentException(GlobalMsgCreator
-        .concurrentPersistenceMsg("ProductEntity"));
+        .persistenceFailureMsg("ProductEntity"));
     }
   }
 }

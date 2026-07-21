@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
+import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
+import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationKey;
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationPort;
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistenceKey;
@@ -19,9 +22,16 @@ import com.cloudsolux.foods.hr_service.domain.department.model.validation.Depart
 public class DepartmentAdaptersRegistry {
  
   @Bean
-  public Map<DepartmentValidationKey, DepartmentValidationPort> departmentValidators(
+  Map<DepartmentValidationKey, DepartmentValidationPort> departmentValidators(
     List<DepartmentValidationPort> validators
   ) {
+    if(validators == null)
+      throw new DepartmentInvalidArgumentException(
+        GlobalMsgCreator.nullImplementationMsg("DepartmentValidationPort"));
+    if(validators.isEmpty())
+      throw new DepartmentInvalidDependencyException(
+        GlobalMsgCreator.emptyImplementationList("DepartmentValidationPort"));
+
     return validators.stream().collect(Collectors.toMap(
       DepartmentValidationPort::getKey, 
       Function.identity()
@@ -29,9 +39,16 @@ public class DepartmentAdaptersRegistry {
   }
 
   @Bean
-  public Map<DepartmentCreationKey, DepartmentCreationPort> departmentFactories(
+  Map<DepartmentCreationKey, DepartmentCreationPort> departmentFactories(
     List<DepartmentCreationPort> factories
   ) {
+    if(factories == null)
+      throw new DepartmentInvalidArgumentException(
+        GlobalMsgCreator.nullImplementationMsg("DepartmentCreationPort"));
+    if(factories.isEmpty())
+      throw new DepartmentInvalidDependencyException(
+        GlobalMsgCreator.emptyImplementationList("DepartmentCreationPort"));
+
     return factories.stream().collect(Collectors.toMap(
       DepartmentCreationPort::getKey, 
       Function.identity()
@@ -39,9 +56,16 @@ public class DepartmentAdaptersRegistry {
   }
 
   @Bean
-  public Map<DepartmentPersistenceKey, DepartmentPersistencePort> departmentPersistences(
+  Map<DepartmentPersistenceKey, DepartmentPersistencePort> departmentPersistences(
     List<DepartmentPersistencePort> persistences
   ) {
+    if(persistences == null)
+      throw new DepartmentInvalidArgumentException(
+        GlobalMsgCreator.nullImplementationMsg("DepartmentPersistencePort"));
+    if(persistences.isEmpty())
+      throw new DepartmentInvalidDependencyException(
+        GlobalMsgCreator.emptyImplementationList("DepartmentPersistencePort"));
+        
     return persistences.stream().collect(Collectors.toMap(
       DepartmentPersistencePort::getKey, 
       Function.identity()

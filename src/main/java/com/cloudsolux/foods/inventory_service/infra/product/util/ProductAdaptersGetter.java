@@ -5,8 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInjectionFailureException;
-import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidDependencyException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
@@ -24,40 +23,58 @@ public class ProductAdaptersGetter {
   private final Map<ProductValidationKey, ProductValidationPort> productValidators;
   private final Map<ProductPersistenceKey, ProductPersistencePort> productPersistences;
 
-  private void validateImplementations(
-    Map<?, ?> bean, String beanName, String portName, Object key
+  private void validateDependency(
+    Map<?, ?> bean, String beanName, String portName
   ) {
     if(bean == null)
-      throw new InventoryInjectionFailureException(
-        GlobalMsgCreator.nullIngectionFailureMsg(portName, beanName));
+      throw new ProductInvalidDependencyException(
+        GlobalMsgCreator.nullDependencyMsg(portName, beanName));
     if(bean.isEmpty())
-      throw new InventoryInjectionFailureException(
-        GlobalMsgCreator.emptyInjectionList(portName, beanName));
-    if(key == null)
-      throw new InventoryInvalidArgumentException(
-        GlobalMsgCreator.nullArgumentMsg(portName, "key"));
+      throw new ProductInvalidDependencyException(
+        GlobalMsgCreator.emptyDependencyList(portName, beanName));
   }
 
   public ProductFactoryPort getProductFactory(ProductFactoryKey key) {
-    validateImplementations(
-      productFactories, "productFactories", 
-      "ProductFactoryPort", key
+    if(key == null) {
+      throw new ProductInvalidDependencyException(GlobalMsgCreator
+        .nullArgumentMsg(
+          "ProductFactoryPort", 
+          "ProductFactoryKey"));
+    }
+    validateDependency(
+      productFactories, 
+      "productFactories", 
+      "ProductFactoryPort"
     );
     return productFactories.get(key);
   }
 
   public ProductValidationPort getValidator(ProductValidationKey key) {
-    validateImplementations(
-      productValidators, "productValidators", 
-      "ProductValidationPort", key
+    if(key == null) {
+      throw new ProductInvalidDependencyException(GlobalMsgCreator
+        .nullArgumentMsg(
+          "ProductValidationPort", 
+          "ProductValidationKey"));
+    }
+    validateDependency(
+      productValidators, 
+      "productValidators", 
+      "ProductValidationPort"
     );
     return productValidators.get(key);
   }
 
   public ProductPersistencePort getPersistence(ProductPersistenceKey key) {
-    validateImplementations(
-      productPersistences, "productPersistences", 
-      "ProductPersistencePort", key
+    if(key == null) {
+      throw new ProductInvalidDependencyException(GlobalMsgCreator
+        .nullArgumentMsg(
+          "ProductPersistencePort", 
+          "ProductPersistenceKey"));
+    }
+    validateDependency(
+      productPersistences, 
+      "productPersistences", 
+      "ProductPersistencePort"
     );
     return productPersistences.get(key);
   }

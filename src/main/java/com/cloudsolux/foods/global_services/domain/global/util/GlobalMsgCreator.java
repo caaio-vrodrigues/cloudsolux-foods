@@ -7,6 +7,11 @@ import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 
 public class GlobalMsgCreator {
 
+  public static final String RESPONSE_201 = "Criação concluída com sucesso.";
+  public static final String RESPONSE_400 = "Dados inválidos — violação de regras de negócio ou requisição inválida";
+  public static final String RESPONSE_409 = "Conflito — violação de regras de negócio";
+  public static final String RESPONSE_500 = "Erro interno inesperado";
+
   public static final String TIME_STAMP = "timestamp";
 	public static final String TRACE_ID = "traceId";
 	public static final String ERRORS = "errors";
@@ -34,6 +39,7 @@ public class GlobalMsgCreator {
 	public static final String DUPLICATED_ENTITY_TITLE = "Entidade duplicada";
   public static final String ACCESS_FAILURE_TITLE = "Falha de acesso";
   public static final String PERSISTENCE_FAILURE_TITLE = "Falha de persistência";
+  public static final String DEPENDENCY_FAILURE_TITLE = "Dependência inválida";
   
   private GlobalMsgCreator() {}
 
@@ -71,11 +77,11 @@ public class GlobalMsgCreator {
     return "Falha ao processar '"+className+"'. Valor 'vazio' para o campo: ['"+fieldName+"'].";
   }
 
-  public static String persistenceFailLogMsg(String className) {
+  public static String persistenceFailureLogMsg(String className) {
 		return "Falha ao tentar persistir entidade: '"+className+"'.";
 	}
 
-  public static String concurrentPersistenceMsg(String className) {
+  public static String persistenceFailureMsg(String className) {
     return "Falha interna desconhecida ao tentar persistir entidade: '"+className+"'.";
   }
 
@@ -87,12 +93,20 @@ public class GlobalMsgCreator {
 		return "O campo: `"+field+"` "+msg+".";
 	}
 
-  public static String nullIngectionFailureMsg(String interfaceName, String beanName) {
+  public static String nullDependencyMsg(String interfaceName, String beanName) {
     return "Falha na injeção de: '"+interfaceName+"'. Valor 'null' ao acessar bean: '"+beanName+"'.";
   }
 
-  public static String emptyInjectionList(String interfaceName, String beanName) {
+  public static String nullImplementationMsg(String portName) {
+    return "Falha nas implementações de: '"+portName+"'. Valor 'null' ao acessar lista de implementações.";
+  }
+
+  public static String emptyDependencyList(String interfaceName, String beanName) {
     return "Falha na injeção de: '"+interfaceName+"'. Lista de implementações vazia ao acessar bean: '"+beanName+"'.";
+  }
+
+  public static String emptyImplementationList(String portName) {
+     return "Falha nas implementações de: '"+portName+"'. Lista de implementações vazia.";
   }
 
   public static String dataAccessLogMsg(String className) {
@@ -101,5 +115,9 @@ public class GlobalMsgCreator {
 
   public static String dataAccesFailureMsg(String className) {
     return "Falha ao acessar os dados. Não foi possível acessar as entidades '"+className+"'. Verifique o banco de dados e a integridade dos dados retornados.";
+  }
+
+  public static String invalidClassMsg(String expectedClassName, String receivedClassName) {
+    return "Classe inválida durante processo. [esperado: '"+expectedClassName+"'], [recebido: '"+receivedClassName+"'].";
   }
 }

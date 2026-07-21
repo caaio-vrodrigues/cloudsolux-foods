@@ -41,10 +41,10 @@ public class InventoryPersistenceAdapter implements InventoryPersistence {
       repo.save(entity);
     }
     catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
-      log.error(GlobalMsgCreator.persistenceFailLogMsg("null")+". {}", 
+      log.error(GlobalMsgCreator.persistenceFailureLogMsg("InventoryEntity")+". {}", 
         e.getMessage(), e);
       throw new InventoryConcurrentException(GlobalMsgCreator
-        .concurrentPersistenceMsg("InventoryEntity"));
+        .persistenceFailureMsg("InventoryEntity"));
     }
   }
 }

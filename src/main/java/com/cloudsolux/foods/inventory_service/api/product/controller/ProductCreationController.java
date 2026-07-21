@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.api.product.dto.ProductCreationRequest;
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
 import com.cloudsolux.foods.inventory_service.app.product.handler.ProductCreationHandler;
@@ -38,7 +39,7 @@ public class ProductCreationController {
     responses = {
 			@ApiResponse(
 				responseCode = "201",
-				description = ProductMsgCreator.RESPONSE_201,
+				description = GlobalMsgCreator.RESPONSE_201,
 				content = @Content(
 					mediaType = "application/json",
 					schema = @Schema(implementation=ProductResponse.class)
@@ -46,7 +47,7 @@ public class ProductCreationController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = ProductMsgCreator.RESPONSE_400,
+				description = GlobalMsgCreator.RESPONSE_400,
 				content = @Content(
 					mediaType = "application/json",
 					schema = @Schema(implementation=ProblemDetail.class)
@@ -54,7 +55,7 @@ public class ProductCreationController {
 			),
 			@ApiResponse(
 				responseCode = "409",
-				description = ProductMsgCreator.RESPONSE_409,
+				description = GlobalMsgCreator.RESPONSE_409,
 				content = @Content(
 					mediaType = "application/json",
 					schema = @Schema(implementation=ProblemDetail.class)
@@ -62,7 +63,7 @@ public class ProductCreationController {
 			),
 			@ApiResponse(
 				responseCode = "500",
-				description = "Erro interno inesperado",
+				description = GlobalMsgCreator.RESPONSE_500,
 				content = @Content(
 					mediaType = "application/json",
 					schema = @Schema(implementation=ProblemDetail.class)

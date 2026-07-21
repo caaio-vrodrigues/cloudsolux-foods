@@ -30,11 +30,11 @@ public class IdControlPersistence {
       repo.save(entity);
     }
     catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
-      log.error(GlobalMsgCreator.persistenceFailLogMsg("IdControlEntity")+" {}", 
+      log.error(GlobalMsgCreator.persistenceFailureLogMsg("IdControlEntity")+" {}", 
         e.getMessage(), e
       );
       throw new IdControlPersistenceException(GlobalMsgCreator
-        .persistenceFailLogMsg("IdControlEntity"));
+        .persistenceFailureMsg("IdControlEntity"));
     }
   }
 
