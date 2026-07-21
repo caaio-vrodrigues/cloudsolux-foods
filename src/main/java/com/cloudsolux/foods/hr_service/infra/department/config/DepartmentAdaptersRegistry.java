@@ -25,13 +25,16 @@ public class DepartmentAdaptersRegistry {
   Map<DepartmentValidationKey, DepartmentValidationPort> departmentValidators(
     List<DepartmentValidationPort> validators
   ) {
-    if(validators == null)
-      throw new DepartmentInvalidArgumentException(
-        GlobalMsgCreator.nullImplementationMsg("DepartmentValidationPort"));
-    if(validators.isEmpty())
+    if(!(validators instanceof List<?>)) {
+      String receivedClassName = validators != null ? 
+        validators.getClass().getSimpleName() : "null";
+      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
+        .invalidClassMsg("List<DepartmentValidationPort>", receivedClassName));
+    }
+    if(validators.isEmpty()) {
       throw new DepartmentInvalidDependencyException(
         GlobalMsgCreator.emptyImplementationList("DepartmentValidationPort"));
-
+    }
     return validators.stream().collect(Collectors.toMap(
       DepartmentValidationPort::getKey, 
       Function.identity()
@@ -42,13 +45,16 @@ public class DepartmentAdaptersRegistry {
   Map<DepartmentCreationKey, DepartmentCreationPort> departmentFactories(
     List<DepartmentCreationPort> factories
   ) {
-    if(factories == null)
-      throw new DepartmentInvalidArgumentException(
-        GlobalMsgCreator.nullImplementationMsg("DepartmentCreationPort"));
-    if(factories.isEmpty())
+    if(!(factories instanceof List<?>)) {
+      String receivedClassName = factories != null ? 
+        factories.getClass().getSimpleName() : "null";
+      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
+        .invalidClassMsg("List<DepartmentCreationPort>", receivedClassName));
+    }
+    if(factories.isEmpty()) {
       throw new DepartmentInvalidDependencyException(
         GlobalMsgCreator.emptyImplementationList("DepartmentCreationPort"));
-
+    }
     return factories.stream().collect(Collectors.toMap(
       DepartmentCreationPort::getKey, 
       Function.identity()
@@ -59,13 +65,16 @@ public class DepartmentAdaptersRegistry {
   Map<DepartmentPersistenceKey, DepartmentPersistencePort> departmentPersistences(
     List<DepartmentPersistencePort> persistences
   ) {
-    if(persistences == null)
-      throw new DepartmentInvalidArgumentException(
-        GlobalMsgCreator.nullImplementationMsg("DepartmentPersistencePort"));
-    if(persistences.isEmpty())
+    if(!(persistences instanceof List<?>)) {
+      String receivedClassName = persistences != null ? 
+        persistences.getClass().getSimpleName() : "null";
+      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
+        .invalidClassMsg("List<DepartmentPersistencePort>", receivedClassName));
+    }
+    if(persistences.isEmpty()) {
       throw new DepartmentInvalidDependencyException(
         GlobalMsgCreator.emptyImplementationList("DepartmentPersistencePort"));
-        
+    }  
     return persistences.stream().collect(Collectors.toMap(
       DepartmentPersistencePort::getKey, 
       Function.identity()
