@@ -1,6 +1,5 @@
 package com.cloudsolux.foods.inventory_service.domain.product;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
@@ -27,23 +26,18 @@ public class Product extends Catalog {
 		private String brand;
 		
 		public ProductBuilder id(Long id) {
-      if(id == null) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("Product", "id"));
-      }
-      if(id < 1) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .positiveMsg("Product", "id", BigDecimal.valueOf(id)));
-      }
+			// validação na superclasse
 			this.id = id;
 			return this;
 		}
 		
 		public ProductBuilder name(String name) {
-      if(name == null) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("Product", "name"));
-      }
+			if(!(name instanceof String)) {
+				String receivedClassName = name != null ? 
+					name.getClass().getSimpleName() : "null";
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("String", receivedClassName));
+			}
 			if(name.isBlank()) {
 				throw new ProductInvalidArgumentException(GlobalMsgCreator
 					.emptyFieldValue("Product", "name"));
@@ -53,10 +47,12 @@ public class Product extends Catalog {
 		}
 		
 		public ProductBuilder model(String model) {
-      if(model == null) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("Product", "model"));
-      }
+      if(!(model instanceof String)) {
+				String receivedClassName = model != null ? 
+					model.getClass().getSimpleName() : "null";
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("String", receivedClassName));
+			}
 			if(model.isBlank()) {
 				throw new ProductInvalidArgumentException(GlobalMsgCreator
 					.emptyFieldValue("Product", "model"));
@@ -66,10 +62,12 @@ public class Product extends Catalog {
 		}
 		
 		public ProductBuilder brand(String brand) {
-      if(brand == null) {
-        throw new ProductInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("Product", "brand"));
-      }
+      if(!(brand instanceof String)) {
+				String receivedClassName = brand != null ? 
+					brand.getClass().getSimpleName() : "null";
+				throw new ProductInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("String", receivedClassName));
+			}
 			if(brand.isBlank()) {
 				throw new ProductInvalidArgumentException(GlobalMsgCreator
 					.emptyFieldValue("Product", "brand"));
@@ -123,7 +121,6 @@ public class Product extends Catalog {
 		return Objects.hash(name, model, brand);
 	}
 
-	@Override
 	public String toString() {
 		return "Product ['id="+getId()+"', 'name="+name+"', 'model="+model+"', 'brand="+brand+"']";
 	}

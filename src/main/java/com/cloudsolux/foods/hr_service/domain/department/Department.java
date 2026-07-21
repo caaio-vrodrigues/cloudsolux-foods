@@ -21,10 +21,12 @@ public class Department {
 	  private String name;
 
     public DepartmentBuilder id(Long id) {
-      if(id == null) {
-        throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-          .nullArgumentMsg("Department", "id"));
-      }
+      if(!(id instanceof Long)) {
+				String receivedClassName = id != null ? 
+					id.getClass().getSimpleName() : "null";
+				throw new DepartmentInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("Long", receivedClassName));
+			}
       if(id < 1) {
         throw new DepartmentInvalidArgumentException(GlobalMsgCreator
           .positiveMsg("Department", "id", BigDecimal.valueOf(id)));
@@ -34,10 +36,12 @@ public class Department {
     }
 
     public DepartmentBuilder name(String name) {
-      if(name == null) {
-        throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-          .nullArgumentMsg("Department", "name"));
-      }
+      if(!(name instanceof String)) {
+				String receivedClassName = name != null ? 
+					name.getClass().getSimpleName() : "null";
+				throw new DepartmentInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("String", receivedClassName));
+			}
       if(name.isBlank()) {
         throw new DepartmentInvalidArgumentException(GlobalMsgCreator
           .emptyFieldValue("Department", "name"));
@@ -69,19 +73,16 @@ public class Department {
     return name;
   }
 
-  @Override
   public int hashCode() {
     return Objects.hash(id);
   }
 
-  @Override
   public boolean equals(Object o) {
     if(this == o) return true;
 		if(!(o instanceof Department other)) return false;
 		return Objects.equals(id, other.id);
   }
 
-  @Override
   public String toString() {
     return "Department ['id="+id+"', 'name="+name+"']";
   }

@@ -22,9 +22,11 @@ public class Stock {
 		private UnitOfMeasure unitOfMeasure;
 		
 		public StockBuilder amount(BigDecimal amount) {
-			if(amount == null) {
+			if(!(amount instanceof BigDecimal)) {
+				String receivedClassName = amount != null ? 
+					amount.getClass().getSimpleName() : "null";
 				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("Stock", "amount"));
+        	.invalidClassMsg("BigDecimal", receivedClassName));
 			}
 			if(amount.compareTo(BigDecimal.ZERO) < 0) {
 				throw new InventoryInvalidArgumentException(GlobalMsgCreator
@@ -35,9 +37,11 @@ public class Stock {
 		}
 		
 		public StockBuilder unitOfMeasure(UnitOfMeasure unitOfMeasure) {
-			if(unitOfMeasure == null) {
+			if(!(unitOfMeasure instanceof UnitOfMeasure)) {
+				String receivedClassName = unitOfMeasure != null ? 
+					unitOfMeasure.getClass().getSimpleName() : "null";
 				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("Stock", "unitOfMeasure"));
+        	.invalidClassMsg("UnitOfMeasure", receivedClassName));
 			}
 			this.unitOfMeasure = unitOfMeasure;
 			return this;
@@ -53,7 +57,7 @@ public class Stock {
 			return new Stock(this);
 		}
 	}
-	
+
 	public static StockBuilder builder() {
 		return new StockBuilder();
 	}
@@ -67,9 +71,11 @@ public class Stock {
 	}
 
 	public Stock add(Stock incoming) {
-		if(incoming == null) {
+		if(!(incoming instanceof Stock)) {
+			String receivedClassName = incoming != null ? 
+				incoming.getClass().getSimpleName() : "null";
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.nullFieldValueMsg("Stock", "incoming"));
+				.invalidClassMsg("Stock", receivedClassName));
 		}
 		if(incoming.getUnitOfMeasure() != unitOfMeasure) {
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator
@@ -86,9 +92,11 @@ public class Stock {
 	}
 	
 	public Stock subtract(Stock outgoing) {
-		if(outgoing == null) {
+		if(!(outgoing instanceof Stock)) {
+			String receivedClassName = outgoing != null ? 
+				outgoing.getClass().getSimpleName() : "null";
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.nullFieldValueMsg("Stock", "outgoing"));
+				.invalidClassMsg("Stock", receivedClassName));
 		}
 		if(outgoing.getUnitOfMeasure() != unitOfMeasure) {
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator
@@ -115,7 +123,6 @@ public class Stock {
 		return Objects.hash(amount, unitOfMeasure);
 	}
 
-	@Override
 	public String toString() {
 		return "Stock ['amount="+amount+"', 'unitOfMeasure="+unitOfMeasure+"']";
 	}

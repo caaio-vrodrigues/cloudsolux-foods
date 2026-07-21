@@ -1,6 +1,7 @@
 package com.cloudsolux.foods.global_services.domain.id_control;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
@@ -21,25 +22,26 @@ public class IdControl {
     private Long nextValue;
 
     public IdControlBuilder key(IdControlKey key) {
-      if(key == null) {
-        throw new IdControlInvalidArgumentException(GlobalMsgCreator
-          .nullArgumentMsg("IdControlEntity", "IdControlKey"));
-      }
+      if(!(key instanceof IdControlKey)) {
+				String receivedClassName = key != null ? 
+					key.getClass().getSimpleName() : "null";
+				throw new IdControlInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("IdControlKey", receivedClassName));
+			}
       this.key = key;
       return this;
     }
 
     public IdControlBuilder nextValue(Long nextValue) {
-      if(nextValue == null) {
-        throw new IdControlInvalidArgumentException(GlobalMsgCreator
-          .nullArgumentMsg("IdControlEntity", "nextValue"));
-      }
+      if(!(nextValue instanceof Long)) {
+				String receivedClassName = nextValue != null ? 
+					nextValue.getClass().getSimpleName() : "null";
+				throw new IdControlInvalidArgumentException(GlobalMsgCreator
+        	.invalidClassMsg("Long", receivedClassName));
+			}
       if(nextValue < 1) {
         throw new IdControlInvalidArgumentException(GlobalMsgCreator
-          .positiveMsg(
-            "null", 
-            "nextValue", 
-            BigDecimal.valueOf(nextValue)));
+          .positiveMsg("IdControl", "nextValue", BigDecimal.valueOf(nextValue)));
       }
       this.nextValue = nextValue;
       return this;
@@ -72,5 +74,20 @@ public class IdControl {
 
   public Long getNextValue() {
     return nextValue;
+  }
+
+  public int hashCode() {
+    return Objects.hash(key, nextValue);
+  }
+
+  public boolean equals(Object o) {
+    if(this == o) return true;
+		if(!(o instanceof IdControl other)) return false;
+		return Objects.equals(key, other.key) &&
+      Objects.equals(nextValue, other.nextValue);
+  }
+
+  public String toString() {
+    return "IdControl: [key="+key+", nextValue="+nextValue+"].";
   }
 }

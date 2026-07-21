@@ -10,13 +10,15 @@ public abstract class Catalog {
   private final Long id;
 
   protected Catalog(Long id) {
-    if(id == null) {
+    if(!(id instanceof Long)) {
+      String receivedClassName = id != null ? 
+        id.getClass().getSimpleName() : "null";
       throw new CatalogInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Catalog", "Long"));
+        .invalidClassMsg("Long", receivedClassName));
     }
     if(id < 1) {
       throw new CatalogInvalidArgumentException(GlobalMsgCreator
-        .positiveMsg("Catalog", "id", BigDecimal.valueOf(id)));
+        .positiveMsg("Product", "id", BigDecimal.valueOf(id)));
     }
     this.id = id;
   }
@@ -25,7 +27,6 @@ public abstract class Catalog {
     return id;
   }
 
-  @Override
   public String toString() {
     return "Catalog ['id="+id+"']";
   }

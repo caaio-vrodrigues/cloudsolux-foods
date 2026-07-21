@@ -20,9 +20,11 @@ public class Inventory {
 		private Stock stock;
 		
 		public InventoryBuilder catalogId(Long id) {
-			if(id == null) {
+			if(!(id instanceof Long)) {
+				String receivedClassName = id != null ? 
+					id.getClass().getSimpleName() : "null";
 				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("Inventory", "catalogId"));
+        	.invalidClassMsg("Long", receivedClassName));
 			}
 			if(id < 1) {
 				throw new InventoryInvalidArgumentException(GlobalMsgCreator
@@ -33,9 +35,11 @@ public class Inventory {
 		}
 		
 		public InventoryBuilder stock(Stock stock) {
-			if(stock == null) {
+			if(!(stock instanceof Stock)) {
+				String receivedClassName = stock != null ? 
+					stock.getClass().getSimpleName() : "null";
 				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("Inventory", "stock"));
+        	.invalidClassMsg("Stock", receivedClassName));
 			}
 			this.stock = stock;
 			return this;
@@ -65,17 +69,21 @@ public class Inventory {
 	}
 	
 	public void receiveStock(Stock incoming) {
-		if(incoming == null) {
+		if(!(incoming instanceof Stock)) {
+			String receivedClassName = incoming != null ? 
+				incoming.getClass().getSimpleName() : "null";
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.nullFieldValueMsg("Inventory", "incoming"));
+				.invalidClassMsg("Stock", receivedClassName));
 		}
 		stock = stock.add(incoming);
 	}
 	
 	public void dispatchStock(Stock outgoing) {
-		if(outgoing == null) {
+		if(!(outgoing instanceof Stock)) {
+			String receivedClassName = outgoing != null ? 
+				outgoing.getClass().getSimpleName() : "null";
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.nullFieldValueMsg("Inventory", "outgoing"));
+				.invalidClassMsg("Stock", receivedClassName));
 		}
 		stock = stock.subtract(outgoing);
 	}
@@ -90,7 +98,6 @@ public class Inventory {
 		return Objects.hash(catalogId);
 	}
 
-	@Override
 	public String toString() {
 		return "Inventory ['catalogId="+catalogId+"', "+stock+"]";
 	}
