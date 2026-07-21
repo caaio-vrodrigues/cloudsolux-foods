@@ -59,7 +59,9 @@ public class DepartmentAdaptersGetter {
       String receivedClassName = departmentFactories != null ? 
         departmentFactories.getClass().getSimpleName() : "null";
       throw new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .invalidClassMsg("Map<DepartmentCreationKey, DepartmentCreationPort>", receivedClassName));
+        .invalidClassMsg(
+          "Map<DepartmentCreationKey, DepartmentCreationPort>", 
+          receivedClassName));
     }
     if(departmentFactories.isEmpty()) {
       throw new DepartmentInvalidDependencyException(GlobalMsgCreator.emptyDependencyList(
@@ -79,7 +81,9 @@ public class DepartmentAdaptersGetter {
       String receivedClassName = departmentPersistences != null ? 
         departmentPersistences.getClass().getSimpleName() : "null";
       throw new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .invalidClassMsg("Map<DepartmentPersistenceKey, DepartmentPersistencePort>", receivedClassName));
+        .invalidClassMsg(
+          "Map<DepartmentPersistenceKey, DepartmentPersistencePort>",
+          receivedClassName));
     }
     if(departmentPersistences.isEmpty()) {
       throw new DepartmentInvalidDependencyException(GlobalMsgCreator.emptyDependencyList(

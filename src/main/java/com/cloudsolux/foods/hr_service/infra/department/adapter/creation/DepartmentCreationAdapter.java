@@ -19,13 +19,17 @@ public class DepartmentCreationAdapter implements DepartmentCreation {
 
   @Override
   public Department create(DepartmentCreationCommand command, Long id) {
-    if(command == null) {
+    if(!(command instanceof DepartmentCreationCommand)) {
+      String receivedClassName = command != null ? 
+        command.getClass().getSimpleName() : "null";
       throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("DepartmentEntity", "DepartmentCreationCommand"));
+        .invalidClassMsg("DepartmentCreationCommand", receivedClassName));
     }
-    if(id == null) {
+    if(!(id instanceof Long)) {
+      String receivedClassName = id != null ? 
+        id.getClass().getSimpleName() : "null";
       throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("DepartmentEntity", "id"));
+        .invalidClassMsg("Long", receivedClassName));
     }
     return Department.builder()
       .id(id)

@@ -6,6 +6,7 @@ import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentAlreadyExistsException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
+import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentMsgCreator;
@@ -26,13 +27,20 @@ public class DepartmentValidationAdapter implements DepartmentValidation {
 
   @Override
   public void validateUniqueness(DepartmentCreationCommand command) {
-    if(command == null) {
+    if(!(command instanceof DepartmentCreationCommand)) {
+      String receivedClassName = command != null ? 
+        command.getClass().getSimpleName() : "null";
       throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("DepartmentEntity", "DepartmentCreationCommand"));
+        .invalidClassMsg("DepartmentCreationCommand", receivedClassName));
     }
-    if(repo.existsByName(command.getName())) {
+    if(!(repo instanceof DepartmentRepo)) {
+      String receivedClassName = repo != null ? 
+        repo.getClass().getSimpleName() : "null";
+      throw new DepartmentInvalidDependencyException(GlobalMsgCreator
+        .invalidClassMsg("DepartmentRepo", receivedClassName));
+    }
+    if(repo.existsByName(command.getName()))
       throw new DepartmentAlreadyExistsException(DepartmentMsgCreator
         .uniquenessViolationMsg(command.getName()));
-    }
   }
 }

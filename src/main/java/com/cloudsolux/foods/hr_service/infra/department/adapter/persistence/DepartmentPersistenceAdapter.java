@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
+import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentPersistenceException;
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistence;
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistenceKey;
@@ -29,9 +30,17 @@ public class DepartmentPersistenceAdapter implements DepartmentPersistence {
 
   @Override
   public void saveDepartment(DepartmentEntity entity) {
-    if(entity == null) {
+    if(!(entity instanceof DepartmentEntity)) {
+      String receivedClassName = entity != null ? 
+        entity.getClass().getSimpleName() : "null";
       throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("DepartmentEntity", "DepartmentEntity"));
+        .invalidClassMsg("DepartmentEntity", receivedClassName));
+    }
+    if(!(repo instanceof DepartmentRepo)) {
+      String receivedClassName = repo != null ? 
+        repo.getClass().getSimpleName() : "null";
+      throw new DepartmentInvalidDependencyException(GlobalMsgCreator
+        .invalidClassMsg("DepartmentRepo", receivedClassName));
     }
     try{
       repo.save(entity);
