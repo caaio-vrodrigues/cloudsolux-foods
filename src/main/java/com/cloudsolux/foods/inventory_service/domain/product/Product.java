@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.cloudsolux.foods.inventory_service.domain.catalog.Catalog;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 
-public class Product extends Catalog {
+public final class Product extends Catalog {
 	
 	private final String name;
 	private final String model;

@@ -7,7 +7,7 @@ import com.cloudsolux.foods.hr_service.domain.department.Department;
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 
 @Component
-public class DepartmentResponseGenerator {
+public final class DepartmentResponseGenerator {
  
   public DepartmentResponse toDepartmentResponse(Department domain) {
     DepartmentValidationAux.validateArgument(domain, "Department");

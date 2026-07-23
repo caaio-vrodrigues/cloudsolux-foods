@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Table
 @Builder(toBuilder=true)
 @Getter
-public class IdControlEntity implements Persistable<IdControlKey> {
+public final class IdControlEntity implements Persistable<IdControlKey> {
   
   @Id
 	@Enumerated(EnumType.STRING)

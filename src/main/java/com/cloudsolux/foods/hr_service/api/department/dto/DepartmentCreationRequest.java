@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Builder
 @Getter
-public class DepartmentCreationRequest {
+public final class DepartmentCreationRequest {
   
   @NotBlank
   private String name;

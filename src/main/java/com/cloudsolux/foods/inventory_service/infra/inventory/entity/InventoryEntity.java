@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Getter
-public class InventoryEntity {
+public final class InventoryEntity {
 	
 	@Version
 	private Long version;

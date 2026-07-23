@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class InventoryAdaptersGetter {
+public final class InventoryAdaptersGetter {
 
   private final Map<InventoryFactoryKey, InventoryFactoryPort> inventoryFactories;
   private final Map<InventoryPersistenceKey, InventoryPersistencePort> inventoryPersistences;

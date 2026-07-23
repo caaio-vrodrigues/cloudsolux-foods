@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class DepartmentValidationAdapter implements DepartmentValidation {
+public final class DepartmentValidationAdapter implements DepartmentValidation {
 
   private final DepartmentRepo repo;
   

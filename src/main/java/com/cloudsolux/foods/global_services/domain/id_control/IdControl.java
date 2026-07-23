@@ -7,7 +7,7 @@ import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 
-public class IdControl {
+public final class IdControl {
 
   private final IdControlKey key;
   private Long nextValue;

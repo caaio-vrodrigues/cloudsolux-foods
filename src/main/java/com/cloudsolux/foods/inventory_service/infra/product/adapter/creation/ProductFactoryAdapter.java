@@ -9,7 +9,7 @@ import com.cloudsolux.foods.inventory_service.domain.product.model.creation.Prod
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 
 @Component
-public class ProductFactoryAdapter implements ProductFactory {
+public final class ProductFactoryAdapter implements ProductFactory {
 
   @Override
   public ProductFactoryKey getKey() {

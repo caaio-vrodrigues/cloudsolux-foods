@@ -6,7 +6,7 @@ import com.cloudsolux.foods.hr_service.domain.department.model.persistence.Depar
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 
-public class DepartmentCreationCommand {
+public final class DepartmentCreationCommand {
 
   private final String name;
 

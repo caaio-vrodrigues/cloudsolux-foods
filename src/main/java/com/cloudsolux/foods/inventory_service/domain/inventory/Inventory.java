@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 
-public class Inventory {
+public final class Inventory {
   private final Long catalogId;
 	private Stock stock;
 	

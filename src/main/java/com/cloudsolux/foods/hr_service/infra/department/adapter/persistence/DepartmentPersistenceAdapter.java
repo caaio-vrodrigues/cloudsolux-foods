@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class DepartmentPersistenceAdapter implements DepartmentPersistence {
+public final class DepartmentPersistenceAdapter implements DepartmentPersistence {
 
   private final DepartmentRepo repo;
   

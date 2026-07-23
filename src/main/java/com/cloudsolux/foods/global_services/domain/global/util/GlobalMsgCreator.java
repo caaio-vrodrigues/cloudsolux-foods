@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 
-public class GlobalMsgCreator {
+public final class GlobalMsgCreator {
 
   public static final String RESPONSE_201 = "Criação concluída com sucesso.";
   public static final String RESPONSE_400 = "Dados inválidos — violação de regras de negócio ou requisição inválida";

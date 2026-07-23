@@ -14,7 +14,7 @@ import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductIn
 
 @Order(1)
 @RestControllerAdvice
-public class ProductExceptionHandler {
+public final class ProductExceptionHandler {
   
   @ExceptionHandler(ProductAlreadyExistsException.class)
   public ProblemDetail handleProductAlreadyExists(

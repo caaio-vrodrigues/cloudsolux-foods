@@ -9,7 +9,7 @@ import com.cloudsolux.foods.inventory_service.domain.product.model.creation.Prod
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 
-public class ProductCreationCommand {
+public final class ProductCreationCommand {
 
   private final String name;
   private final String model;

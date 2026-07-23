@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class InventoryPersistenceAdapter implements InventoryPersistence {
+public final class InventoryPersistenceAdapter implements InventoryPersistence {
 
   private final InventoryMapper mapper;
   private final InventoryRepo repo;

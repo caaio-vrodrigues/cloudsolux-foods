@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/departments")
-public class DepartmentCreationController {
+public final class DepartmentCreationController {
 
   private final DepartmentCreationHandler handler;
 

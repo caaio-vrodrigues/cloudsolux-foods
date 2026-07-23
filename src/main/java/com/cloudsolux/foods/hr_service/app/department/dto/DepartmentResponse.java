@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Getter
 @Builder
-public class DepartmentResponse {
+public final class DepartmentResponse {
 
   @NotNull @Positive
   private Long id;

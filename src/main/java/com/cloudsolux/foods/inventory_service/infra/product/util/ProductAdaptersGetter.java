@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class ProductAdaptersGetter {
+public final class ProductAdaptersGetter {
 
   private final Map<ProductFactoryKey, ProductFactoryPort> productFactories;
   private final Map<ProductValidationKey, ProductValidationPort> productValidators;

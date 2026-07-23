@@ -8,7 +8,7 @@ import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 
-public class Stock {
+public final class Stock {
 
   private final BigDecimal amount;
 	private final UnitOfMeasure unitOfMeasure;

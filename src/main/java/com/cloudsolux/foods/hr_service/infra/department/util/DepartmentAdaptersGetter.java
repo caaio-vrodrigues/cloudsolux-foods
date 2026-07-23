@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class DepartmentAdaptersGetter {
+public final class DepartmentAdaptersGetter {
  
   private final Map<DepartmentValidationKey, DepartmentValidationPort> departmentValidators;
   private final Map<DepartmentCreationKey, DepartmentCreationPort> departmentFactories;

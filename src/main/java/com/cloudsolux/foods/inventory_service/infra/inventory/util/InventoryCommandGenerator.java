@@ -7,7 +7,7 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryVal
 import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
 
 @Component
-public class InventoryCommandGenerator {
+public final class InventoryCommandGenerator {
 
   public InventoryCreationCommand generateCreationCommand(
     ProductCreationCommand productCommand, Long id

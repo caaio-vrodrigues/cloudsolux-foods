@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Order(3)
 @RestControllerAdvice
-public class DataBaseExceptionHandler {
+public final class DataBaseExceptionHandler {
   
   @ExceptionHandler(DataAccessException.class)
 	public ProblemDetail handleDataAccessException(DataAccessException e) {

@@ -13,7 +13,7 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.exception.Invento
 
 @Order(1)
 @RestControllerAdvice
-public class InventoryExceptionHandler {
+public final class InventoryExceptionHandler {
  
   @ExceptionHandler(InventoryConcurrentException.class)
   public ProblemDetail handleInventoryConcurrent(

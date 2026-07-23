@@ -7,7 +7,7 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.In
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 
-public class InventoryCreationCommand {
+public final class InventoryCreationCommand {
   
   private final Long id;
   private final BigDecimal amount;

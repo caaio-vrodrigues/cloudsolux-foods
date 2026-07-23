@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Builder
 @Getter
-public class StockEmbeddable {
+public final class StockEmbeddable {
   
   @Column(name="amount", nullable=false)
 	private BigDecimal amount;

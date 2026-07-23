@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Builder
 @Getter
-public class ProductResponse {
+public final class ProductResponse {
   
   @NotNull @Positive
   private Long id;

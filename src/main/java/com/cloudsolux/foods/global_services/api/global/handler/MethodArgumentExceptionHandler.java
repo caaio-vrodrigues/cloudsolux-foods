@@ -13,34 +13,34 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalValidationAux;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Order(2)
 @Slf4j
 @RestControllerAdvice
-public class MethodArgumentExceptionHandler {
+public final class MethodArgumentExceptionHandler {
 	
 	private ProblemDetail setProperties(
 		ProblemDetail problemDetail, String traceId, List<String> errorList
 	) {
-		problemDetail.setProperty(
-			GlobalMsgCreator.TIME_STAMP, 
-			LocalDateTime.now()
-		);
-		problemDetail.setProperty(
-			GlobalMsgCreator.TRACE_ID, 
-			traceId
-		);
-		problemDetail.setProperty(
-			GlobalMsgCreator.ERRORS, 
-			errorList
-		);
+		GlobalValidationAux.validateArgument(problemDetail, "ProblemDetail");
+		GlobalValidationAux.validateString(traceId, traceId);
+		GlobalValidationAux.validateArgument(errorList, "List<String>");
+		
+		problemDetail.setProperty(GlobalMsgCreator.TIME_STAMP, LocalDateTime.now());
+		problemDetail.setProperty(GlobalMsgCreator.TRACE_ID, traceId);
+		problemDetail.setProperty(GlobalMsgCreator.ERRORS, errorList);
 		return problemDetail;
 	}
 	
-	private List<String> getBindingResultList(List<FieldError> fieldErrors){
+	private List<String> getBindingResultList(List<FieldError> fieldErrors) {
+		GlobalValidationAux.validateArgument(fieldErrors, "List<FieldError>");
+
 		return fieldErrors.stream().map(error -> {
+			GlobalValidationAux.validateArgument(error, "FieldError");
+
 			String msg = switch(error.getCode()) {
 				case GlobalMsgCreator.NOT_BLANK -> GlobalMsgCreator.NOT_BLANK_MSG;
 				case GlobalMsgCreator.NOT_NULL -> GlobalMsgCreator.NOT_NULL_MSG;
@@ -50,6 +50,7 @@ public class MethodArgumentExceptionHandler {
 				case GlobalMsgCreator.ASSERT_FALSE -> error.getDefaultMessage();
 				default -> error.getDefaultMessage();
 			};
+
 			return error.getCode().equals("NotEmpty") ?
 				GlobalMsgCreator.errorListMsg(error.getField(), msg) 
 				: GlobalMsgCreator.errorFieldMsg(error.getField(), msg);
@@ -61,11 +62,16 @@ public class MethodArgumentExceptionHandler {
 	public ProblemDetail handleMethodArgumentNotValidException(
 		MethodArgumentNotValidException e
 	) {
+		GlobalValidationAux.validateArgument(e, "MethodArgumentNotValidException");
+
 		String traceId = UUID.randomUUID().toString();
+
 		List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
 		List<String> errorList = getBindingResultList(fieldErrors);
+
 		ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
 		problemDetail.setTitle(GlobalMsgCreator.INVALID_ARGUMENT_TITLE);	
+
 		log.error("traceId={} fieldErrors={}", traceId, fieldErrors);
 		return setProperties(problemDetail, traceId, errorList);
 	}

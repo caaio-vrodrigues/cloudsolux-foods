@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ProductPersistenceAdapter implements ProductPersistence {
+public final class ProductPersistenceAdapter implements ProductPersistence {
 
   private final ProductRepo repo;
   private final ProductMapper mapper;

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 
-public class Department {
+public final class Department {
 
   private final Long id;
 	private final String name;

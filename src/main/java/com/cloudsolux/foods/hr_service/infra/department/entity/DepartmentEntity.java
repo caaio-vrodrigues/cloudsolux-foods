@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 	name="UK_department")
 })
 @Entity
-public class DepartmentEntity {
+public final class DepartmentEntity {
   
   @Version
 	private Long version;

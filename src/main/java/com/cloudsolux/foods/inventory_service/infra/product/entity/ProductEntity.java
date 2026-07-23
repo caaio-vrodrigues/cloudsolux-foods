@@ -26,7 +26,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper=false, onlyExplicitlyIncluded=true)
 @SuperBuilder
 @Getter
-public class ProductEntity extends CatalogEntity {
+public final class ProductEntity extends CatalogEntity {
   
   @Include 
 	@Column(name="name", nullable=false, updatable=false)

@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class ProductValidationAdapter implements ProductValidation {
+public final class ProductValidationAdapter implements ProductValidation {
 
   private final ProductRepo repo;
 

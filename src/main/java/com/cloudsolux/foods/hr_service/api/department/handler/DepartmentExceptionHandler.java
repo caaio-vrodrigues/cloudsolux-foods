@@ -15,7 +15,7 @@ import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentPer
 
 @Order(1)
 @RestControllerAdvice
-public class DepartmentExceptionHandler {
+public final class DepartmentExceptionHandler {
  
   @ExceptionHandler(DepartmentAlreadyExistsException.class)
   public ProblemDetail handleDepartmentAlreadyExists(

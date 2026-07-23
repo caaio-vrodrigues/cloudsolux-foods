@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Builder
 @Getter
-public class ProductCreationRequest {
+public final class ProductCreationRequest {
 
   @NotBlank
   private String name;

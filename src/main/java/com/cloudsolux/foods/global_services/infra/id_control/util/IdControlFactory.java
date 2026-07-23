@@ -7,7 +7,7 @@ import com.cloudsolux.foods.global_services.domain.id_control.util.IdControlVali
 import com.cloudsolux.foods.global_services.infra.id_control.entity.IdControlEntity;
 
 @Component
-public class IdControlFactory {
+public final class IdControlFactory {
   
   public IdControlEntity create(IdControlKey key) {
     IdControlValidationAux.validateArgument(

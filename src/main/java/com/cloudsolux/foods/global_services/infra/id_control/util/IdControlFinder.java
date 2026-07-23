@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class IdControlFinder {
+public final class IdControlFinder {
 
 	private final IdControlRepo repo;
 

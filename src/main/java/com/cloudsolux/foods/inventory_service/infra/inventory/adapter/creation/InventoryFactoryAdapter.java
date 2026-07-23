@@ -10,7 +10,7 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.In
 import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 
 @Component
-public class InventoryFactoryAdapter implements InventoryFactory {
+public final class InventoryFactoryAdapter implements InventoryFactory {
 
   @Override
   public InventoryFactoryKey getKey() {

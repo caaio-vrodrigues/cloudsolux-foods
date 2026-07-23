@@ -9,7 +9,7 @@ import com.cloudsolux.foods.inventory_service.infra.inventory.entity.InventoryEn
 import com.cloudsolux.foods.inventory_service.infra.inventory.entity.StockEmbeddable;
 
 @Component
-public class InventoryMapper {
+public final class InventoryMapper {
 
   public InventoryEntity toEntity(Inventory domain) {
     InventoryValidationAux.validateArgument(domain, "Inventory");

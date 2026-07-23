@@ -9,7 +9,7 @@ import com.cloudsolux.foods.hr_service.domain.department.model.creation.Departme
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 
 @Component
-public class DepartmentCreationAdapter implements DepartmentCreation {
+public final class DepartmentCreationAdapter implements DepartmentCreation {
 
   @Override
   public DepartmentCreationKey getKey() {

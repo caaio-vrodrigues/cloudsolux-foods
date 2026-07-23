@@ -14,7 +14,7 @@ import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionRes
 
 @Order(1)
 @RestControllerAdvice
-public class IdControlExceptionHandler {
+public final class IdControlExceptionHandler {
   
   @ExceptionHandler(IdControlAccessException.class)
   public ProblemDetail handleIdControlAccess(

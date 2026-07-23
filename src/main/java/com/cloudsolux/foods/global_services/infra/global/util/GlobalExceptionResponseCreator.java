@@ -11,7 +11,7 @@ import com.cloudsolux.foods.global_services.domain.global.util.GlobalValidationA
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class GlobalExceptionResponseCreator {
+public final class GlobalExceptionResponseCreator {
   
   private GlobalExceptionResponseCreator() {}
 	

@@ -7,7 +7,7 @@ import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidati
 import com.cloudsolux.foods.hr_service.infra.department.entity.DepartmentEntity;
 
 @Component
-public class DepartmentMapper {
+public final class DepartmentMapper {
  
   public DepartmentEntity toEntity(Department domain) {
     DepartmentValidationAux.validateArgument(

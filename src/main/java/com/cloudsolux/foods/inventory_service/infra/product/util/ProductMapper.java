@@ -7,7 +7,7 @@ import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidat
 import com.cloudsolux.foods.inventory_service.infra.product.entity.ProductEntity;
 
 @Component
-public class ProductMapper {
+public final class ProductMapper {
 
   public Product toDomain(ProductEntity entity) {
     ProductValidationAux.validateArgument(

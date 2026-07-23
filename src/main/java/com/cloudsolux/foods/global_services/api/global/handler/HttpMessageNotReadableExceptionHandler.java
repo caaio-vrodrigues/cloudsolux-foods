@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalValidationAux;
 import com.fasterxml.jackson.databind.exc.InvalidTypeIdException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,29 +19,32 @@ import lombok.extern.slf4j.Slf4j;
 @Order(2)
 @Slf4j
 @RestControllerAdvice
-public class HttpMessageNotReadableExceptionHandler {
+public final class HttpMessageNotReadableExceptionHandler {
 
 	private ProblemDetail setProperties(
 		ProblemDetail problemDetail, String traceId
 	) {
-		problemDetail.setProperty(
-			GlobalMsgCreator.TIME_STAMP, 
-			LocalDateTime.now()
-		);
-		problemDetail.setProperty(
-			GlobalMsgCreator.TRACE_ID, 
-			traceId
-		);
+		GlobalValidationAux.validateArgument(problemDetail, "ProblemDetail");
+		GlobalValidationAux.validateString(traceId, "traceId");
+
+		problemDetail.setProperty(GlobalMsgCreator.TIME_STAMP, LocalDateTime.now());
+		problemDetail.setProperty(GlobalMsgCreator.TRACE_ID, traceId);
 		return problemDetail;
 	}
 
 	private ProblemDetail createProblemDetailAndLog(
 		RuntimeException e, HttpStatus status, String title, String detail
 	) {
+		GlobalValidationAux.validateArgument(e, "RuntimeException");
+		GlobalValidationAux.validateArgument(status, "HttpStatus");
+		GlobalValidationAux.validateString(title, "title");
+		GlobalValidationAux.validateString(detail, "detail");
+
 		String traceId = UUID.randomUUID().toString();
-		ProblemDetail problemDetail = ProblemDetail
-			.forStatusAndDetail(status, detail);
+
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, detail);
 		problemDetail.setTitle(title);
+
 		log.error("traceId={} error={}", traceId, e.getMessage(), e);
 		return setProperties(problemDetail, traceId);
 	}
@@ -49,15 +53,16 @@ public class HttpMessageNotReadableExceptionHandler {
 	public ProblemDetail handleHttpMessageNotReadableException(
 		HttpMessageNotReadableException e
 	) {
+		GlobalValidationAux.validateArgument(e, "HttpMessageNotReadableException");
 		Throwable cause = e.getMostSpecificCause();	
-		if(cause instanceof InvalidTypeIdException) {
+
+		if(cause instanceof InvalidTypeIdException) 
 			return createProblemDetailAndLog(
 				e, 
 				HttpStatus.BAD_REQUEST, 
 				GlobalMsgCreator.INVALID_TYPE_TITLE, 
-				GlobalMsgCreator.INVALID_TYPE_MSG
-			);
-		}	
+				GlobalMsgCreator.INVALID_TYPE_MSG);
+
 		return createProblemDetailAndLog(
 			e, 
 			HttpStatus.BAD_REQUEST, 
