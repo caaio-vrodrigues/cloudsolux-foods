@@ -6,6 +6,7 @@ import java.util.Objects;
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
+import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 
 public class Stock {
 
@@ -13,6 +14,8 @@ public class Stock {
 	private final UnitOfMeasure unitOfMeasure;
 	
 	private Stock(StockBuilder builder) {
+		InventoryValidationAux.validatePositiveBigDecimal(builder.amount, "amount");
+		InventoryValidationAux.validateArgument(builder.unitOfMeasure, "UnitOfMeasure");
 		amount = builder.amount;
 		unitOfMeasure = builder.unitOfMeasure;
 	}
@@ -22,38 +25,16 @@ public class Stock {
 		private UnitOfMeasure unitOfMeasure;
 		
 		public StockBuilder amount(BigDecimal amount) {
-			if(!(amount instanceof BigDecimal)) {
-				String receivedClassName = amount != null ? 
-					amount.getClass().getSimpleName() : "null";
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-        	.invalidClassMsg("BigDecimal", receivedClassName));
-			}
-			if(amount.compareTo(BigDecimal.ZERO) < 0) {
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.positiveMsg("Stock", "amount", amount));
-			}
 			this.amount = amount;
 			return this;
 		}
 		
 		public StockBuilder unitOfMeasure(UnitOfMeasure unitOfMeasure) {
-			if(!(unitOfMeasure instanceof UnitOfMeasure)) {
-				String receivedClassName = unitOfMeasure != null ? 
-					unitOfMeasure.getClass().getSimpleName() : "null";
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-        	.invalidClassMsg("UnitOfMeasure", receivedClassName));
-			}
 			this.unitOfMeasure = unitOfMeasure;
 			return this;
 		}
 		
 		public Stock build() {
-			if(amount == null)
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("Stock", "amount"));
-			if(unitOfMeasure == null)
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("Stock", "unitOfMeasure"));
 			return new Stock(this);
 		}
 	}
@@ -71,20 +52,15 @@ public class Stock {
 	}
 
 	public Stock add(Stock incoming) {
-		if(!(incoming instanceof Stock)) {
-			String receivedClassName = incoming != null ? 
-				incoming.getClass().getSimpleName() : "null";
-			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.invalidClassMsg("Stock", receivedClassName));
-		}
-		if(incoming.getUnitOfMeasure() != unitOfMeasure) {
-			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.invalidUnitOfMeasureMsg("Stock", incoming.getUnitOfMeasure(), unitOfMeasure));
-		}
-    if(incoming.getAmount().compareTo(BigDecimal.ZERO) < 0) {
-      throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.positiveMsg("Stock", "amount", incoming.getAmount()));
-    }
+		InventoryValidationAux.validateArgument(incoming, "Stock");
+
+		if(incoming.getUnitOfMeasure() != unitOfMeasure)
+			throw new InventoryInvalidArgumentException(GlobalMsgCreator.invalidUnitOfMeasureMsg(
+				"Stock", incoming.getUnitOfMeasure(), unitOfMeasure));
+
+    InventoryValidationAux.validatePositiveBigDecimal(
+			incoming.amount, "amount");
+
 		return Stock.builder()
 			.amount(amount.add(incoming.amount))
 			.unitOfMeasure(unitOfMeasure)
@@ -92,20 +68,15 @@ public class Stock {
 	}
 	
 	public Stock subtract(Stock outgoing) {
-		if(!(outgoing instanceof Stock)) {
-			String receivedClassName = outgoing != null ? 
-				outgoing.getClass().getSimpleName() : "null";
-			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.invalidClassMsg("Stock", receivedClassName));
-		}
-		if(outgoing.getUnitOfMeasure() != unitOfMeasure) {
-			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.invalidUnitOfMeasureMsg("Stock", outgoing.getUnitOfMeasure(), unitOfMeasure));
-		}
-		if(amount.compareTo(outgoing.amount) < 0) {
-			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.insuficcientAmount("Stock", outgoing.amount, amount));
-		}
+		InventoryValidationAux.validateArgument(outgoing, "Stock");
+
+		if(outgoing.getUnitOfMeasure() != unitOfMeasure)
+			throw new InventoryInvalidArgumentException(GlobalMsgCreator.invalidUnitOfMeasureMsg(
+				"Stock", outgoing.getUnitOfMeasure(), unitOfMeasure));
+
+		InventoryValidationAux.validatePositiveBigDecimal(
+			outgoing.amount, "amount");
+
 		return Stock.builder()
 			.amount(amount.subtract(outgoing.amount))
 			.unitOfMeasure(unitOfMeasure)

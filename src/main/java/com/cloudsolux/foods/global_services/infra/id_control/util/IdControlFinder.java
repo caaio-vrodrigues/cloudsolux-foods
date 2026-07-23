@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlAccessException;
-import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
+import com.cloudsolux.foods.global_services.domain.id_control.util.IdControlValidationAux;
 import com.cloudsolux.foods.global_services.infra.id_control.entity.IdControlEntity;
 import com.cloudsolux.foods.global_services.infra.id_control.repo.IdControlRepo;
 
@@ -23,10 +23,7 @@ public class IdControlFinder {
 	private final IdControlRepo repo;
 
   public Optional<IdControlEntity> findByKey(IdControlKey key) {
-		if(key == null)
-			throw new IdControlInvalidArgumentException(GlobalMsgCreator
-				.nullArgumentMsg("IdControlEntity", "IdControlKey"));
-
+		IdControlValidationAux.validateArgument(key, "IdControlKey");
 		try{
 			return repo.findByKey(key);
 		}

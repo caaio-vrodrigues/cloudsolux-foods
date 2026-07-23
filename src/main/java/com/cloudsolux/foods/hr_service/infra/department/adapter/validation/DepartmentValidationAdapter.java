@@ -2,14 +2,12 @@ package com.cloudsolux.foods.hr_service.infra.department.adapter.validation;
 
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentAlreadyExistsException;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentMsgCreator;
+import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 import com.cloudsolux.foods.hr_service.infra.department.repo.DepartmentRepo;
 
 import lombok.RequiredArgsConstructor;
@@ -27,18 +25,8 @@ public class DepartmentValidationAdapter implements DepartmentValidation {
 
   @Override
   public void validateUniqueness(DepartmentCreationCommand command) {
-    if(!(command instanceof DepartmentCreationCommand)) {
-      String receivedClassName = command != null ? 
-        command.getClass().getSimpleName() : "null";
-      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .invalidClassMsg("DepartmentCreationCommand", receivedClassName));
-    }
-    if(!(repo instanceof DepartmentRepo)) {
-      String receivedClassName = repo != null ? 
-        repo.getClass().getSimpleName() : "null";
-      throw new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .invalidClassMsg("DepartmentRepo", receivedClassName));
-    }
+    DepartmentValidationAux.validateArgument(command, "DepartmentCreationCommand");
+    DepartmentValidationAux.validateDependency(repo, "DepartmentRepo");
     if(repo.existsByName(command.getName()))
       throw new DepartmentAlreadyExistsException(DepartmentMsgCreator
         .uniquenessViolationMsg(command.getName()));

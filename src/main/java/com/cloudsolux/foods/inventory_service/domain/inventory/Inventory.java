@@ -1,16 +1,20 @@
 package com.cloudsolux.foods.inventory_service.domain.inventory;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
-import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
+import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 
 public class Inventory {
   private final Long catalogId;
 	private Stock stock;
 	
 	private Inventory(InventoryBuilder builder) {
+		InventoryValidationAux.validatePositiveLong(
+			builder.catalogId, "catalogId");
+
+		InventoryValidationAux.validateArgument(
+			builder.stock, "Stock");
+
 		catalogId = builder.catalogId;
 		this.stock = builder.stock;
 	}
@@ -20,38 +24,16 @@ public class Inventory {
 		private Stock stock;
 		
 		public InventoryBuilder catalogId(Long id) {
-			if(!(id instanceof Long)) {
-				String receivedClassName = id != null ? 
-					id.getClass().getSimpleName() : "null";
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-        	.invalidClassMsg("Long", receivedClassName));
-			}
-			if(id < 1) {
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.positiveMsg("Inventory", "id", BigDecimal.valueOf(id)));
-			}
 			catalogId = id;
 			return this;
 		}
 		
 		public InventoryBuilder stock(Stock stock) {
-			if(!(stock instanceof Stock)) {
-				String receivedClassName = stock != null ? 
-					stock.getClass().getSimpleName() : "null";
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-        	.invalidClassMsg("Stock", receivedClassName));
-			}
 			this.stock = stock;
 			return this;
 		}
 		
 		public Inventory build() {
-			if(catalogId == null)
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("Inventory", "catalogId"));
-			if(stock == null)
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-					.nullFieldValueMsg("Inventory", "stock"));
 			return new Inventory(this);
 		}
 	}
@@ -69,22 +51,12 @@ public class Inventory {
 	}
 	
 	public void receiveStock(Stock incoming) {
-		if(!(incoming instanceof Stock)) {
-			String receivedClassName = incoming != null ? 
-				incoming.getClass().getSimpleName() : "null";
-			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.invalidClassMsg("Stock", receivedClassName));
-		}
+		InventoryValidationAux.validateArgument(incoming, "Stock");
 		stock = stock.add(incoming);
 	}
 	
 	public void dispatchStock(Stock outgoing) {
-		if(!(outgoing instanceof Stock)) {
-			String receivedClassName = outgoing != null ? 
-				outgoing.getClass().getSimpleName() : "null";
-			throw new InventoryInvalidArgumentException(GlobalMsgCreator
-				.invalidClassMsg("Stock", receivedClassName));
-		}
+		InventoryValidationAux.validateArgument(outgoing, "Stock");
 		stock = stock.subtract(outgoing);
 	}
 	

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryConcurrentException;
-import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistence;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
+import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 import com.cloudsolux.foods.inventory_service.infra.inventory.entity.InventoryEntity;
 import com.cloudsolux.foods.inventory_service.infra.inventory.repo.InventoryRepo;
 import com.cloudsolux.foods.inventory_service.infra.inventory.util.InventoryMapper;
@@ -32,11 +32,12 @@ public class InventoryPersistenceAdapter implements InventoryPersistence {
 
   @Override
   public void save(Inventory inventory) {
-    if(inventory == null) {
-      throw new InventoryInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("InventoryEntity", "Inventory"));
-    }
+    InventoryValidationAux.validateArgument(inventory, "Inventory");
+    InventoryValidationAux.validateDependency(mapper, "InventoryMapper");
+    InventoryValidationAux.validateDependency(repo, "InventoryRepo");
+
     InventoryEntity entity = mapper.toEntity(inventory);
+
     try {
       repo.save(entity);
     }

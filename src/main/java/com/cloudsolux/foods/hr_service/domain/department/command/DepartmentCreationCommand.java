@@ -1,17 +1,17 @@
 package com.cloudsolux.foods.hr_service.domain.department.command;
 
-import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationKey;
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
+import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 
 public class DepartmentCreationCommand {
 
   private final String name;
 
   private DepartmentCreationCommand(DepartmentCreationCommandBuilder builder) {
+    DepartmentValidationAux.validateString(builder.name, "name");
     name = builder.name;
   }
 
@@ -19,25 +19,11 @@ public class DepartmentCreationCommand {
     private String name;
 
     public DepartmentCreationCommandBuilder name(String name) {
-      if(!(name instanceof String)) {
-				String receivedClassName = name != null ? 
-					name.getClass().getSimpleName() : "null";
-				throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        	.invalidClassMsg("String", receivedClassName));
-			}
-      if(name.isBlank()) {
-        throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-          .emptyFieldValue("DepartmentEntity", "name"));
-      }
       this.name = name;
       return this;
     }
 
     public DepartmentCreationCommand build() {
-      if(name == null) {
-        throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-          .nullArgumentMsg("DepartmentEntity", "name"));
-      }
       return new DepartmentCreationCommand(this);
     }
   }

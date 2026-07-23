@@ -2,21 +2,15 @@ package com.cloudsolux.foods.hr_service.infra.department.util;
 
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.app.department.dto.DepartmentResponse;
 import com.cloudsolux.foods.hr_service.domain.department.Department;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
+import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 
 @Component
 public class DepartmentResponseGenerator {
  
   public DepartmentResponse toDepartmentResponse(Department domain) {
-    if(!(domain instanceof Department)) {
-      String receivedClassName = domain != null ? 
-        domain.getClass().getSimpleName() : "null";
-      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .invalidClassMsg("Department", receivedClassName));
-    }
+    DepartmentValidationAux.validateArgument(domain, "Department");
     return DepartmentResponse.builder()
       .id(domain.getId())
       .name(domain.getName())

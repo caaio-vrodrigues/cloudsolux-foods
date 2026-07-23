@@ -1,6 +1,6 @@
 package com.cloudsolux.foods.inventory_service.domain.product.util;
 
-public class ProductMsgCreator {
+public final class ProductMsgCreator {
   
   public static final String NEW_PRODUCT_DESCRIPTION = "Registra um novo produto no sistema de catálogo e inventário." +
     " A combinação dos campos ['name', 'model' e 'brand'] deve ser única.";

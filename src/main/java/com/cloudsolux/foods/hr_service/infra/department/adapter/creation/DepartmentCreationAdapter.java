@@ -2,12 +2,11 @@ package com.cloudsolux.foods.hr_service.infra.department.adapter.creation;
 
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.Department;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreation;
 import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationKey;
+import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 
 @Component
 public class DepartmentCreationAdapter implements DepartmentCreation {
@@ -19,18 +18,11 @@ public class DepartmentCreationAdapter implements DepartmentCreation {
 
   @Override
   public Department create(DepartmentCreationCommand command, Long id) {
-    if(!(command instanceof DepartmentCreationCommand)) {
-      String receivedClassName = command != null ? 
-        command.getClass().getSimpleName() : "null";
-      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .invalidClassMsg("DepartmentCreationCommand", receivedClassName));
-    }
-    if(!(id instanceof Long)) {
-      String receivedClassName = id != null ? 
-        id.getClass().getSimpleName() : "null";
-      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .invalidClassMsg("Long", receivedClassName));
-    }
+    DepartmentValidationAux
+      .validateArgument(command, "DepartmentCreationCommand");
+    DepartmentValidationAux
+      .validatePositiveLong(id, "id");
+      
     return Department.builder()
       .id(id)
       .name(command.getName())

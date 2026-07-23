@@ -12,7 +12,7 @@ import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.api.department.dto.DepartmentCreationRequest;
 import com.cloudsolux.foods.hr_service.app.department.dto.DepartmentResponse;
 import com.cloudsolux.foods.hr_service.app.department.handler.DepartmentCreationHandler;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
+import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentMsgCreator;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class DepartmentCreationController {
 
   private final DepartmentCreationHandler handler;
-  
+
   @Operation(
     summary = DepartmentMsgCreator.NEW_DEPARTMENT_SUMMARY,
     description = DepartmentMsgCreator.NEW_DEPARTMENT_DESCRIPTION,
@@ -77,16 +77,12 @@ public class DepartmentCreationController {
     @Valid
     DepartmentCreationRequest request
   ) {
-    if(!(handler instanceof DepartmentCreationHandler))
-      throw new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .invalidClassMsg("DepartmentCreationHandler",
-          handler != null ? handler.getClass().getSimpleName() : "null"));
+		DepartmentValidationAux.validateDependency(
+			handler, "DepartmentCreationHandler");
 
     DepartmentResponse response = handler.create(request.toCommand());
-    if(!(response instanceof DepartmentResponse))
-      throw new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .invalidClassMsg("DepartmentResponse",
-          response != null ? response.getClass().getSimpleName() : "null"));
+		DepartmentValidationAux.validateDependency(
+			response, "DepartmentResponse");
 
     URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()

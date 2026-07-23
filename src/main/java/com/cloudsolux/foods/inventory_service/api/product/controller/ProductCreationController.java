@@ -15,6 +15,7 @@ import com.cloudsolux.foods.inventory_service.api.product.dto.ProductCreationReq
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
 import com.cloudsolux.foods.inventory_service.app.product.handler.ProductCreationHandler;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductMsgCreator;
+import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,9 +23,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/products")
@@ -77,15 +76,16 @@ public class ProductCreationController {
 		@Valid
 		ProductCreationRequest dto 	
  	) {
-		log.info("Iniciando criação de novo produto.");
-		ProductResponse resp = productCreationHandler
-			.create(dto.toCommand());
+		ProductValidationAux.validateDependency(productCreationHandler, "ProductCreationHandler");
+		ProductResponse resp = productCreationHandler.create(dto.toCommand());
+		ProductValidationAux.validateDependency(resp, "ProductResponse");
+
 		URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()
 			.path("/{id}")
 			.buildAndExpand(resp.getId())
 			.toUri();
-		log.info("Produto criado com sucesso. id: {}", resp.getId());
+
 		return ResponseEntity
 			.created(location)
 			.body(resp);

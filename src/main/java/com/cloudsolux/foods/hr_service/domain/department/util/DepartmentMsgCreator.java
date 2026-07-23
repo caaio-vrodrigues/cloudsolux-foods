@@ -1,6 +1,6 @@
 package com.cloudsolux.foods.hr_service.domain.department.util;
 
-public class DepartmentMsgCreator {
+public final class DepartmentMsgCreator {
   
   public static final String NEW_DEPARTMENT_SUMMARY = "Registra novo departamento no sistema de recursos-humanos." +
     " O campo ['name'] deve ser único.";

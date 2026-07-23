@@ -5,11 +5,10 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentPersistenceException;
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistence;
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistenceKey;
+import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 import com.cloudsolux.foods.hr_service.infra.department.entity.DepartmentEntity;
 import com.cloudsolux.foods.hr_service.infra.department.repo.DepartmentRepo;
 
@@ -30,18 +29,8 @@ public class DepartmentPersistenceAdapter implements DepartmentPersistence {
 
   @Override
   public void saveDepartment(DepartmentEntity entity) {
-    if(!(entity instanceof DepartmentEntity)) {
-      String receivedClassName = entity != null ? 
-        entity.getClass().getSimpleName() : "null";
-      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .invalidClassMsg("DepartmentEntity", receivedClassName));
-    }
-    if(!(repo instanceof DepartmentRepo)) {
-      String receivedClassName = repo != null ? 
-        repo.getClass().getSimpleName() : "null";
-      throw new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .invalidClassMsg("DepartmentRepo", receivedClassName));
-    }
+    DepartmentValidationAux.validateArgument(entity, "DepartmentEntity");
+    DepartmentValidationAux.validateDependency(repo, "DepartmentRepo");
     try{
       repo.save(entity);
     }

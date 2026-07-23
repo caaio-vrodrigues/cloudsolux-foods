@@ -10,17 +10,17 @@ public abstract class Catalog {
   private final Long id;
 
   protected Catalog(Long id) {
-    if(!(id instanceof Long)) {
-      String receivedClassName = id != null ? 
-        id.getClass().getSimpleName() : "null";
-      throw new CatalogInvalidArgumentException(GlobalMsgCreator
-        .invalidClassMsg("Long", receivedClassName));
-    }
-    if(id < 1) {
-      throw new CatalogInvalidArgumentException(GlobalMsgCreator
-        .positiveMsg("Product", "id", BigDecimal.valueOf(id)));
-    }
+    validatePositiveLong(id, "id");
     this.id = id;
+  }
+
+  private void validatePositiveLong(Long value, String fieldName) {
+    if(value == null)
+      throw new CatalogInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Department", fieldName));
+    if(value < 1)
+      throw new CatalogInvalidArgumentException(GlobalMsgCreator
+        .positiveMsg("Department", fieldName, BigDecimal.valueOf(value)));
   }
 
   public Long getId() {

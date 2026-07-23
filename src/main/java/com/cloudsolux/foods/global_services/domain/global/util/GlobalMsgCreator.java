@@ -43,10 +43,6 @@ public class GlobalMsgCreator {
   
   private GlobalMsgCreator() {}
 
-  public static String nullFieldValueMsg(String className, String fieldName) {
-    return "Falha ao processar '"+className+"'. Valor 'null' para o campo: ['"+fieldName+"'].";
-  }
-
   public static String nullArgumentMsg(String className, String argument) {
     return "Falha ao processar '"+className+"'. Valor 'null' para o argumento: ['"+argument+"'].";
   }
@@ -55,26 +51,30 @@ public class GlobalMsgCreator {
     return "Falha ao processar '"+className+"'. Valor 'null' para os argumentos: ['"+nullArguments+"'].";
   }
 
+  public static String emptyArgumentMsg(String className, String argument) {
+    return "Falha ao processar '"+className+"'. Valor 'vazio' para o argumento: ['"+argument+"'].";
+  }
+
   public static String positiveMsg(String className, String fieldName, BigDecimal amount) {
-    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o campo ['"+fieldName+"': '"+amount+"'].";
+    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+fieldName+"': '"+amount+"'].";
+  }
+
+  public static String positiveMsg(String className, String fieldName, Long amount) {
+    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+fieldName+"': '"+amount+"'].";
   }
 
   public static String positiveOrZeroMsg(String className, String fieldName, BigDecimal amount) {
-    return "Falha ao processar '"+className+"'. Valor menor que '0' para o campo ['"+fieldName+"': '"+amount+"'].";
+    return "Falha ao processar '"+className+"'. Valor menor que '0' para o argumento: ['"+fieldName+"': '"+amount+"'].";
   }
 
   public static String invalidUnitOfMeasureMsg(
     String className, UnitOfMeasure incomingUnitOfMeasure, UnitOfMeasure currentUnitOfMeasure2
   ) {
-    return "Falha ao processar '"+className+"' por tipo de medida inválido. Valor recebido: ['"+incomingUnitOfMeasure+"']. Valor esperado: ['"+currentUnitOfMeasure2+"'].";
+    return "Falha ao processar '"+className+"'. Tipo de medida inválido. Valor recebido: ['"+incomingUnitOfMeasure+"']. Valor esperado: ['"+currentUnitOfMeasure2+"'].";
   }
 
   public static String insuficcientAmount(String className, BigDecimal requiredAmount, BigDecimal currentAmount) {
-    return "Falha ao processar '"+className+"' por quantidade em estoque insuficiente. Quantidade solicitada: ['"+requiredAmount+"']. Quantidade disponível: ['"+currentAmount+"'].";
-  }
-
-  public static String emptyFieldValue(String className, String fieldName) {
-    return "Falha ao processar '"+className+"'. Valor 'vazio' para o campo: ['"+fieldName+"'].";
+    return "Falha ao processar '"+className+"'. Quantidade em estoque insuficiente. Quantidade solicitada: ['"+requiredAmount+"']. Quantidade disponível: ['"+currentAmount+"'].";
   }
 
   public static String persistenceFailureLogMsg(String className) {
@@ -97,12 +97,16 @@ public class GlobalMsgCreator {
     return "Falha na injeção de: '"+interfaceName+"'. Valor 'null' ao acessar bean: '"+beanName+"'.";
   }
 
+  public static String nullDependencyMsg(String dependencyType) {
+    return "Falha na injeção de: '"+dependencyType+"'. Valor 'null' recebido.";
+  }
+
   public static String nullImplementationMsg(String portName) {
     return "Falha nas implementações de: '"+portName+"'. Valor 'null' ao acessar lista de implementações.";
   }
 
-  public static String emptyDependencyList(String interfaceName, String beanName) {
-    return "Falha na injeção de: '"+interfaceName+"'. Lista de implementações vazia ao acessar bean: '"+beanName+"'.";
+  public static String emptyDependencyList(String dependencyType) {
+    return "Falha na injeção de: '"+dependencyType+"'. Lista de implementações vazia.";
   }
 
   public static String emptyImplementationList(String portName) {

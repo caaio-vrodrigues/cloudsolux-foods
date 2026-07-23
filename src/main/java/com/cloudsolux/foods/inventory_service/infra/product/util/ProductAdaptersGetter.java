@@ -4,14 +4,13 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidDependencyException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationPort;
+import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,59 +22,30 @@ public class ProductAdaptersGetter {
   private final Map<ProductValidationKey, ProductValidationPort> productValidators;
   private final Map<ProductPersistenceKey, ProductPersistencePort> productPersistences;
 
-  private void validateDependency(
-    Map<?, ?> bean, String beanName, String portName
-  ) {
-    if(bean == null)
-      throw new ProductInvalidDependencyException(
-        GlobalMsgCreator.nullDependencyMsg(portName, beanName));
-    if(bean.isEmpty())
-      throw new ProductInvalidDependencyException(
-        GlobalMsgCreator.emptyDependencyList(portName, beanName));
-  }
-
   public ProductFactoryPort getProductFactory(ProductFactoryKey key) {
-    if(key == null) {
-      throw new ProductInvalidDependencyException(GlobalMsgCreator
-        .nullArgumentMsg(
-          "ProductFactoryPort", 
-          "ProductFactoryKey"));
-    }
-    validateDependency(
-      productFactories, 
-      "productFactories", 
-      "ProductFactoryPort"
-    );
+    ProductValidationAux.validateArgument(key, "ProductFactoryKey");
+
+    ProductValidationAux.validateDependencyMap(
+      productFactories, "ProductFactoryPort");
+
     return productFactories.get(key);
   }
 
   public ProductValidationPort getValidator(ProductValidationKey key) {
-    if(key == null) {
-      throw new ProductInvalidDependencyException(GlobalMsgCreator
-        .nullArgumentMsg(
-          "ProductValidationPort", 
-          "ProductValidationKey"));
-    }
-    validateDependency(
-      productValidators, 
-      "productValidators", 
-      "ProductValidationPort"
-    );
+    ProductValidationAux.validateArgument(key, "ProductValidationKey");
+
+    ProductValidationAux.validateDependencyMap(
+      productValidators, "ProductValidationPort");
+
     return productValidators.get(key);
   }
 
   public ProductPersistencePort getPersistence(ProductPersistenceKey key) {
-    if(key == null) {
-      throw new ProductInvalidDependencyException(GlobalMsgCreator
-        .nullArgumentMsg(
-          "ProductPersistencePort", 
-          "ProductPersistenceKey"));
-    }
-    validateDependency(
-      productPersistences, 
-      "productPersistences", 
-      "ProductPersistencePort"
-    );
+    ProductValidationAux.validateArgument(key, "ProductPersistenceKey");
+
+    ProductValidationAux.validateDependencyMap(
+      productPersistences, "ProductPersistencePort");
+
     return productPersistences.get(key);
   }
 }

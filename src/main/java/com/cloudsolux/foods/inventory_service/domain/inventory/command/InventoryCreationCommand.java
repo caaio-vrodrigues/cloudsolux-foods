@@ -3,10 +3,9 @@ package com.cloudsolux.foods.inventory_service.domain.inventory.command;
 import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
-import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
+import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 
 public class InventoryCreationCommand {
   
@@ -15,6 +14,9 @@ public class InventoryCreationCommand {
 	private final UnitOfMeasure unitOfMeasure;
 
   private InventoryCreationCommand(InventoryCreationCommandBuilder builder) {
+    InventoryValidationAux.validatePositiveLong(builder.id, "id");
+    InventoryValidationAux.validatePositiveBigDecimal(builder.amount, "amount");
+    InventoryValidationAux.validateArgument(builder.unitOfMeasure, "unitOfMeasure");
     id = builder.id;
     amount = builder.amount;
     unitOfMeasure = builder.unitOfMeasure;
@@ -26,56 +28,21 @@ public class InventoryCreationCommand {
 	  private UnitOfMeasure unitOfMeasure;
 
     public InventoryCreationCommandBuilder id(Long id) {
-      if(!(id instanceof Long)) {
-				String receivedClassName = id != null ? 
-					id.getClass().getSimpleName() : "null";
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-        	.invalidClassMsg("Long", receivedClassName));
-			}
-      if(id < 1) {
-        throw new InventoryInvalidArgumentException(GlobalMsgCreator
-          .positiveMsg("InventoryCreationCommand", "id", BigDecimal.valueOf(id)));
-      }
       this.id = id;
       return this;
     }
 
     public InventoryCreationCommandBuilder amount(BigDecimal amount) {
-      if(!(amount instanceof BigDecimal)) {
-				String receivedClassName = amount != null ? 
-					amount.getClass().getSimpleName() : "null";
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-        	.invalidClassMsg("BigDecimal", receivedClassName));
-			}
-      if(amount.compareTo(BigDecimal.ZERO) < 0) {
-        throw new InventoryInvalidArgumentException(GlobalMsgCreator
-          .positiveOrZeroMsg("InventoryCreationCommand", "amount", amount));
-      }
       this.amount = amount;
       return this;
     }
 
     public InventoryCreationCommandBuilder unitOfMeasure(UnitOfMeasure unitOfMeasure) {
-      if(!(unitOfMeasure instanceof UnitOfMeasure)) {
-				String receivedClassName = unitOfMeasure != null ? 
-					unitOfMeasure.getClass().getSimpleName() : "null";
-				throw new InventoryInvalidArgumentException(GlobalMsgCreator
-        	.invalidClassMsg("UnitOfMeasure", receivedClassName));
-			}
       this.unitOfMeasure = unitOfMeasure;
       return this;
     }
 
     public InventoryCreationCommand build() {
-      if(id == null) 
-        throw new InventoryInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("InventoryCreationCommand", "id"));
-      if(amount == null)
-        throw new InventoryInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("InventoryCreationCommand", "amount"));
-      if(unitOfMeasure == null)
-        throw new InventoryInvalidArgumentException(GlobalMsgCreator
-          .nullFieldValueMsg("InventoryCreationCommand", "unitOfMeasure"));
       return new InventoryCreationCommand(this);
     }
   }
