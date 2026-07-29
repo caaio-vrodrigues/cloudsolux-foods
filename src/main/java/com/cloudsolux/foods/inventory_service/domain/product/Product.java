@@ -68,6 +68,7 @@ public final class Product extends Catalog {
 		return brand;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		if(this == o) return true;
 		if(!(o instanceof Product other)) return false;
@@ -76,10 +77,12 @@ public final class Product extends Catalog {
 			brand.equals(other.getBrand());
 	}
 	
+	@Override
 	public int hashCode() {
 		return Objects.hash(name, model, brand);
 	}
 
+	@Override
 	public String toString() {
 		return "Product ['id="+getId()+"', 'name="+name+"', 'model="+model+"', 'brand="+brand+"']";
 	}

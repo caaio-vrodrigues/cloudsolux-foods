@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
+import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 
 public final class ProductCreationCommand {
 
@@ -18,11 +18,11 @@ public final class ProductCreationCommand {
 	private final UnitOfMeasure unitOfMeasure;
 
   private ProductCreationCommand(ProductCreationCommandBuilder builder) {
-    InventoryValidationAux.validateArgument(builder.name, "brand");
-    InventoryValidationAux.validateArgument(builder.model, "brand");
-    InventoryValidationAux.validateArgument(builder.brand, "brand");
-    InventoryValidationAux.validateArgument(builder.amount, "brand");
-    InventoryValidationAux.validateArgument(builder.unitOfMeasure, "brand");
+    ProductValidationAux.validateString(builder.name, "name");
+    ProductValidationAux.validateString(builder.model, "model");
+    ProductValidationAux.validateString(builder.brand, "brand");
+    ProductValidationAux.validatePositiveBigDecimal(builder.amount, "amount");
+    ProductValidationAux.validateArgument(builder.unitOfMeasure, "UnitOfMeasure");
     name = builder.name;
     model = builder.model;
     brand = builder.brand;
