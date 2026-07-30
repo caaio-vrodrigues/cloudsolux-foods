@@ -30,6 +30,6 @@ public final class StockEmbeddable {
 
 	@Override
 	public String toString() {
-		return "StockEmbeddable ['amount="+amount+"', 'unitOfMeasure="+unitOfMeasure+"']";
+		return "StockEmbeddable: ['amount="+amount+"', 'unitOfMeasure="+unitOfMeasure+"']";
 	}
 }

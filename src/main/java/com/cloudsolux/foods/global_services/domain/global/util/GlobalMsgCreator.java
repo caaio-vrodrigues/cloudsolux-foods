@@ -54,16 +54,16 @@ public final class GlobalMsgCreator {
     return "Falha ao processar '"+className+"'. Valor 'null' para o argumento: ['"+argumentName+"'].";
   }
 
-  public static String emptyArgumentMsg(String className, String argument) {
-    return "Falha ao processar '"+className+"'. Valor 'vazio' para o argumento: ['"+argument+"'].";
+  public static String emptyArgumentMsg(String className, String argumentName) {
+    return "Falha ao processar '"+className+"'. Valor 'vazio' para o argumento: ['"+argumentName+"'].";
   }
 
-  public static String positiveMsg(String className, String argumentName, BigDecimal amount) {
-    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+argumentName+"': '"+amount+"'].";
+  public static String positiveMsg(String className, String argumentName, BigDecimal value) {
+    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+argumentName+"': '"+value+"'].";
   }
 
-  public static String positiveMsg(String className, String argumentName, Long amount) {
-    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+argumentName+"': '"+amount+"'].";
+  public static String positiveMsg(String className, String argumentName, Long value) {
+    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+argumentName+"': '"+value+"'].";
   }
 
   public static String invalidUnitOfMeasureMsg(
@@ -88,8 +88,8 @@ public final class GlobalMsgCreator {
     return "Falha ao processar '"+className+"'. Lista de implementações vazia ao acessar dependência: ['"+dependencyType+"'].";
   }
 
-  public static String emptyImplementationList(String className, String portName) {
-     return "Falha ao processar '"+className+"'. Lista de implementações vazia para: ['"+portName+"'].";
+  public static String emptyImplementationList(String className, String implementationsType) {
+     return "Falha ao processar '"+className+"'. Lista de implementações vazia para: ['"+implementationsType+"'].";
   }
 
   public static String dataAccessLogMsg(String className) {
@@ -99,8 +99,4 @@ public final class GlobalMsgCreator {
   public static String dataAccessFailureMsg(String className) {
     return "Falha ao acessar os dados. Não foi possível acessar as entidades ['"+className+"']. Verifique o banco de dados e a integridade dos dados retornados.";
   }
-
-  // public static String invalidClassMsg(String expectedClassName, String receivedClassName) {
-  //   return "Classe inválida durante processo. [esperado: '"+expectedClassName+"'], [recebido: '"+receivedClassName+"'].";
-  // }
 }

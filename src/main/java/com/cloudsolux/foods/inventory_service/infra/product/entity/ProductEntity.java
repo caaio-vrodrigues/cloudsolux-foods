@@ -42,6 +42,6 @@ public final class ProductEntity extends CatalogEntity {
 
 	@Override
 	public String toString() {
-		return "ProductEntity ['id="+getId()+"', 'name="+name+"', 'model="+model+"', 'brand="+brand+"']";
+		return "ProductEntity: ['id="+getId()+"', 'name="+name+"', 'model="+model+"', 'brand="+brand+"']";
 	}
 }

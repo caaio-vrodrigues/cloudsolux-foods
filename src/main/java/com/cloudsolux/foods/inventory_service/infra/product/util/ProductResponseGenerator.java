@@ -10,7 +10,7 @@ import com.cloudsolux.foods.inventory_service.domain.product.util.ProductMsgCrea
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 
 @Component
-public final class ProductResponseGenarator {
+public final class ProductResponseGenerator {
   
   public ProductResponse toProductResponse(
     Product product, Inventory inventory

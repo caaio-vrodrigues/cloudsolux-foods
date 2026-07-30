@@ -1,7 +1,6 @@
 package com.cloudsolux.foods.inventory_service.app.product.handler;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudsolux.foods.global_services.app.IdControl.handler.IdControlGeneratorHandler;
 import com.cloudsolux.foods.inventory_service.app.inventory.handler.InventoryCreationHandler;
@@ -14,7 +13,7 @@ import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.P
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidation;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 import com.cloudsolux.foods.inventory_service.infra.product.util.ProductAdaptersGetter;
-import com.cloudsolux.foods.inventory_service.infra.product.util.ProductResponseGenarator;
+import com.cloudsolux.foods.inventory_service.infra.product.util.ProductResponseGenerator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,9 +24,8 @@ public class ProductCreationHandler {
   private final ProductAdaptersGetter adapters;
   private final IdControlGeneratorHandler idGenerator;
   private final InventoryCreationHandler inventoryHandler;
-  private final ProductResponseGenarator reponseGenerator;
+  private final ProductResponseGenerator responseGenerator;
 
-  @Transactional
   public ProductResponse create(ProductCreationCommand command) {
     ProductValidationAux
       .validateArgument(command, "ProductCreationCommand");
@@ -38,7 +36,7 @@ public class ProductCreationHandler {
     ProductValidationAux
       .validateDependency(inventoryHandler, "InventoryCreationHandler");
     ProductValidationAux
-      .validateDependency(reponseGenerator, "ProductResponseGenarator");
+      .validateDependency(responseGenerator, "ProductResponseGenerator");
 
     ProductValidation validator = (ProductValidation) adapters
       .getValidator(command.getRequestValidationKey());
@@ -62,6 +60,6 @@ public class ProductCreationHandler {
 
     Inventory inventory = inventoryHandler.create(command, id);
     
-    return reponseGenerator.toProductResponse(product, inventory);
+    return responseGenerator.toProductResponse(product, inventory);
   }
 }

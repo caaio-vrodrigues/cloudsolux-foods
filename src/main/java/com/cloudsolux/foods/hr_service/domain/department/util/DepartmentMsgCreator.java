@@ -9,6 +9,6 @@ public final class DepartmentMsgCreator {
   private DepartmentMsgCreator() {}
 
   public static String uniquenessViolationMsg(String name) {
-    return "Falha ao processar 'DepartmentEntity'. O argumento 'name' fornecido para criação do departamento já está em uso: [name: '"+name+"'].";
+    return "Falha ao processar 'Department'. O argumento 'name' fornecido para criação do departamento já está em uso: [name='"+name+"'].";
   }
 }

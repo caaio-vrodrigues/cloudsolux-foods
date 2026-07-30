@@ -40,6 +40,6 @@ public final class DepartmentEntity {
 
   @Override
   public String toString() {
-    return "DepartmentEntity ['id="+id+"', 'name="+name+"']";
+    return "DepartmentEntity: ['id="+id+"', 'name="+name+"']";
   }
 }

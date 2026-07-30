@@ -31,6 +31,6 @@ public final class InventoryEntity {
 
 	@Override
 	public String toString() {
-		return "InventoryEntity ['catalogId="+catalogId+"', "+stock+"]";
+		return "InventoryEntity: ['catalogId="+catalogId+"', "+stock+"]";
 	}
 }

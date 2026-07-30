@@ -11,9 +11,7 @@ import com.cloudsolux.foods.hr_service.domain.department.model.creation.Departme
 import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistence;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
-import com.cloudsolux.foods.hr_service.infra.department.entity.DepartmentEntity;
 import com.cloudsolux.foods.hr_service.infra.department.util.DepartmentAdaptersGetter;
-import com.cloudsolux.foods.hr_service.infra.department.util.DepartmentMapper;
 import com.cloudsolux.foods.hr_service.infra.department.util.DepartmentResponseGenerator;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +22,6 @@ public class DepartmentCreationHandler {
 
   private final DepartmentAdaptersGetter adapters;
   private final IdControlGeneratorHandler idGeneration;
-  private final DepartmentMapper mapper;
   private final DepartmentResponseGenerator responseGenerator;
 
   @Transactional
@@ -36,14 +33,13 @@ public class DepartmentCreationHandler {
     DepartmentValidationAux
       .validateDependency(idGeneration, "IdControlGeneratorHandler");
     DepartmentValidationAux
-      .validateDependency(mapper, "DepartmentMapper");
-    DepartmentValidationAux
       .validateDependency(responseGenerator, "DepartmentResponseGenerator");
 
     DepartmentValidation validator = (DepartmentValidation) adapters
       .getValidator(command.getValidationKey());
     DepartmentValidationAux.validateDependency(
       validator, "DepartmentAdaptersGetter");
+
     validator.validateUniqueness(command);
 
     Long id = idGeneration.generateId(command.getIdGenerationKey());
@@ -53,17 +49,15 @@ public class DepartmentCreationHandler {
     DepartmentValidationAux.validateDependency(
       factory, "DepartmentAdaptersGetter");
 
-    Department departmentDomain = factory.create(command, id);
+    Department department = factory.create(command, id);
 
     DepartmentPersistence persistence = (DepartmentPersistence) adapters
       .getPersistence(command.getPersistenceKey());
     DepartmentValidationAux.validateDependency(
       persistence, "DepartmentAdaptersGetter");
 
-    DepartmentEntity departmentEntity = mapper
-      .toEntity(departmentDomain);
+    persistence.saveDepartment(department);
 
-    persistence.saveDepartment(departmentEntity);
-    return responseGenerator.toDepartmentResponse(departmentDomain);
+    return responseGenerator.toDepartmentResponse(department);
   }
 }

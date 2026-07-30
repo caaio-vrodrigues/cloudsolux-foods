@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
-import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeenvalidArgumentException;
+import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeeInvalidArgumentException;
 
 public final class EmployeeValidatorAux {
   
@@ -13,7 +13,7 @@ public final class EmployeeValidatorAux {
   public static void validateArgument(Object argument, String argumentType) {
     ValidationAux.validateArgument(
       argument, 
-      () -> new EmployeenvalidArgumentException(GlobalMsgCreator
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Employee", argumentType))
     );
   }
@@ -21,9 +21,9 @@ public final class EmployeeValidatorAux {
   public static void validateString(String value, String argumentName) {
     ValidationAux.validateString(
       value, 
-      () -> new EmployeenvalidArgumentException(GlobalMsgCreator
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Employee", argumentName)), 
-      () -> new EmployeenvalidArgumentException(GlobalMsgCreator
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .emptyArgumentMsg("Employee", argumentName))
     );
   }
@@ -31,9 +31,9 @@ public final class EmployeeValidatorAux {
   public static void validatePositiveLong(Long value, String argumentName) {
     ValidationAux.validatePositiveLong(
       value, 
-      () -> new EmployeenvalidArgumentException(GlobalMsgCreator
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Employee", argumentName)), 
-      () -> new EmployeenvalidArgumentException(GlobalMsgCreator
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .positiveMsg("Employee", argumentName, BigDecimal.valueOf(value)))
     );
   }

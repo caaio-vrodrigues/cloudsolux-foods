@@ -1,5 +1,7 @@
 package com.cloudsolux.foods.inventory_service.domain.product;
 
+import java.util.Objects;
+
 import com.cloudsolux.foods.inventory_service.domain.catalog.Catalog;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 
@@ -64,6 +66,20 @@ public final class Product extends Catalog {
 	
 	public String getBrand() {
 		return brand;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if(this == o) return true;
+		if(!(o instanceof Product other)) return false;
+		return Objects.equals(name, other.name) && 
+			Objects.equals(model, other.model) && 
+			Objects.equals(brand, other.brand);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId(), name, model, brand);
 	}
 
 	@Override
