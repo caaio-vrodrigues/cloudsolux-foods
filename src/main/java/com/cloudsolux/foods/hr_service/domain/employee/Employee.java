@@ -21,7 +21,6 @@ public final class Employee {
     EmployeeValidatorAux.validateArgument(builder.birthday, "birthday");
     EmployeeValidatorAux.validateString(builder.email, "email");
     EmployeeValidatorAux.validatePositiveLong(builder.departmentId, "departmentId");
-
     id = builder.id;
     firstName = builder.firstName;
     lastName = builder.lastName;

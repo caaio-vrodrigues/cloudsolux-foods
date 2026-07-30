@@ -10,7 +10,8 @@ public final class ValidationAux {
   private ValidationAux() {}
 
   public static void validateArgument(
-    Object argument, Supplier<RuntimeException> exceptionSupplier
+    Object argument, 
+    Supplier<RuntimeException> exceptionSupplier
   ) {
     if(argument == null) throw exceptionSupplier.get();
   }
