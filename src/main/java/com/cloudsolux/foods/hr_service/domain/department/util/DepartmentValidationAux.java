@@ -14,7 +14,8 @@ public final class DepartmentValidationAux {
   private DepartmentValidationAux() {}
 
   public static void validateArgument(Object argument, String argumentType) {
-    ValidationAux.validateArgument(argument, 
+    ValidationAux.validateArgument(
+      argument, 
       () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Department", argumentType))
     );
@@ -41,7 +42,8 @@ public final class DepartmentValidationAux {
   }
 
   public static void validateDependency(Object dependency, String dependencyType) {
-    ValidationAux.validateDependency(dependencyType, 
+    ValidationAux.validateDependency(
+      dependency, 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg(dependencyType))
     );

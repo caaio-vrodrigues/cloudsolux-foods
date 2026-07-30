@@ -53,7 +53,7 @@ public final class InventoryValidationAux {
 
   public static void validateDependency(Object dependency, String dependencyType) {
     ValidationAux.validateDependency(
-      dependencyType, 
+      dependency, 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg(dependencyType))
     );

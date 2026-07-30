@@ -5,17 +5,19 @@ import com.cloudsolux.foods.global_services.domain.global.exception.GlobalInvali
 public final class GlobalValidationAux {
 
   public static void validateArgument(Object argument, String argumentType) {
-    if(argument == null)
-      throw new GlobalInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Global", argumentType));
+    ValidationAux.validateArgument(
+      argument, 
+      () -> new GlobalInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Global", argumentType))
+    );
   }
 
   public static void validateString(String value, String argumentName) {
-    if(value == null)
-      throw new GlobalInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Global", argumentName));
-		if(value.isBlank())
-      throw new GlobalInvalidArgumentException(GlobalMsgCreator
-        .emptyArgumentMsg("Global", argumentName));
+    ValidationAux.validateString(
+      value, 
+      () -> new GlobalInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Global", argumentName)), 
+      () -> new GlobalInvalidArgumentException(GlobalMsgCreator
+        .emptyArgumentMsg("Global", argumentName)));
   }
 }
