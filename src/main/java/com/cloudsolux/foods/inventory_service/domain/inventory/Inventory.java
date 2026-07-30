@@ -9,14 +9,10 @@ public final class Inventory {
 	private Stock stock;
 	
 	private Inventory(InventoryBuilder builder) {
-		InventoryValidationAux.validatePositiveLong(
-			builder.catalogId, "catalogId");
-
-		InventoryValidationAux.validateArgument(
-			builder.stock, "Stock");
-
+		InventoryValidationAux.validatePositiveLong(builder.catalogId, "catalogId");
+		InventoryValidationAux.validateArgument(builder.stock, "Stock");
 		catalogId = builder.catalogId;
-		this.stock = builder.stock;
+		stock = builder.stock;
 	}
 	
 	public static class InventoryBuilder {
@@ -60,16 +56,19 @@ public final class Inventory {
 		stock = stock.subtract(outgoing);
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		if(this == o) return true;
 		if(!(o instanceof Inventory other)) return false;
 		return catalogId.equals(other.catalogId);
 	}
 	
+	@Override
 	public int hashCode() {
 		return Objects.hash(catalogId);
 	}
 
+	@Override
 	public String toString() {
 		return "Inventory ['catalogId="+catalogId+"', "+stock+"]";
 	}

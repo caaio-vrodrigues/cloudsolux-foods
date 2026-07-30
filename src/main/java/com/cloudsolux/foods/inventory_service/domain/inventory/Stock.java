@@ -53,13 +53,11 @@ public final class Stock {
 
 	public Stock add(Stock incoming) {
 		InventoryValidationAux.validateArgument(incoming, "Stock");
+		InventoryValidationAux.validatePositiveBigDecimal(incoming.amount, "amount");
 
 		if(incoming.getUnitOfMeasure() != unitOfMeasure)
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator.invalidUnitOfMeasureMsg(
 				"Stock", incoming.getUnitOfMeasure(), unitOfMeasure));
-
-    InventoryValidationAux.validatePositiveBigDecimal(
-			incoming.amount, "amount");
 
 		return Stock.builder()
 			.amount(amount.add(incoming.amount))
@@ -69,13 +67,11 @@ public final class Stock {
 	
 	public Stock subtract(Stock outgoing) {
 		InventoryValidationAux.validateArgument(outgoing, "Stock");
+		InventoryValidationAux.validatePositiveBigDecimal(outgoing.amount, "amount");
 
 		if(outgoing.getUnitOfMeasure() != unitOfMeasure)
 			throw new InventoryInvalidArgumentException(GlobalMsgCreator.invalidUnitOfMeasureMsg(
 				"Stock", outgoing.getUnitOfMeasure(), unitOfMeasure));
-
-		InventoryValidationAux.validatePositiveBigDecimal(
-			outgoing.amount, "amount");
 
 		return Stock.builder()
 			.amount(amount.subtract(outgoing.amount))
@@ -83,6 +79,7 @@ public final class Stock {
 			.build();
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		if(this == o) return true;
 		if(!(o instanceof Stock other)) return false;
@@ -90,10 +87,12 @@ public final class Stock {
 			unitOfMeasure.equals(other.unitOfMeasure);
 	}
 	
+	@Override
 	public int hashCode() {
 		return Objects.hash(amount, unitOfMeasure);
 	}
 
+	@Override
 	public String toString() {
 		return "Stock ['amount="+amount+"', 'unitOfMeasure="+unitOfMeasure+"']";
 	}
