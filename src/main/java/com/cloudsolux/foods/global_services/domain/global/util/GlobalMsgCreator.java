@@ -1,7 +1,6 @@
 package com.cloudsolux.foods.global_services.domain.global.util;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 
@@ -43,85 +42,65 @@ public final class GlobalMsgCreator {
   
   private GlobalMsgCreator() {}
 
-  public static String nullArgumentMsg(String className, String argument) {
-    return "Falha ao processar '"+className+"'. Valor 'null' para o argumento: ['"+argument+"'].";
-  }
+  public static String errorListMsg(String field, String msg) {
+		return "A lista: ['"+field+"'] "+msg+".";
+	}
+	
+	public static String errorFieldMsg(String field, String msg) {
+		return "O campo: ['"+field+"'] "+msg+".";
+	}
 
-  public static String nullArgumentMsg(String className, List<String> nullArguments) {
-    return "Falha ao processar '"+className+"'. Valor 'null' para os argumentos: ['"+nullArguments+"'].";
+  public static String nullArgumentMsg(String className, String argumentName) {
+    return "Falha ao processar '"+className+"'. Valor 'null' para o argumento: ['"+argumentName+"'].";
   }
 
   public static String emptyArgumentMsg(String className, String argument) {
     return "Falha ao processar '"+className+"'. Valor 'vazio' para o argumento: ['"+argument+"'].";
   }
 
-  public static String positiveMsg(String className, String fieldName, BigDecimal amount) {
-    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+fieldName+"': '"+amount+"'].";
+  public static String positiveMsg(String className, String argumentName, BigDecimal amount) {
+    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+argumentName+"': '"+amount+"'].";
   }
 
-  public static String positiveMsg(String className, String fieldName, Long amount) {
-    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+fieldName+"': '"+amount+"'].";
-  }
-
-  public static String positiveOrZeroMsg(String className, String fieldName, BigDecimal amount) {
-    return "Falha ao processar '"+className+"'. Valor menor que '0' para o argumento: ['"+fieldName+"': '"+amount+"'].";
+  public static String positiveMsg(String className, String argumentName, Long amount) {
+    return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+argumentName+"': '"+amount+"'].";
   }
 
   public static String invalidUnitOfMeasureMsg(
-    String className, UnitOfMeasure incomingUnitOfMeasure, UnitOfMeasure currentUnitOfMeasure2
+    String className, UnitOfMeasure incomingUnitOfMeasure, UnitOfMeasure currentUnitOfMeasure
   ) {
-    return "Falha ao processar '"+className+"'. Tipo de medida inválido. Valor recebido: ['"+incomingUnitOfMeasure+"']. Valor esperado: ['"+currentUnitOfMeasure2+"'].";
-  }
-
-  public static String insuficcientAmount(String className, BigDecimal requiredAmount, BigDecimal currentAmount) {
-    return "Falha ao processar '"+className+"'. Quantidade em estoque insuficiente. Quantidade solicitada: ['"+requiredAmount+"']. Quantidade disponível: ['"+currentAmount+"'].";
+    return "Falha ao processar '"+className+"'. Tipo de medida inválido. Valor recebido: ['"+incomingUnitOfMeasure+"']. Valor esperado: ['"+currentUnitOfMeasure+"'].";
   }
 
   public static String persistenceFailureLogMsg(String className) {
-		return "Falha ao tentar persistir entidade: '"+className+"'.";
+		return "Falha ao tentar persistir entidade: ['"+className+"'].";
 	}
 
   public static String persistenceFailureMsg(String className) {
-    return "Falha interna desconhecida ao tentar persistir entidade: '"+className+"'.";
+    return "Falha interna desconhecida ao tentar persistir entidade: ['"+className+"'].";
   }
 
-  public static String errorListMsg(String field, String msg) {
-		return "A lista: `"+field+"` "+msg+".";
-	}
-	
-	public static String errorFieldMsg(String field, String msg) {
-		return "O campo: `"+field+"` "+msg+".";
-	}
-
-  public static String nullDependencyMsg(String interfaceName, String beanName) {
-    return "Falha na injeção de: '"+interfaceName+"'. Valor 'null' ao acessar bean: '"+beanName+"'.";
+  public static String nullDependencyMsg(String className, String dependencyType) {
+    return "Falha ao processar '"+className+"'. Valor 'null' ao acessar dependência: ['"+dependencyType+"'].";
   }
 
-  public static String nullDependencyMsg(String dependencyType) {
-    return "Falha na injeção de: '"+dependencyType+"'. Valor 'null' recebido.";
+  public static String emptyDependencyList(String className, String dependencyType) {
+    return "Falha ao processar '"+className+"'. Lista de implementações vazia ao acessar dependência: ['"+dependencyType+"'].";
   }
 
-  public static String nullImplementationMsg(String portName) {
-    return "Falha nas implementações de: '"+portName+"'. Valor 'null' ao acessar lista de implementações.";
-  }
-
-  public static String emptyDependencyList(String dependencyType) {
-    return "Falha na injeção de: '"+dependencyType+"'. Lista de implementações vazia.";
-  }
-
-  public static String emptyImplementationList(String portName) {
-     return "Falha nas implementações de: '"+portName+"'. Lista de implementações vazia.";
+  public static String emptyImplementationList(String className, String portName) {
+     return "Falha ao processar '"+className+"'. Lista de implementações vazia para: ['"+portName+"'].";
   }
 
   public static String dataAccessLogMsg(String className) {
-    return "Falha ao tentar buscar entidades: '"+className+"'.";
+    return "Falha ao tentar buscar entidades: ['"+className+"'].";
   }
 
-  public static String dataAccesFailureMsg(String className) {
-    return "Falha ao acessar os dados. Não foi possível acessar as entidades '"+className+"'. Verifique o banco de dados e a integridade dos dados retornados.";
+  public static String dataAccessFailureMsg(String className) {
+    return "Falha ao acessar os dados. Não foi possível acessar as entidades ['"+className+"']. Verifique o banco de dados e a integridade dos dados retornados.";
   }
 
-  public static String invalidClassMsg(String expectedClassName, String receivedClassName) {
-    return "Classe inválida durante processo. [esperado: '"+expectedClassName+"'], [recebido: '"+receivedClassName+"'].";
-  }
+  // public static String invalidClassMsg(String expectedClassName, String receivedClassName) {
+  //   return "Classe inválida durante processo. [esperado: '"+expectedClassName+"'], [recebido: '"+receivedClassName+"'].";
+  // }
 }

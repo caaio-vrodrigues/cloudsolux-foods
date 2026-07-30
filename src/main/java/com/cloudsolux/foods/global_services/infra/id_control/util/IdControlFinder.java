@@ -32,7 +32,7 @@ public final class IdControlFinder {
 				e.getMessage(), e
 			);
 			throw new IdControlAccessException(GlobalMsgCreator
-				.dataAccesFailureMsg("IdControlEntity"));
+				.dataAccessFailureMsg("IdControlEntity"));
 		}
   }
 }

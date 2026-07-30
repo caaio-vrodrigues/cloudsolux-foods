@@ -114,7 +114,7 @@ public final class Employee {
 
   @Override
   public String toString() {
-    return "Employee: [id='"+id+"', firstName='"+firstName+"', lastName='"+lastName+"', "+
-      "birthday='"+birthday+"', email='"+email+"', departmentId='"+departmentId+"']";
+    return "Employee: ['id="+id+"', 'firstName="+firstName+"', 'lastName="+lastName+"', "+
+      "'birthday="+birthday+"', 'email="+email+"', 'departmentId="+departmentId+"']";
   }
 }

@@ -60,7 +60,7 @@ public final class Inventory {
 	public boolean equals(Object o) {
 		if(this == o) return true;
 		if(!(o instanceof Inventory other)) return false;
-		return catalogId.equals(other.catalogId);
+		return Objects.equals(catalogId, other.catalogId);
 	}
 	
 	@Override

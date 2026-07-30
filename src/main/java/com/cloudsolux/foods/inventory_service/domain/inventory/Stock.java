@@ -83,17 +83,17 @@ public final class Stock {
 	public boolean equals(Object o) {
 		if(this == o) return true;
 		if(!(o instanceof Stock other)) return false;
-		return amount.equals(other.amount) && 
-			unitOfMeasure.equals(other.unitOfMeasure);
+		return amount.compareTo(other.amount) == 0 && 
+			Objects.equals(unitOfMeasure, other.unitOfMeasure);
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, unitOfMeasure);
+		return Objects.hash(amount.stripTrailingZeros(), unitOfMeasure);
 	}
 
 	@Override
 	public String toString() {
-		return "Stock ['amount="+amount+"', 'unitOfMeasure="+unitOfMeasure+"']";
+		return "Stock: ['amount="+amount+"', 'unitOfMeasure="+unitOfMeasure+"']";
 	}
 }

@@ -12,8 +12,8 @@ public final class Department {
   private Department(DepartmentBuilder builder) {
     DepartmentValidationAux.validatePositiveLong(builder.id, "id");
     DepartmentValidationAux.validateString(builder.name, "name");
-    this.id = builder.id;
-    this.name = builder.name;
+    id = builder.id;
+    name = builder.name;
   }
 
   public static class DepartmentBuilder {

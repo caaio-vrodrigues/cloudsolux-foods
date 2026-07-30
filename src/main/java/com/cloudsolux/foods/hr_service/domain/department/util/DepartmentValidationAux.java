@@ -45,7 +45,7 @@ public final class DepartmentValidationAux {
     ValidationAux.validateDependency(
       dependency, 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg(dependencyType))
+        .nullDependencyMsg("Department", dependencyType))
     );
   }
 
@@ -53,9 +53,9 @@ public final class DepartmentValidationAux {
     ValidationAux.validateDependencyMap(
       dependency, 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg(dependencyType)), 
+        .nullDependencyMsg("Department", dependencyType)), 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .emptyDependencyList(dependencyType))
+        .emptyDependencyList("Department", dependencyType))
     );
   }
 
@@ -65,7 +65,7 @@ public final class DepartmentValidationAux {
       () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Department", implementationsType)), 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .emptyImplementationList(implementationsType))
+        .emptyImplementationList("Department", implementationsType))
     );
   }
 }

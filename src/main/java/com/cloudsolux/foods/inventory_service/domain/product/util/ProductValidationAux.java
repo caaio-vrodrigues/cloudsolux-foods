@@ -53,7 +53,7 @@ public final class ProductValidationAux {
     ValidationAux.validateDependency(
       dependency, 
       () -> new ProductInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg(dependencyType))
+        .nullDependencyMsg("Product", dependencyType))
     );
   }
 
@@ -61,9 +61,9 @@ public final class ProductValidationAux {
     ValidationAux.validateDependencyMap(
       dependency, 
       () -> new ProductInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg(dependencyType)), 
+        .nullDependencyMsg("Product", dependencyType)), 
       () -> new ProductInvalidDependencyException(GlobalMsgCreator
-        .emptyDependencyList(dependencyType)));
+        .emptyDependencyList("Product", dependencyType)));
   }
 
   public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
@@ -72,6 +72,6 @@ public final class ProductValidationAux {
       () -> new ProductInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Product", implementationsType)), 
       () -> new ProductInvalidDependencyException(
-        GlobalMsgCreator.emptyImplementationList(implementationsType)));
+        GlobalMsgCreator.emptyImplementationList("Product", implementationsType)));
   }
 }

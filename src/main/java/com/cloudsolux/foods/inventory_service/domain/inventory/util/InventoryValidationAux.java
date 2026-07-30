@@ -55,7 +55,7 @@ public final class InventoryValidationAux {
     ValidationAux.validateDependency(
       dependency, 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg(dependencyType))
+        .nullDependencyMsg("Inventory", dependencyType))
     );
   }
 
@@ -63,9 +63,9 @@ public final class InventoryValidationAux {
     ValidationAux.validateDependencyMap(
       dependency, 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg(dependencyType)), 
+        .nullDependencyMsg("Inventory", dependencyType)), 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
-        .emptyDependencyList(dependencyType))
+        .emptyDependencyList("Inventory", dependencyType))
     );
   }
 
@@ -75,7 +75,7 @@ public final class InventoryValidationAux {
       () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Inventory", implementationsType)), 
       () -> new InventoryInvalidDependencyException(
-        GlobalMsgCreator.emptyImplementationList(implementationsType))
+        GlobalMsgCreator.emptyImplementationList("Inventory", implementationsType))
     );
   }
 }
