@@ -104,12 +104,12 @@ public final class Employee {
   public boolean equals(Object o) {
 		if(this == o) return true;
 		if(!(o instanceof Employee other)) return false;
-		return Objects.equals(id, other.getId());
+		return Objects.equals(email, other.getEmail());
 	}
 	
   @Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(email);
 	}
 
   @Override

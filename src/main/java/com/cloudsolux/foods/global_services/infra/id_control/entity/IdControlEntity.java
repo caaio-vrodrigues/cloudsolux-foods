@@ -1,9 +1,12 @@
 package com.cloudsolux.foods.global_services.infra.id_control.entity;
 
+import java.util.Objects;
+
 import org.springframework.data.domain.Persistable;
 
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,8 +15,6 @@ import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,7 +34,7 @@ public final class IdControlEntity implements Persistable<IdControlKey> {
 	@Enumerated(EnumType.STRING)
 	private IdControlKey key;
 	
-  @NotNull @Positive
+  @Column(name="next_value", nullable=false)
 	private Long nextValue;
 
   @Transient @Default
@@ -53,4 +54,21 @@ public final class IdControlEntity implements Persistable<IdControlKey> {
 	void markNotNew() {
 		isNew = false;
 	}
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if(this == o) return true;
+		if(!(o instanceof IdControlEntity other)) return false;
+		return Objects.equals(key, other.key);
+  }
+
+  @Override
+  public String toString() {
+    return "IdControlEntity: ['key="+key+"']";
+  }
 }

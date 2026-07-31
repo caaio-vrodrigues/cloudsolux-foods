@@ -70,6 +70,6 @@ public final class Inventory {
 
 	@Override
 	public String toString() {
-		return "Inventory: ['catalogId="+catalogId+"', "+stock+"]";
+		return "Inventory: ['catalogId="+catalogId+"']";
 	}
 }

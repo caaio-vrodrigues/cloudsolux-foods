@@ -20,10 +20,16 @@ import lombok.extern.slf4j.Slf4j;
 public final class IdControlPersistence {
   
   private final IdControlRepo repo;
+  private final IdControlMapper mapper;
 
-  public void save(IdControlEntity entity) {
-    IdControlValidationAux.validateArgument(entity, "IdControlEntity");
+  public void save(IdControl domain) {
+    IdControlValidationAux.validateArgument(domain, "IdControl");
+    IdControlValidationAux.validateDependency(repo, "IdControlRepo");
+    IdControlValidationAux.validateDependency(mapper, "IdControlMapper");
+
     try{
+      IdControlEntity entity = mapper.toEntity(domain);
+      IdControlValidationAux.validateDependency(entity, "IdControlMapper");
       repo.save(entity);
     }
     catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
@@ -35,14 +41,19 @@ public final class IdControlPersistence {
     }
   }
 
-  public void save(IdControlEntity entity, IdControl domain) {
+  public void save(IdControlEntity entity) {
     IdControlValidationAux.validateArgument(entity, "IdControlEntity");
-    IdControlValidationAux.validateArgument(domain, "IdControl");
-
-    IdControlEntity updated = entity.toBuilder()
-      .nextValue(domain.getNextValue())
-      .build();
-
-    save(updated);
+    IdControlValidationAux.validateDependency(repo, "IdControlRepo");
+    
+    try{
+      repo.save(entity);
+    }
+    catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
+      log.error(GlobalMsgCreator.persistenceFailureLogMsg("IdControlEntity")+" {}", 
+        e.getMessage(), e
+      );
+      throw new IdControlPersistenceException(GlobalMsgCreator
+        .persistenceFailureMsg("IdControlEntity"));
+    }
   }
 }

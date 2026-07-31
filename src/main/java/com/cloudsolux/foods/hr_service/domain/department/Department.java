@@ -49,7 +49,7 @@ public final class Department {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(name);
   }
 
   @Override
@@ -61,6 +61,6 @@ public final class Department {
 
   @Override
   public String toString() {
-    return "Department ['id="+id+"', 'name="+name+"']";
+    return "Department: ['id="+id+"', 'name="+name+"']";
   }
 }

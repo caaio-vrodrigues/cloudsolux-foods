@@ -11,6 +11,7 @@ import com.cloudsolux.foods.global_services.infra.id_control.util.IdControlFacto
 import com.cloudsolux.foods.global_services.infra.id_control.util.IdControlFinder;
 import com.cloudsolux.foods.global_services.infra.id_control.util.IdControlMapper;
 import com.cloudsolux.foods.global_services.infra.id_control.util.IdControlPersistence;
+import com.cloudsolux.foods.global_services.infra.id_control.util.IdControlUpdater;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ public class IdControlGeneratorHandler {
   private final IdControlFinder finder;
   private final IdControlFactory factory;
   private final IdControlMapper mapper;
+  private final IdControlUpdater updater;
   private final IdControlPersistence persistence;
   
   @Transactional
@@ -32,15 +34,29 @@ public class IdControlGeneratorHandler {
     IdControlValidationAux.validateDependency(persistence, "IdControlPersistence");
 
     IdControlEntity entity = finder.findByKey(key)
-      .orElseGet(() -> factory.create(key));
+      .orElseGet(() -> null);
+      
+    IdControl domain;
 
-    IdControl domain = mapper.toDomain(entity);
-    IdControlValidationAux.validateDependency(domain, "IdControlMapper");
+    if(entity == null) {
+      domain = factory.create(key);
+      IdControlValidationAux.validateDependency(domain, "IdControlFactory");
+    }
+    else {
+      domain = mapper.toDomain(entity);
+      IdControlValidationAux.validateDependency(domain, "IdControlMapper");
+    }
 
     Long id = domain.getNextValue();
     domain.increment();
 
-    persistence.save(entity, domain);
+    if(entity == null) {
+      persistence.save(domain);
+    }
+    else {
+      IdControlEntity updatedEntity = updater.update(entity, domain);
+      persistence.save(updatedEntity);
+    }
     
     return id;
   }

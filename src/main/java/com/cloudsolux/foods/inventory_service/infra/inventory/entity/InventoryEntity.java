@@ -1,5 +1,7 @@
 package com.cloudsolux.foods.inventory_service.infra.inventory.entity;
 
+import java.util.Objects;
+
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -30,7 +32,19 @@ public final class InventoryEntity {
 	private StockEmbeddable stock;
 
 	@Override
+	public boolean equals(Object o) {
+		if(this == o) return true;
+		if(!(o instanceof InventoryEntity other)) return false;
+		return Objects.equals(catalogId, other.catalogId);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(catalogId);
+	}
+
+	@Override
 	public String toString() {
-		return "InventoryEntity: ['catalogId="+catalogId+"', "+stock+"]";
+		return "InventoryEntity: ['catalogId="+catalogId+"']";
 	}
 }

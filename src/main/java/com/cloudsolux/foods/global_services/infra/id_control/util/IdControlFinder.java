@@ -24,6 +24,8 @@ public final class IdControlFinder {
 
   public Optional<IdControlEntity> findByKey(IdControlKey key) {
 		IdControlValidationAux.validateArgument(key, "IdControlKey");
+		IdControlValidationAux.validateDependency(repo, "IdControlRepo");
+		
 		try{
 			return repo.findByKey(key);
 		}

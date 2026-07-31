@@ -1,5 +1,7 @@
 package com.cloudsolux.foods.inventory_service.infra.product.entity;
 
+import java.util.Objects;
+
 import com.cloudsolux.foods.inventory_service.infra.catalog.CatalogEntity;
 
 import jakarta.persistence.Column;
@@ -8,8 +10,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -23,22 +23,32 @@ import lombok.experimental.SuperBuilder;
 	},
 	name="UK_product")
 })
-@EqualsAndHashCode(callSuper=false, onlyExplicitlyIncluded=true)
 @SuperBuilder
 @Getter
 public final class ProductEntity extends CatalogEntity {
   
-  @Include 
 	@Column(name="name", nullable=false, updatable=false)
 	private String name;
 	
-	@Include
 	@Column(name="model", nullable=false, updatable=false)
 	private String model;
 	
-	@Include 
 	@Column(name="brand", nullable=false, updatable=false)
 	private String brand;
+
+	@Override
+	public boolean equals(Object o) {
+		if(this == o) return true;
+		if(!(o instanceof ProductEntity other)) return false;
+		return Objects.equals(name, other.name) && 
+			Objects.equals(model, other.model) && 
+			Objects.equals(brand, other.brand);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, model, brand);
+	}
 
 	@Override
 	public String toString() {

@@ -79,7 +79,7 @@ public final class Product extends Catalog {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId(), name, model, brand);
+		return Objects.hash(name, model, brand);
 	}
 
 	@Override
