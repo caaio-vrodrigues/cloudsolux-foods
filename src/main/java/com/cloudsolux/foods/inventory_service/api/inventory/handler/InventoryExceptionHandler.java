@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
-import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryConcurrentException;
+import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryPersistenceException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
 
 @Order(1)
 @RestControllerAdvice
 public final class InventoryExceptionHandler {
  
-  @ExceptionHandler(InventoryConcurrentException.class)
+  @ExceptionHandler(InventoryPersistenceException.class)
   public ProblemDetail handleInventoryConcurrent(
-    InventoryConcurrentException e
+    InventoryPersistenceException e
   ) {
     return GlobalExceptionResponseCreator
 			.createProblemDetailAndLog(

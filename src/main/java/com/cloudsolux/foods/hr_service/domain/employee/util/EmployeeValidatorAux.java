@@ -1,10 +1,12 @@
 package com.cloudsolux.foods.hr_service.domain.employee.util;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
 import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeeInvalidArgumentException;
+import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeeInvalidDependencyException;
 
 public final class EmployeeValidatorAux {
   
@@ -41,8 +43,28 @@ public final class EmployeeValidatorAux {
   public static void validateDependency(Object dependency, String dependencyType) {
     ValidationAux.validateDependency(
       dependency, 
-      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+      () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("Employee", dependencyType))
+    );
+  }
+
+  public static void validateDependencyMap(Map<?, ?> dependency, String dependencyType) {
+    ValidationAux.validateDependencyMap(
+      dependency, 
+      () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
+        .nullDependencyMsg("Employee", dependencyType)), 
+      () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
+        .emptyDependencyList("Employee", dependencyType))
+    );
+  }
+
+  public static void validateEmail(String email, String argumentName) {
+    ValidationAux.validateEmail(
+      email, 
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Employee", argumentName)),
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .invalidEmailFormatMsg("Employee", email, argumentName))
     );
   }
 }

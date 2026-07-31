@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlAccessException;
+import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlDataAccessException;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlPersistenceException;
 import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
@@ -16,9 +16,9 @@ import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionRes
 @RestControllerAdvice
 public final class IdControlExceptionHandler {
   
-  @ExceptionHandler(IdControlAccessException.class)
+  @ExceptionHandler(IdControlDataAccessException.class)
   public ProblemDetail handleIdControlAccess(
-    IdControlAccessException e
+    IdControlDataAccessException e
   ) {
     return GlobalExceptionResponseCreator
 			.createProblemDetailAndLog(

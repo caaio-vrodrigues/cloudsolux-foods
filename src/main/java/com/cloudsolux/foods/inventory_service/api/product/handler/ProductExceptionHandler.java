@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductAlreadyExistsException;
-import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductConcurrentException;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductPersistenceException;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
 
 @Order(1)
@@ -27,9 +27,9 @@ public final class ProductExceptionHandler {
 				GlobalMsgCreator.DUPLICATED_ENTITY_TITLE);
   }
 
-  @ExceptionHandler(ProductConcurrentException.class)
+  @ExceptionHandler(ProductPersistenceException.class)
   public ProblemDetail handleProductConcurrent(
-    ProductConcurrentException e
+    ProductPersistenceException e
   ) {
     return GlobalExceptionResponseCreator
 			.createProblemDetailAndLog(

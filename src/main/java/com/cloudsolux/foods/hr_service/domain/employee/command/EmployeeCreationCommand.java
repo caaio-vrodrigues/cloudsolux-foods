@@ -1,7 +1,8 @@
-package com.cloudsolux.foods.hr_service.infra.employee.command;
+package com.cloudsolux.foods.hr_service.domain.employee.command;
 
 import java.time.LocalDate;
 
+import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidationKey;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
 
 public final class EmployeeCreationCommand {
@@ -16,7 +17,7 @@ public final class EmployeeCreationCommand {
     EmployeeValidatorAux.validateString(builder.firstName, "firstName");
     EmployeeValidatorAux.validateString(builder.lastName, "lastName");
     EmployeeValidatorAux.validateArgument(builder.birthday, "LocalDate");
-    EmployeeValidatorAux.validateString(builder.email, "email");
+    EmployeeValidatorAux.validateEmail(builder.email, "email");
     EmployeeValidatorAux.validatePositiveLong(builder.departmentId, "departmentId");
     firstName = builder.firstName;
     lastName = builder.lastName;
@@ -64,6 +65,10 @@ public final class EmployeeCreationCommand {
 
   public static EmployeeCreationCommandBuilder builder() {
     return new EmployeeCreationCommandBuilder();
+  }
+
+  public EmployeeValidationKey getValidationKey() {
+    return EmployeeValidationKey.EMPLOYEE_VALIDATION;
   }
 
   public String getFirstName() {

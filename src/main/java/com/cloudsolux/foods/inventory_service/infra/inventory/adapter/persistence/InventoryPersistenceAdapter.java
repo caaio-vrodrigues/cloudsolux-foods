@@ -1,12 +1,11 @@
 package com.cloudsolux.foods.inventory_service.infra.inventory.adapter.persistence;
 
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
-import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryConcurrentException;
+import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryPersistenceException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistence;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
@@ -41,11 +40,14 @@ public final class InventoryPersistenceAdapter implements InventoryPersistence {
     try {
       repo.save(entity);
     }
-    catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
-      log.error(GlobalMsgCreator.persistenceFailureLogMsg("InventoryEntity")+". {}", 
-        e.getMessage(), e);
-      throw new InventoryConcurrentException(GlobalMsgCreator
-        .persistenceFailureMsg("InventoryEntity"));
+    catch(DataAccessException e) {
+      log.error(
+        GlobalMsgCreator.persistenceFailureLogMsg("Inventory")+". {}", 
+        e.getMessage(), 
+        e
+      );
+      throw new InventoryPersistenceException(GlobalMsgCreator
+        .persistenceFailureMsg("Inventory"));
     }
   }
 }

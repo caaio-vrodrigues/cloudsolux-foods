@@ -1,7 +1,6 @@
 package com.cloudsolux.foods.hr_service.infra.department.adapter.persistence;
 
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
@@ -42,12 +41,14 @@ public final class DepartmentPersistenceAdapter implements DepartmentPersistence
     try{
       repo.save(entity);
     }
-    catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
-      log.error(GlobalMsgCreator.persistenceFailureLogMsg("DepartmentEntity")+" {}",
-        e.getMessage(), e
+    catch(DataAccessException e) {
+      log.error(
+        GlobalMsgCreator.persistenceFailureLogMsg("Department")+" {}",
+        e.getMessage(), 
+        e
       );
       throw new DepartmentPersistenceException(GlobalMsgCreator
-        .persistenceFailureMsg("DepartmentEntity"));
+        .persistenceFailureMsg("Department"));
     }
   }
 }

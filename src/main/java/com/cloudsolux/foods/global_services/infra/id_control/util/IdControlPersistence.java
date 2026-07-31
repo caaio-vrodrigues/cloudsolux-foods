@@ -1,7 +1,6 @@
 package com.cloudsolux.foods.global_services.infra.id_control.util;
 
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
@@ -27,17 +26,20 @@ public final class IdControlPersistence {
     IdControlValidationAux.validateDependency(repo, "IdControlRepo");
     IdControlValidationAux.validateDependency(mapper, "IdControlMapper");
 
+    IdControlEntity entity = mapper.toEntity(domain);
+    IdControlValidationAux.validateDependency(entity, "IdControlMapper");
+
     try{
-      IdControlEntity entity = mapper.toEntity(domain);
-      IdControlValidationAux.validateDependency(entity, "IdControlMapper");
       repo.save(entity);
     }
-    catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
-      log.error(GlobalMsgCreator.persistenceFailureLogMsg("IdControlEntity")+" {}", 
-        e.getMessage(), e
+    catch(DataAccessException e) {
+      log.error(
+        GlobalMsgCreator.persistenceFailureLogMsg("IdControl")+" {}", 
+        e.getMessage(), 
+        e
       );
       throw new IdControlPersistenceException(GlobalMsgCreator
-        .persistenceFailureMsg("IdControlEntity"));
+        .persistenceFailureMsg("IdControl"));
     }
   }
 
@@ -48,12 +50,14 @@ public final class IdControlPersistence {
     try{
       repo.save(entity);
     }
-    catch(DataIntegrityViolationException | OptimisticLockingFailureException e) {
-      log.error(GlobalMsgCreator.persistenceFailureLogMsg("IdControlEntity")+" {}", 
-        e.getMessage(), e
+    catch(DataAccessException e) {
+      log.error(
+        GlobalMsgCreator.persistenceFailureLogMsg("IdControl")+" {}", 
+        e.getMessage(), 
+        e
       );
       throw new IdControlPersistenceException(GlobalMsgCreator
-        .persistenceFailureMsg("IdControlEntity"));
+        .persistenceFailureMsg("IdControl"));
     }
   }
 }

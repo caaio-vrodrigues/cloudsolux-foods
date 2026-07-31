@@ -2,7 +2,7 @@ package com.cloudsolux.foods.hr_service.api.employee.dto;
 
 import java.time.LocalDate;
 
-import com.cloudsolux.foods.hr_service.infra.employee.command.EmployeeCreationCommand;
+import com.cloudsolux.foods.hr_service.domain.employee.command.EmployeeCreationCommand;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

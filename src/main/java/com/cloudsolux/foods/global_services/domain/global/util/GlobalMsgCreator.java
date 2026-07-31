@@ -76,8 +76,16 @@ public final class GlobalMsgCreator {
 		return "Falha ao tentar persistir entidade: ['"+className+"'].";
 	}
 
+  public static String accessFailureLogMsg(String className) {
+		return "Falha ao tentar acessar entidades: ['"+className+"'].";
+	}
+
   public static String persistenceFailureMsg(String className) {
     return "Falha interna desconhecida ao tentar persistir entidade: ['"+className+"'].";
+  }
+
+  public static String accessFailureMsg(String className) {
+    return "Falha ao acessar os dados. Não foi possível acessar as entidades ['"+className+"']. Verifique o banco de dados e a integridade dos dados retornados.";
   }
 
   public static String nullDependencyMsg(String className, String dependencyType) {
@@ -89,14 +97,10 @@ public final class GlobalMsgCreator {
   }
 
   public static String emptyImplementationList(String className, String implementationsType) {
-     return "Falha ao processar '"+className+"'. Lista de implementações vazia para: ['"+implementationsType+"'].";
+    return "Falha ao processar '"+className+"'. Lista de implementações vazia para: ['"+implementationsType+"'].";
   }
 
-  public static String dataAccessLogMsg(String className) {
-    return "Falha ao tentar buscar entidades: ['"+className+"'].";
-  }
-
-  public static String dataAccessFailureMsg(String className) {
-    return "Falha ao acessar os dados. Não foi possível acessar as entidades ['"+className+"']. Verifique o banco de dados e a integridade dos dados retornados.";
+  public static String invalidEmailFormatMsg(String className, String email, String argumentName) {
+    return "Falha ao processar '"+className+"'. E-mail inválido para o argumento: ['"+argumentName+"="+email+"'].";
   }
 }

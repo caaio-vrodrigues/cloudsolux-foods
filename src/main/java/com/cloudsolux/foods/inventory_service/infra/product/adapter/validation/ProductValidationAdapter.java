@@ -1,9 +1,12 @@
 package com.cloudsolux.foods.inventory_service.infra.product.adapter.validation;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductAlreadyExistsException;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductDataAccessException;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidation;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductMsgCreator;
@@ -11,7 +14,9 @@ import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidat
 import com.cloudsolux.foods.inventory_service.infra.product.repo.ProductRepo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public final class ProductValidationAdapter implements ProductValidation {
@@ -28,13 +33,29 @@ public final class ProductValidationAdapter implements ProductValidation {
     ProductValidationAux.validateArgument(command, "ProductCreationCommand");
     ProductValidationAux.validateDependency(repo, "ProductRepo");
 
-    boolean existsByConstraint = repo.existsByNameAndModelAndBrand(
-      command.getName(), command.getModel(), command.getBrand()
-    );
+    boolean existsByConstraint;
 
-    if(existsByConstraint) throw new ProductAlreadyExistsException(
-      ProductMsgCreator.uniquenessViolationMsg(
+    try {
+      existsByConstraint = repo.existsByNameAndModelAndBrand(
         command.getName(), command.getModel(), command.getBrand()
-      ));
+      );
+    }
+    catch(DataAccessException e) {
+      log.error(
+        GlobalMsgCreator.accessFailureLogMsg("Product")+". {}", 
+        e.getMessage(), 
+        e
+      );
+      throw new ProductDataAccessException(GlobalMsgCreator
+        .accessFailureMsg("Product"));
+    }
+
+    ProductValidationAux.validateDependency(existsByConstraint, "ProductRepo");
+
+    if(existsByConstraint) 
+      throw new ProductAlreadyExistsException(
+        ProductMsgCreator.uniquenessViolationMsg(
+          command.getName(), command.getModel(), command.getBrand())
+      );
   }
 }

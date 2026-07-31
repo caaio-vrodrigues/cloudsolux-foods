@@ -11,9 +11,9 @@ public final class ValidationAux {
 
   public static void validateArgument(
     Object argument, 
-    Supplier<RuntimeException> exceptionSupplier
+    Supplier<RuntimeException> nullSupplier
   ) {
-    if(argument == null) throw exceptionSupplier.get();
+    if(argument == null) throw nullSupplier.get();
   }
 
   public static void validateString(
@@ -46,9 +46,9 @@ public final class ValidationAux {
 
   public static void validateDependency(
     Object dependency,
-    Supplier<RuntimeException> exceptionSupplier
+    Supplier<RuntimeException> nullSupplier
   ) {
-    if(dependency == null) throw exceptionSupplier.get();
+    if(dependency == null) throw nullSupplier.get();
   }
 
   public static void validateDependencyMap(
@@ -67,5 +67,14 @@ public final class ValidationAux {
   {
     if(implementations == null) throw nullSupplier.get();
     if(implementations.isEmpty()) throw emptySupplier.get();
+  }
+
+  public static void validateEmail(
+    String email, 
+    Supplier<RuntimeException> nullSupplier,
+    Supplier<RuntimeException> invalidEmailSupplier
+  ) {
+    if(email == null) throw nullSupplier.get();
+    if(!email.contains("@") || !(email.length() > 4)) throw invalidEmailSupplier.get();
   }
 }
