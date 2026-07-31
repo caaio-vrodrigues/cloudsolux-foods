@@ -37,4 +37,12 @@ public final class EmployeeValidatorAux {
         .positiveMsg("Employee", argumentName, BigDecimal.valueOf(value)))
     );
   }
+
+  public static void validateDependency(Object dependency, String dependencyType) {
+    ValidationAux.validateDependency(
+      dependency, 
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .nullDependencyMsg("Employee", dependencyType))
+    );
+  }
 }
