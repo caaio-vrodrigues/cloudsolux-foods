@@ -2,6 +2,8 @@ package com.cloudsolux.foods.hr_service.domain.employee.command;
 
 import java.time.LocalDate;
 
+import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
+import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidationKey;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
 
@@ -67,8 +69,16 @@ public final class EmployeeCreationCommand {
     return new EmployeeCreationCommandBuilder();
   }
 
+  public IdControlKey getIdControlKey() {
+    return IdControlKey.EMPLOYEE_ID;
+  }
+
   public EmployeeValidationKey getValidationKey() {
     return EmployeeValidationKey.EMPLOYEE_VALIDATION;
+  }
+
+  public EmployeeCreationKey getFactoryKey() {
+    return EmployeeCreationKey.EMPLOYEE_CREATION;
   }
 
   public String getFirstName() {

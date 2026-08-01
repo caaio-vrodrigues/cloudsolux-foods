@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationKey;
+import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationPort;
 import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidationKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidationPort;
 
@@ -20,6 +22,16 @@ public class EmployeeAdaptersRegistry {
   ) {
     return validators.stream().collect(Collectors.toMap(
       EmployeeValidationPort::getKey, 
+      Function.identity())
+    );
+  }
+
+  @Bean
+  Map<EmployeeCreationKey, EmployeeCreationPort> employeeFactories(
+    List<EmployeeCreationPort> factories
+  ) {
+    return factories.stream().collect(Collectors.toMap(
+      EmployeeCreationPort::getKey, 
       Function.identity())
     );
   }
