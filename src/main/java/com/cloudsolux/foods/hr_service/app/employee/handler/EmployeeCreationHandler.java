@@ -8,6 +8,7 @@ import com.cloudsolux.foods.hr_service.app.employee.dto.EmployeeResponse;
 import com.cloudsolux.foods.hr_service.domain.employee.Employee;
 import com.cloudsolux.foods.hr_service.domain.employee.command.EmployeeCreationCommand;
 import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreation;
+import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistence;
 import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidation;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
 import com.cloudsolux.foods.hr_service.infra.employee.util.EmployeeAdaptersGetter;
@@ -34,10 +35,18 @@ public class EmployeeCreationHandler {
     validator.validateUniqueness(command.getEmail());
 
     Long id = idGenerator.generateId(command.getIdControlKey());
-    EmployeeCreation factory = (EmployeeCreation) adapters.getFactories(command.getFactoryKey());
+
+    EmployeeCreation factory = (EmployeeCreation) adapters
+      .getFactories(command.getFactoryKey());
 
     EmployeeValidatorAux.validateDependency(factory, "EmployeeAdaptersGetter");
     Employee employee = factory.create(command, id);
+
+    EmployeePersistence persistence = (EmployeePersistence) adapters
+      .getPersistences(command.getPersistenceKey());
+
+    EmployeeValidatorAux.validateDependency(persistence, "EmployeeAdaptersGetter");
+    persistence.save(employee);
 
     throw new UnsupportedOperationException("Unimplemented method 'create'");
   }

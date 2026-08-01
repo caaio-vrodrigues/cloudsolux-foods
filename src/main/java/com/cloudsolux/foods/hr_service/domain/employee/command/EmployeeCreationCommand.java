@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationKey;
+import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidationKey;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
 
@@ -79,6 +80,10 @@ public final class EmployeeCreationCommand {
 
   public EmployeeCreationKey getFactoryKey() {
     return EmployeeCreationKey.EMPLOYEE_CREATION;
+  }
+
+  public EmployeePersistenceKey getPersistenceKey() {
+    return EmployeePersistenceKey.EMPLOYEE_PERSISTENCE;
   }
 
   public String getFirstName() {

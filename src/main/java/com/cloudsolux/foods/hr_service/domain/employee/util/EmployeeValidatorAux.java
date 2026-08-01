@@ -1,6 +1,7 @@
 package com.cloudsolux.foods.hr_service.domain.employee.util;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
@@ -65,6 +66,16 @@ public final class EmployeeValidatorAux {
         .nullArgumentMsg("Employee", argumentName)),
       () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .invalidEmailFormatMsg("Employee", email, argumentName))
+    );
+  }
+
+  public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
+    ValidationAux.validateRegistryCreation(
+      implementations, 
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Employee", implementationsType)), 
+      () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
+        .emptyImplementationList("Employee", implementationsType))
     );
   }
 }
