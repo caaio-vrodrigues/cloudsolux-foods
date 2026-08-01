@@ -5,4 +5,5 @@ import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreat
 public interface DepartmentValidation extends DepartmentValidationPort {
  
   void validateUniqueness(DepartmentCreationCommand command);
+  void validateExistence(Long departmentId);
 }

@@ -7,6 +7,7 @@ import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentAlreadyExistsException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentDataAccessException;
+import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentNotFoundException;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentMsgCreator;
@@ -53,5 +54,15 @@ public final class DepartmentValidationAdapter implements DepartmentValidation {
     if(existsByName)
       throw new DepartmentAlreadyExistsException(DepartmentMsgCreator
         .uniquenessViolationMsg(command.getName()));
+  }
+
+  @Override
+  public void validateExistence(Long departmentId) {
+    DepartmentValidationAux.validatePositiveLong(departmentId, "departmentId");
+    DepartmentValidationAux.validateDependency(repo, "DepartmentRepo");
+
+    if(!repo.existsById(departmentId)) 
+      throw new DepartmentNotFoundException(GlobalMsgCreator
+        .notFoundMsg("Department", departmentId));
   }
 }

@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudsolux.foods.global_services.app.IdControl.handler.IdControlGeneratorHandler;
 import com.cloudsolux.foods.hr_service.app.employee.dto.EmployeeResponse;
+import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
 import com.cloudsolux.foods.hr_service.domain.employee.Employee;
 import com.cloudsolux.foods.hr_service.domain.employee.command.EmployeeCreationCommand;
 import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreation;
@@ -23,6 +24,7 @@ public class EmployeeCreationHandler {
   private final EmployeeAdaptersGetter adapters;
   private final IdControlGeneratorHandler idGenerator;
   private final EmployeeResponseGenerator responseGenerator;
+  private final DepartmentValidation departmentValidator;
   
   @Transactional
   public EmployeeResponse create(EmployeeCreationCommand command) {
@@ -30,12 +32,15 @@ public class EmployeeCreationHandler {
     EmployeeValidatorAux.validateDependency(adapters, "EmployeeAdaptersGetter");
     EmployeeValidatorAux.validateDependency(idGenerator, "IdControlGeneratorHandler");
     EmployeeValidatorAux.validateDependency(responseGenerator, "EmployeeResponseGenerator");
+    EmployeeValidatorAux.validateDependency(departmentValidator, "DepartmentValidationAdapter");
 
     EmployeeValidation validator = (EmployeeValidation) adapters
       .getValidator(command.getValidationKey());
     
     EmployeeValidatorAux.validateDependency(validator, "EmployeeAdaptersGetter");
     validator.validateUniqueness(command.getEmail());
+
+    departmentValidator.validateExistence(command.getDepartmentId());
 
     Long id = idGenerator.generateId(command.getIdControlKey());
 

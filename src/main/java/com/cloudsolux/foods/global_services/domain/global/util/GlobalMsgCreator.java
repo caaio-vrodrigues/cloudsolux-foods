@@ -39,6 +39,7 @@ public final class GlobalMsgCreator {
   public static final String ACCESS_FAILURE_TITLE = "Falha de acesso";
   public static final String PERSISTENCE_FAILURE_TITLE = "Falha de persistência";
   public static final String DEPENDENCY_FAILURE_TITLE = "Dependência inválida";
+  public static final String NOT_FOUND_TITLE = "Não encontrado";
   
   private GlobalMsgCreator() {}
 
@@ -102,5 +103,9 @@ public final class GlobalMsgCreator {
 
   public static String invalidEmailFormatMsg(String className, String email, String argumentName) {
     return "Falha ao processar '"+className+"'. E-mail inválido para o argumento: ['"+argumentName+"="+email+"'].";
+  }
+
+  public static String notFoundMsg(String className, Long departmentId) {
+    return "Não foi possível encontrar '"+className+"' para o id: ['"+departmentId+"'].";
   }
 }

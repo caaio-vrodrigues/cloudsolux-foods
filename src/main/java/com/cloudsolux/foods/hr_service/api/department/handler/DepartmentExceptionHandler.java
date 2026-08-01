@@ -11,6 +11,7 @@ import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionRes
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentAlreadyExistsException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
+import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentNotFoundException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentPersistenceException;
 
 @Order(1)
@@ -59,5 +60,16 @@ public final class DepartmentExceptionHandler {
 				e, 
 				HttpStatus.CONFLICT, 
 				GlobalMsgCreator.PERSISTENCE_FAILURE_TITLE);
+  }
+
+  @ExceptionHandler(DepartmentNotFoundException.class)
+  public ProblemDetail handleDepartmentNotFound(
+    DepartmentNotFoundException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.NOT_FOUND, 
+				GlobalMsgCreator.NOT_FOUND_TITLE);
   }
 }
