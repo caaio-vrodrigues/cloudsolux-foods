@@ -11,6 +11,7 @@ public final class DepartmentResponseGenerator {
  
   public DepartmentResponse toDepartmentResponse(Department domain) {
     DepartmentValidationAux.validateArgument(domain, "Department");
+    
     return DepartmentResponse.builder()
       .id(domain.getId())
       .name(domain.getName())

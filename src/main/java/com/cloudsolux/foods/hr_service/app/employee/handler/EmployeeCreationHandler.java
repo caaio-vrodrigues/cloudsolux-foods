@@ -12,6 +12,7 @@ import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.Employe
 import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidation;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
 import com.cloudsolux.foods.hr_service.infra.employee.util.EmployeeAdaptersGetter;
+import com.cloudsolux.foods.hr_service.infra.employee.util.EmployeeResponseGenerator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,12 +22,14 @@ public class EmployeeCreationHandler {
 
   private final EmployeeAdaptersGetter adapters;
   private final IdControlGeneratorHandler idGenerator;
+  private final EmployeeResponseGenerator responseGenerator;
   
   @Transactional
   public EmployeeResponse create(EmployeeCreationCommand command) {
     EmployeeValidatorAux.validateArgument(command, "EmployeeCreationCommand");
     EmployeeValidatorAux.validateDependency(adapters, "EmployeeAdaptersGetter");
     EmployeeValidatorAux.validateDependency(idGenerator, "IdControlGeneratorHandler");
+    EmployeeValidatorAux.validateDependency(responseGenerator, "EmployeeResponseGenerator");
 
     EmployeeValidation validator = (EmployeeValidation) adapters
       .getValidator(command.getValidationKey());
@@ -48,6 +51,6 @@ public class EmployeeCreationHandler {
     EmployeeValidatorAux.validateDependency(persistence, "EmployeeAdaptersGetter");
     persistence.save(employee);
 
-    throw new UnsupportedOperationException("Unimplemented method 'create'");
+    return responseGenerator.toEmployeeResponse(employee);
   }
 }
