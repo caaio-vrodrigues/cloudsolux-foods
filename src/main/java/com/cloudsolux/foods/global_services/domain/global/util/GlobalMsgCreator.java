@@ -42,10 +42,6 @@ public final class GlobalMsgCreator {
   public static final String NOT_FOUND_TITLE = "Não encontrado";
   
   private GlobalMsgCreator() {}
-
-  public static String errorListMsg(String field, String msg) {
-		return "A lista: ['"+field+"'] "+msg+".";
-	}
 	
 	public static String errorFieldMsg(String field, String msg) {
 		return "O campo: ['"+field+"'] "+msg+".";

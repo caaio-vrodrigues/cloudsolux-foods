@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductAlreadyExistsException;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductDataAccessException;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductPersistenceException;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidDependencyException;
 
 @Order(1)
 @RestControllerAdvice
@@ -34,8 +36,8 @@ public final class ProductExceptionHandler {
     return GlobalExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
-				HttpStatus.CONFLICT, 
-				GlobalMsgCreator.CONCURRENCY_TITLE);
+				HttpStatus.INTERNAL_SERVER_ERROR, 
+				GlobalMsgCreator.PERSISTENCE_FAILURE_TITLE);
   }
 
   @ExceptionHandler(ProductInvalidArgumentException.class)
@@ -47,5 +49,27 @@ public final class ProductExceptionHandler {
 				e, 
 				HttpStatus.BAD_REQUEST, 
 				GlobalMsgCreator.INVALID_ARGUMENT_TITLE);
+  }
+
+  @ExceptionHandler(ProductDataAccessException.class)
+  public ProblemDetail handleProductDataAccess(
+    ProductDataAccessException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.INTERNAL_SERVER_ERROR, 
+				GlobalMsgCreator.ACCESS_FAILURE_TITLE);
+  }
+
+  @ExceptionHandler(ProductInvalidDependencyException.class)
+  public ProblemDetail handleProductInvalidDependency(
+    ProductInvalidDependencyException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.INTERNAL_SERVER_ERROR, 
+				GlobalMsgCreator.DEPENDENCY_FAILURE_TITLE);
   }
 }

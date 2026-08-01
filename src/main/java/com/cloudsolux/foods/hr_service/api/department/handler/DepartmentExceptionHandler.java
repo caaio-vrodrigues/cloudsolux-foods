@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentAlreadyExistsException;
+import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentDataAccessException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentNotFoundException;
@@ -58,7 +59,7 @@ public final class DepartmentExceptionHandler {
     return GlobalExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
-				HttpStatus.CONFLICT, 
+				HttpStatus.INTERNAL_SERVER_ERROR, 
 				GlobalMsgCreator.PERSISTENCE_FAILURE_TITLE);
   }
 
@@ -71,5 +72,16 @@ public final class DepartmentExceptionHandler {
 				e, 
 				HttpStatus.NOT_FOUND, 
 				GlobalMsgCreator.NOT_FOUND_TITLE);
+  }
+
+  @ExceptionHandler(DepartmentDataAccessException.class)
+  public ProblemDetail handleDepartmentDataAccess(
+    DepartmentDataAccessException e
+  ) {
+    return GlobalExceptionResponseCreator
+			.createProblemDetailAndLog(
+				e, 
+				HttpStatus.INTERNAL_SERVER_ERROR, 
+				GlobalMsgCreator.ACCESS_FAILURE_TITLE);
   }
 }

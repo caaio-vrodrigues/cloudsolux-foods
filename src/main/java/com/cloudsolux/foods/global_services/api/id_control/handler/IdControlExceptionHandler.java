@@ -23,7 +23,7 @@ public final class IdControlExceptionHandler {
     return GlobalExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
-				HttpStatus.CONFLICT, 
+				HttpStatus.INTERNAL_SERVER_ERROR, 
 				GlobalMsgCreator.ACCESS_FAILURE_TITLE);
   }
 
@@ -34,7 +34,7 @@ public final class IdControlExceptionHandler {
     return GlobalExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
-				HttpStatus.CONFLICT, 
+				HttpStatus.INTERNAL_SERVER_ERROR, 
 				GlobalMsgCreator.PERSISTENCE_FAILURE_TITLE);
   }
 

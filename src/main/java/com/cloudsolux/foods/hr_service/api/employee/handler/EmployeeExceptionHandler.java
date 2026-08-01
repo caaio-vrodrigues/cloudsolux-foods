@@ -16,7 +16,7 @@ import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeePersist
 
 @Order(1)
 @RestControllerAdvice
-public class EmployeeExceptionHandler {
+public final class EmployeeExceptionHandler {
   
   @ExceptionHandler(EmployeeAlreadyExistsException.class)
   public ProblemDetail handleEmployeeAlreadyExists(

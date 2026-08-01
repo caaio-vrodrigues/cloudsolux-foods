@@ -26,7 +26,7 @@ public final class MethodArgumentExceptionHandler {
 		ProblemDetail problemDetail, String traceId, List<String> errorList
 	) {
 		GlobalValidationAux.validateArgument(problemDetail, "ProblemDetail");
-		GlobalValidationAux.validateString(traceId, traceId);
+		GlobalValidationAux.validateString(traceId, "traceId");
 		GlobalValidationAux.validateArgument(errorList, "List<String>");
 		
 		problemDetail.setProperty(GlobalMsgCreator.TIME_STAMP, LocalDateTime.now());
@@ -51,9 +51,7 @@ public final class MethodArgumentExceptionHandler {
 				default -> error.getDefaultMessage();
 			};
 
-			return error.getCode().equals("NotEmpty") ?
-				GlobalMsgCreator.errorListMsg(error.getField(), msg) 
-				: GlobalMsgCreator.errorFieldMsg(error.getField(), msg);
+			return GlobalMsgCreator.errorFieldMsg(error.getField(), msg);
 		})
 		.toList();
 	}

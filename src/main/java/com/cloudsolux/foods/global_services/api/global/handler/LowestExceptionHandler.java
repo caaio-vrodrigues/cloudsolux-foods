@@ -23,7 +23,7 @@ public final class LowestExceptionHandler {
 		ProblemDetail problemDetail, String traceId
 	) {
 		GlobalValidationAux.validateArgument(problemDetail, "ProblemDetail");
-		GlobalValidationAux.validateString(traceId, traceId);
+		GlobalValidationAux.validateString(traceId, "traceId");
 
 		problemDetail.setProperty(GlobalMsgCreator.TIME_STAMP, LocalDateTime.now());
 		problemDetail.setProperty(GlobalMsgCreator.TRACE_ID, traceId);
@@ -35,7 +35,7 @@ public final class LowestExceptionHandler {
 	) {
 		GlobalValidationAux.validateArgument(e, "RuntimeException");
 		GlobalValidationAux.validateArgument(status, "HttpStatus");
-		GlobalValidationAux.validateString(title, title);
+		GlobalValidationAux.validateString(title, "title");
 
 		String traceId = UUID.randomUUID().toString();
 
