@@ -1,0 +1,47 @@
+package com.cloudsolux.foods.hr_service.infra.user_account;
+
+import com.cloudsolux.foods.global_services.domain.global.model.Role;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
+
+@AllArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@EqualsAndHashCode(onlyExplicitlyIncluded=true)
+@Getter
+@Builder
+@Entity
+@Table(name="user_account")
+public final class UserAccountEntity {
+  
+  @Include
+  @Id
+  @Column(name="employee_id")
+  private Long employeeId;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name="role", nullable=false, updatable=false)
+  private Role role;
+
+  @Column(name="password", nullable=false, updatable=false)
+  private String password;
+
+  @Column(name="active")
+  private boolean active;
+
+  @Override
+  public String toString() {
+    return "UserAccountEntity: ['employeeId="+employeeId+"', 'role="+role+"', 'active="+active+"']";
+  }
+}
