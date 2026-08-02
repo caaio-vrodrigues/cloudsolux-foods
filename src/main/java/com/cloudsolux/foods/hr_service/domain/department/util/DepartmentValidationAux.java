@@ -1,6 +1,5 @@
 package com.cloudsolux.foods.hr_service.domain.department.util;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +36,7 @@ public final class DepartmentValidationAux {
       () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Department", argumentName)), 
       () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .positiveMsg("Department", argumentName, BigDecimal.valueOf(value)))
+        .positiveMsg("Department", argumentName, value))
     );
   }
 

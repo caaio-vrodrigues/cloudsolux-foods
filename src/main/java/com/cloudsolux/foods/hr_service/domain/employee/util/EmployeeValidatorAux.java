@@ -1,6 +1,5 @@
 package com.cloudsolux.foods.hr_service.domain.employee.util;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +36,7 @@ public final class EmployeeValidatorAux {
       () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Employee", argumentName)), 
       () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .positiveMsg("Employee", argumentName, BigDecimal.valueOf(value)))
+        .positiveMsg("Employee", argumentName, value))
     );
   }
 
