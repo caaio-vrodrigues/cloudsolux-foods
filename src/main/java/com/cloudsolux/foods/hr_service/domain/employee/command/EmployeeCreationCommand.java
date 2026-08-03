@@ -34,10 +34,6 @@ public final class EmployeeCreationCommand {
     return IdControlKey.EMPLOYEE_ID;
   }
 
-  public IdControlKey getUserAccountIdControlKey() {
-    return IdControlKey.USER_ACCOUNT_ID;
-  }
-
   public EmployeeCreationKey getFactoryKey() {
     return EmployeeCreationKey.EMPLOYEE_CREATION;
   }

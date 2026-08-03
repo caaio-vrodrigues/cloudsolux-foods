@@ -7,7 +7,7 @@ import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 
 public final class GlobalMsgCreator {
 
-  public static final String RESPONSE_201 = "Criação concluída com sucesso.";
+  public static final String RESPONSE_201 = "Criação concluída com sucesso";
   public static final String RESPONSE_400 = "Dados inválidos — violação de regras de negócio ou requisição inválida";
   public static final String RESPONSE_409 = "Conflito — violação de regras de negócio";
   public static final String RESPONSE_500 = "Erro interno inesperado";
@@ -21,18 +21,20 @@ public final class GlobalMsgCreator {
 	public static final String NOT_EMPTY = "NotEmpty";
 	public static final String POSITIVE = "Positive";
 	public static final String POSITIVE_OR_ZERO = "PositiveOrZero";
+  public static final String EMAIL = "Email";
 	
-	public static final String INTERNAL_FAILURE_MSG = "Falha interna, acione o suporte.";
+	public static final String INTERNAL_FAILURE_MSG = "Falha interna, acione o suporte";
 	public static final String NOT_BLANK_MSG = "não pode ser vazio";
 	public static final String NOT_NULL_MSG = "não pode ser nulo";
 	public static final String NOT_EMPTY_MSG = "não pode ser vazia";
 	public static final String POSITIVE_MSG = "deve ser maior que zero";
 	public static final String POSITIVE_OR_ZERO_MSG = "deve ser igual ou maior que zero";
-	public static final String INVALID_JSON_FORMAT_MSG = "O corpo da requisição não pôde ser interpretado. Verifique a sintaxe JSON e se os tipos dos campos correspondem ao esperado pelo endpoint.";
-  public static final String INVALID_TYPE_MSG = "O valor fornecido para o discriminador de tipo não corresponde a nenhum tipo conhecido. Consulte a documentação da API para os tipos suportados.";
+	public static final String INVALID_JSON_FORMAT_MSG = "O corpo da requisição não pôde ser interpretado. Verifique a sintaxe JSON e se os tipos dos campos correspondem ao esperado pelo endpoint";
+  public static final String INVALID_TYPE_MSG = "O valor fornecido para o discriminador de tipo não corresponde a nenhum tipo conhecido. Consulte a documentação da API para os tipos suportados";
+  public static final String EMAIL_MSG = "possui formato inválido";
 	
-	public static final String INVALID_TYPE_TITLE = "Tipo inválido.";
-	public static final String INVALID_JSON_FORMAT_TITLE = "Corpo da requisição inválido.";
+	public static final String INVALID_TYPE_TITLE = "Tipo inválido";
+	public static final String INVALID_JSON_FORMAT_TITLE = "Corpo da requisição inválido";
 	public static final String UNEXPECTED_FAILURE_TITLE = "Falha inesperada";
 	public static final String INVALID_ARGUMENT_TITLE = "Argumento inválido";
 	public static final String CONCURRENCY_TITLE = "Falha interna";

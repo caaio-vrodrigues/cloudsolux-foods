@@ -32,7 +32,7 @@ public final class UserAccountValidationAdapter implements UserAccountValidation
     UserAccountValidationAux.validateEmail(email, "email");
     UserAccountValidationAux.validateDependency(repo, "UserAccountRepo");
 
-    boolean existsByEmail;
+    Boolean existsByEmail;
 
     try{
       existsByEmail = repo.existsByEmail(email);

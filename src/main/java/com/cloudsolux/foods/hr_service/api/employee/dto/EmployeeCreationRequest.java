@@ -2,6 +2,7 @@ package com.cloudsolux.foods.hr_service.api.employee.dto;
 
 import java.time.LocalDate;
 
+import com.cloudsolux.foods.global_services.domain.global.model.Role;
 import com.cloudsolux.foods.hr_service.domain.employee.command.EmployeeCreationCommand;
 import com.cloudsolux.foods.hr_service.domain.user_account.command.UserAccountCreationCommand;
 
@@ -33,8 +34,14 @@ public final class EmployeeCreationRequest {
   @NotBlank @Email
   private String email;
 
+  @NotBlank
+  private String password;
+
   @NotNull @Positive
   private Long departmentId;
+
+  @NotNull
+  private Role role;
 
   @NotNull
   private Boolean active;
@@ -51,7 +58,8 @@ public final class EmployeeCreationRequest {
       .lastName(lastName)
       .birthday(birthday)
       .email(email)
-      .password(email)
+      .password(password)
+      .role(role)
       .active(active)
       .build();
   }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
+import com.cloudsolux.foods.global_services.infra.global.util.ExceptionResponseCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductAlreadyExistsException;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductDataAccessException;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductPersistenceException;
@@ -22,7 +22,7 @@ public final class ProductExceptionHandler {
   public ProblemDetail handleProductAlreadyExists(
     ProductAlreadyExistsException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.CONFLICT, 
@@ -33,7 +33,7 @@ public final class ProductExceptionHandler {
   public ProblemDetail handleProductConcurrent(
     ProductPersistenceException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
@@ -44,7 +44,7 @@ public final class ProductExceptionHandler {
   public ProblemDetail handleProductInvalidArgument(
     ProductInvalidArgumentException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.BAD_REQUEST, 
@@ -55,7 +55,7 @@ public final class ProductExceptionHandler {
   public ProblemDetail handleProductDataAccess(
     ProductDataAccessException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
@@ -66,7 +66,7 @@ public final class ProductExceptionHandler {
   public ProblemDetail handleProductInvalidDependency(
     ProductInvalidDependencyException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 

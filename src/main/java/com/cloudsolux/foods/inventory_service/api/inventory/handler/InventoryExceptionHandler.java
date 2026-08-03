@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
+import com.cloudsolux.foods.global_services.infra.global.util.ExceptionResponseCreator;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryPersistenceException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidDependencyException;
@@ -20,7 +20,7 @@ public final class InventoryExceptionHandler {
   public ProblemDetail handleInventoryPersistence(
     InventoryPersistenceException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
@@ -31,7 +31,7 @@ public final class InventoryExceptionHandler {
   public ProblemDetail handleInventoryInvalidArgument(
     InventoryInvalidArgumentException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.BAD_REQUEST, 
@@ -42,7 +42,7 @@ public final class InventoryExceptionHandler {
   public ProblemDetail handleInventoryInvalidDependency(
     InventoryInvalidDependencyException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 

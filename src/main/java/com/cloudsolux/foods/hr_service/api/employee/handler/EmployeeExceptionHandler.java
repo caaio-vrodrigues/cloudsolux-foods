@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
+import com.cloudsolux.foods.global_services.infra.global.util.ExceptionResponseCreator;
 import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeeAlreadyExistsException;
 import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeeDataAccessException;
 import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeeInvalidArgumentException;
@@ -22,7 +22,7 @@ public final class EmployeeExceptionHandler {
   public ProblemDetail handleEmployeeAlreadyExists(
     EmployeeAlreadyExistsException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.CONFLICT, 
@@ -34,7 +34,7 @@ public final class EmployeeExceptionHandler {
   public ProblemDetail handleEmployeeDataAccess(
     EmployeeDataAccessException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
@@ -46,7 +46,7 @@ public final class EmployeeExceptionHandler {
   public ProblemDetail handleEmployeeInvalidArgument(
     EmployeeInvalidArgumentException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.BAD_REQUEST, 
@@ -58,7 +58,7 @@ public final class EmployeeExceptionHandler {
   public ProblemDetail handleEmployeeInvalidDependency(
     EmployeeInvalidDependencyException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
@@ -70,7 +70,7 @@ public final class EmployeeExceptionHandler {
   public ProblemDetail handleEmployeePersistence(
     EmployeePersistenceException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 

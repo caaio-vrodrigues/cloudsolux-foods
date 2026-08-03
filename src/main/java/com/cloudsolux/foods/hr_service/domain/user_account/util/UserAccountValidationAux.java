@@ -1,6 +1,8 @@
 package com.cloudsolux.foods.hr_service.domain.user_account.util;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
@@ -75,7 +77,27 @@ public final class UserAccountValidationAux {
     ValidationAux.validateDependency(
       dependency, 
       () -> new UserAccountInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("Department", dependencyType))
+        .nullDependencyMsg("UserAccount", dependencyType))
+    );
+  }
+
+  public static void validateDependencyMap(Map<?, ?> dependency, String dependencyType) {
+    ValidationAux.validateDependencyMap(
+      dependency, 
+      () -> new UserAccountInvalidDependencyException(GlobalMsgCreator
+        .nullDependencyMsg("UserAccount", dependencyType)), 
+      () -> new UserAccountInvalidDependencyException(GlobalMsgCreator
+        .emptyDependencyList("UserAccount", dependencyType))
+    );
+  }
+
+  public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
+    ValidationAux.validateRegistryCreation(
+      implementations, 
+      () -> new UserAccountInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("UserAccount", implementationsType)), 
+      () -> new UserAccountInvalidDependencyException(GlobalMsgCreator
+        .emptyImplementationList("UserAccount", implementationsType))
     );
   }
 }

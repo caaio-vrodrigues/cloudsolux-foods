@@ -94,12 +94,12 @@ public final class ValidationAux {
     if(encoded == null) throw nullSupplier.get();
     if(encoded.isBlank()) throw blankSupplier.get();
 
-    boolean invalidPassword = 
-      !encoded.startsWith("$2a$") && 
-      !encoded.startsWith("$2b$") &&
-      !encoded.startsWith("$2y$");
+    // boolean invalidPassword = 
+    //   !encoded.startsWith("$2a$") && 
+    //   !encoded.startsWith("$2b$") &&
+    //   !encoded.startsWith("$2y$");
 
-    if(invalidPassword) throw invalidPasswordSupplier.get();
+    // if(invalidPassword) throw invalidPasswordSupplier.get();
   }
 
   public static void validateAgeSixteen(

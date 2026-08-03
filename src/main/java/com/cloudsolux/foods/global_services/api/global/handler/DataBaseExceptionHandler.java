@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
+import com.cloudsolux.foods.global_services.infra.global.util.ExceptionResponseCreator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +19,7 @@ public final class DataBaseExceptionHandler {
   
   @ExceptionHandler(DataAccessException.class)
 	public ProblemDetail handleDataAccessException(DataAccessException e) {
-		return GlobalExceptionResponseCreator
+		return ExceptionResponseCreator
       .createProblemDetailAndLog(
         e, 
         HttpStatus.INTERNAL_SERVER_ERROR, 

@@ -27,12 +27,13 @@ public final class EmployeeEntity {
   
   @Include
   @Id
+  @Column(name="id")
   private Long id;
 
-  @Column(name="user_account_id", nullable=false, updatable=false)
+  @Column(name="user_account_id", nullable=false)
   private Long userAccountId;
 
-  @Column(name="department_id", nullable=false, updatable=false)
+  @Column(name="department_id", nullable=false)
   private Long departmentId;
 
   @Override

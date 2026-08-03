@@ -47,6 +47,7 @@ public final class MethodArgumentExceptionHandler {
 				case GlobalMsgCreator.NOT_EMPTY -> GlobalMsgCreator.NOT_EMPTY_MSG;
 				case GlobalMsgCreator.POSITIVE -> GlobalMsgCreator.POSITIVE_MSG;
 				case GlobalMsgCreator.POSITIVE_OR_ZERO -> GlobalMsgCreator.POSITIVE_OR_ZERO_MSG;
+				case GlobalMsgCreator.EMAIL -> GlobalMsgCreator.EMAIL_MSG;
 				case GlobalMsgCreator.ASSERT_FALSE -> error.getDefaultMessage();
 				default -> error.getDefaultMessage();
 			};

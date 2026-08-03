@@ -10,7 +10,7 @@ import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlDataAccessException;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlPersistenceException;
-import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
+import com.cloudsolux.foods.global_services.infra.global.util.ExceptionResponseCreator;
 
 @Order(1)
 @RestControllerAdvice
@@ -20,7 +20,7 @@ public final class IdControlExceptionHandler {
   public ProblemDetail handleIdControlAccess(
     IdControlDataAccessException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
@@ -31,7 +31,7 @@ public final class IdControlExceptionHandler {
   public ProblemDetail handleIdControlPersistence(
     IdControlPersistenceException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
@@ -42,7 +42,7 @@ public final class IdControlExceptionHandler {
   public ProblemDetail handleIdControlInvalidArgument(
     IdControlInvalidArgumentException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.BAD_REQUEST, 

@@ -3,9 +3,13 @@ package com.cloudsolux.foods.hr_service.domain.user_account.command;
 import java.time.LocalDate;
 
 import com.cloudsolux.foods.global_services.domain.global.model.Role;
+import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
+import com.cloudsolux.foods.hr_service.domain.user_account.model.creation.UserAccountCreationKey;
+import com.cloudsolux.foods.hr_service.domain.user_account.model.persistence.UserAccountPersistenceKey;
+import com.cloudsolux.foods.hr_service.domain.user_account.model.validation.UserAccountValidationKey;
 
-public class UserAccountCreationCommand {
+public final class UserAccountCreationCommand {
 
   private final String firstName;
   private final String lastName;
@@ -84,6 +88,22 @@ public class UserAccountCreationCommand {
 
   public static UserAccountCreationCommandBuilder builder() {
     return new UserAccountCreationCommandBuilder();
+  }
+
+  public UserAccountValidationKey getValidationKey() {
+    return UserAccountValidationKey.USER_ACCOUNT_VALIDATION;
+  }
+
+  public UserAccountCreationKey getCreationKey() {
+    return UserAccountCreationKey.USER_ACCOUNT_CREATION;
+  }
+
+  public UserAccountPersistenceKey getPersistenceKey() {
+    return UserAccountPersistenceKey.USER_ACCOUNT_PERSISTENCE;
+  }
+
+  public IdControlKey getUserAccountIdControlKey() {
+    return IdControlKey.USER_ACCOUNT_ID;
   }
 
   public String getFirstName() {

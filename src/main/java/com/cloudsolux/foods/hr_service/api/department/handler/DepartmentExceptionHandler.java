@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.global_services.infra.global.util.GlobalExceptionResponseCreator;
+import com.cloudsolux.foods.global_services.infra.global.util.ExceptionResponseCreator;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentAlreadyExistsException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentDataAccessException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
@@ -23,7 +23,7 @@ public final class DepartmentExceptionHandler {
   public ProblemDetail handleDepartmentAlreadyExists(
     DepartmentAlreadyExistsException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.CONFLICT, 
@@ -34,7 +34,7 @@ public final class DepartmentExceptionHandler {
   public ProblemDetail handleDepartmentInvalidArgument(
     DepartmentInvalidArgumentException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.BAD_REQUEST, 
@@ -45,7 +45,7 @@ public final class DepartmentExceptionHandler {
   public ProblemDetail handleDepartmentInvalidDependency(
     DepartmentInvalidDependencyException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
@@ -56,7 +56,7 @@ public final class DepartmentExceptionHandler {
   public ProblemDetail handleDepartmentPersistence(
     DepartmentPersistenceException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
@@ -67,7 +67,7 @@ public final class DepartmentExceptionHandler {
   public ProblemDetail handleDepartmentNotFound(
     DepartmentNotFoundException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.NOT_FOUND, 
@@ -78,7 +78,7 @@ public final class DepartmentExceptionHandler {
   public ProblemDetail handleDepartmentDataAccess(
     DepartmentDataAccessException e
   ) {
-    return GlobalExceptionResponseCreator
+    return ExceptionResponseCreator
 			.createProblemDetailAndLog(
 				e, 
 				HttpStatus.INTERNAL_SERVER_ERROR, 
