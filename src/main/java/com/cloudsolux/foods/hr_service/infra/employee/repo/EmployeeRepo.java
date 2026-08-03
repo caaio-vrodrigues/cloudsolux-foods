@@ -6,5 +6,4 @@ import com.cloudsolux.foods.hr_service.infra.employee.entity.EmployeeEntity;
 
 public interface EmployeeRepo extends JpaRepository<EmployeeEntity, Long> {
   
-  boolean existsByEmail(String email);
 }

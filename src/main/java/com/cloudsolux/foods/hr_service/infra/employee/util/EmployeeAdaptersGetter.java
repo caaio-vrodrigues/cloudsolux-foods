@@ -8,8 +8,6 @@ import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCr
 import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationPort;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistencePort;
-import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidationKey;
-import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidationPort;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
 
 import lombok.RequiredArgsConstructor;
@@ -18,21 +16,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public final class EmployeeAdaptersGetter {
   
-  private final Map<EmployeeValidationKey, EmployeeValidationPort> employeeValidators;
   private final Map<EmployeeCreationKey, EmployeeCreationPort> employeeFactories;
   private final Map<EmployeePersistenceKey, EmployeePersistencePort> employeePersistences;
-
-  public EmployeeValidationPort getValidator(EmployeeValidationKey key) {
-    EmployeeValidatorAux.validateArgument(
-      key, 
-      "EmployeeValidationKey");
-
-    EmployeeValidatorAux.validateDependencyMap(
-      employeeValidators, 
-      "Map<EmployeeValidationKey, EmployeeValidationPort>");
-
-    return employeeValidators.get(key);
-  }
 
   public EmployeeCreationPort getFactories(EmployeeCreationKey key) {
     EmployeeValidatorAux.validateArgument(

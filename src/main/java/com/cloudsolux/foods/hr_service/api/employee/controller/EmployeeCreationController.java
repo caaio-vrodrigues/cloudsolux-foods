@@ -82,7 +82,7 @@ public final class EmployeeCreationController {
       "EmployeeCreationHandler");
 
     EmployeeResponse response = employeeCreationHandler
-      .create(request.toCommand());
+      .create(request.toEmployeeCommand(), request.toUserAccountCommand());
 
     EmployeeValidatorAux.validateDependency(
       response, 

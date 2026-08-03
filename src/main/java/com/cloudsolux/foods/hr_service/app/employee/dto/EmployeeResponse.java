@@ -2,6 +2,8 @@ package com.cloudsolux.foods.hr_service.app.employee.dto;
 
 import java.time.LocalDate;
 
+import com.cloudsolux.foods.global_services.domain.global.model.Role;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +23,12 @@ public final class EmployeeResponse {
   @NotNull @Positive
   private Long id;
 
+  @NotNull @Positive
+  private Long departmentId;
+
+  @NotNull @Positive
+  private Long userAccountId;
+
   @NotBlank
   private String firstName;
 
@@ -33,6 +41,9 @@ public final class EmployeeResponse {
   @NotBlank @Email
   private String email;
 
-  @NotNull @Positive
-  private Long departmentId;
+  @NotNull
+  private Role role;
+
+  @NotNull
+  private Boolean active;
 }

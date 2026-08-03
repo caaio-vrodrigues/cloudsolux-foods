@@ -12,27 +12,10 @@ import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCr
 import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationPort;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistencePort;
-import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidationKey;
-import com.cloudsolux.foods.hr_service.domain.employee.model.validation.EmployeeValidationPort;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
 
 @Configuration
 public class EmployeeAdaptersRegistry {
-  
-  @Bean
-  Map<EmployeeValidationKey, EmployeeValidationPort> employeeValidators(
-    List<EmployeeValidationPort> validators
-  ) {
-    EmployeeValidatorAux.validateRegistryCreation(
-      validators, 
-      "EmployeeValidationPort"
-    );
-
-    return validators.stream().collect(Collectors.toMap(
-      EmployeeValidationPort::getKey, 
-      Function.identity())
-    );
-  }
 
   @Bean
   Map<EmployeeCreationKey, EmployeeCreationPort> employeeFactories(

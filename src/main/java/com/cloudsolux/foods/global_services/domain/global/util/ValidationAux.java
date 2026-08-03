@@ -1,6 +1,7 @@
 package com.cloudsolux.foods.global_services.domain.global.util;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -40,8 +41,9 @@ public final class ValidationAux {
     Supplier<RuntimeException> notPositiveSupplier
   ) {
     if(value == null) throw nullSupplier.get();
-    if(value.compareTo(BigDecimal.ZERO) < 1) 
-      throw notPositiveSupplier.get();
+
+    boolean lessThanOne = value.compareTo(BigDecimal.ZERO) < 1;
+    if(lessThanOne) throw notPositiveSupplier.get();
   }
 
   public static void validateDependency(
@@ -75,6 +77,39 @@ public final class ValidationAux {
     Supplier<RuntimeException> invalidEmailSupplier
   ) {
     if(email == null) throw nullSupplier.get();
-    if(!email.contains("@") || !(email.length() > 4)) throw invalidEmailSupplier.get();
+
+    boolean invalidEmail = 
+      !email.contains("@") || 
+      !(email.length() > 4);
+
+    if(invalidEmail) throw invalidEmailSupplier.get();
+  }
+
+  public static void validateEncodedPassword(
+    String encoded, 
+    Supplier<RuntimeException> nullSupplier,
+    Supplier<RuntimeException> blankSupplier,
+    Supplier<RuntimeException> invalidPasswordSupplier
+  ) {
+    if(encoded == null) throw nullSupplier.get();
+    if(encoded.isBlank()) throw blankSupplier.get();
+
+    boolean invalidPassword = 
+      !encoded.startsWith("$2a$") && 
+      !encoded.startsWith("$2b$") &&
+      !encoded.startsWith("$2y$");
+
+    if(invalidPassword) throw invalidPasswordSupplier.get();
+  }
+
+  public static void validateAgeSixteen(
+    LocalDate birthday,
+    Supplier<RuntimeException> nullSupplier,
+    Supplier<RuntimeException> underSixteenSupplier
+  ) {
+    if(birthday == null) throw nullSupplier.get();
+
+    LocalDate minimumBirthday = LocalDate.now().minusYears(16);
+    if(birthday.isAfter(minimumBirthday)) throw underSixteenSupplier.get();
   }
 }

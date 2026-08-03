@@ -1,5 +1,6 @@
 package com.cloudsolux.foods.hr_service.domain.employee.util;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +59,16 @@ public final class EmployeeValidatorAux {
     );
   }
 
+  public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
+    ValidationAux.validateRegistryCreation(
+      implementations, 
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Employee", implementationsType)), 
+      () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
+        .emptyImplementationList("Employee", implementationsType))
+    );
+  }
+
   public static void validateEmail(String email, String argumentName) {
     ValidationAux.validateEmail(
       email, 
@@ -68,13 +79,25 @@ public final class EmployeeValidatorAux {
     );
   }
 
-  public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
-    ValidationAux.validateRegistryCreation(
-      implementations, 
+  public static void validateAgeSixteen(LocalDate birthday, String argumentName) {
+    ValidationAux.validateAgeSixteen(
+      birthday,
       () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Employee", implementationsType)), 
-      () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
-        .emptyImplementationList("Employee", implementationsType))
+        .nullArgumentMsg("Employee", argumentName)),
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .minimumAgeSixteenMsg("Employee", argumentName, birthday))
+    );
+  }
+
+  public static void validateEncodedPassword(String encoded, String argumentName) {
+    ValidationAux.validateEncodedPassword(
+      encoded, 
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Employee", argumentName)), 
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .emptyArgumentMsg("Employee", argumentName)), 
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .invalidPasswordHashMsg("Employee", argumentName))
     );
   }
 }

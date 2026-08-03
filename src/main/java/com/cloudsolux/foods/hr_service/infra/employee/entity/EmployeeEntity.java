@@ -1,70 +1,42 @@
 package com.cloudsolux.foods.hr_service.infra.employee.entity;
 
-import java.time.LocalDate;
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 @AllArgsConstructor(access=AccessLevel.PRIVATE)
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
+@EqualsAndHashCode(onlyExplicitlyIncluded=true)
 @Builder
 @Getter
-@Table(name="employee", uniqueConstraints = {
-  @UniqueConstraint(columnNames = {
-      "email"
-    },
-    name="UK_Employee"
-  )
-})
+@Table(name="employee")
 @Entity
 public final class EmployeeEntity {
 
   @Version
 	private Long version;
   
+  @Include
   @Id
   private Long id;
 
-  @Column(name="first_name", nullable=false, updatable=false)
-  private String firstName;
+  @Column(name="user_account_id", nullable=false, updatable=false)
+  private Long userAccountId;
 
-  @Column(name="last_name", nullable=false, updatable=false)
-  private String lastName;
-
-  @Column(name="birthday", nullable=false, updatable=false)
-  private LocalDate birthday;
-
-  @Column(name="email", nullable=false, updatable=false)
-  private String email;
-
-  @Column(name="departmentId", nullable=false, updatable=false)
+  @Column(name="department_id", nullable=false, updatable=false)
   private Long departmentId;
 
   @Override
-  public int hashCode() {
-    return Objects.hash(email);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if(this == o) return true;
-		if(!(o instanceof EmployeeEntity other)) return false;
-		return Objects.equals(email, other.email);
-  }
-
-  @Override
   public String toString() {
-    return "EmployeeEntity: ['id="+id+"', 'firstName="+firstName+"', 'lastName="+lastName+"', 'birthday="+birthday
-      +"', 'email="+email+"', 'departmentId="+departmentId +"']";
+    return "EmployeeEntity: ['id="+id+"', 'userAccountId="+userAccountId+"', 'departmentId="+departmentId+"']";
   }
 }

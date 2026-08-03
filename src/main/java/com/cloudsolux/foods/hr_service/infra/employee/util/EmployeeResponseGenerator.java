@@ -5,20 +5,25 @@ import org.springframework.stereotype.Component;
 import com.cloudsolux.foods.hr_service.app.employee.dto.EmployeeResponse;
 import com.cloudsolux.foods.hr_service.domain.employee.Employee;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
+import com.cloudsolux.foods.hr_service.domain.user_account.UserAccount;
 
 @Component
 public final class EmployeeResponseGenerator {
   
-  public EmployeeResponse toEmployeeResponse(Employee domain) {
+  public EmployeeResponse toEmployeeResponse(Employee domain, UserAccount userAccount) {
     EmployeeValidatorAux.validateArgument(domain, "Employee");
+    EmployeeValidatorAux.validateArgument(userAccount, "UserAccount");
 
     return EmployeeResponse.builder()
       .id(domain.getId())
-      .firstName(domain.getFirstName())
-      .lastName(domain.getLastName())
-      .birthday(domain.getBirthday())
-      .email(domain.getEmail())
       .departmentId(domain.getDepartmentId())
+      .userAccountId(userAccount.getId())
+      .firstName(userAccount.getFirstName())
+      .lastName(userAccount.getLastName())
+      .birthday(userAccount.getBirthday())
+      .email(userAccount.getEmail())
+      .role(userAccount.getRole())
+      .active(userAccount.getActive())
       .build();
   }
 }

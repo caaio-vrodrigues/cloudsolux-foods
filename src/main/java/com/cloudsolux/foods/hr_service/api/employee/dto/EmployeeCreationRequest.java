@@ -3,6 +3,7 @@ package com.cloudsolux.foods.hr_service.api.employee.dto;
 import java.time.LocalDate;
 
 import com.cloudsolux.foods.hr_service.domain.employee.command.EmployeeCreationCommand;
+import com.cloudsolux.foods.hr_service.domain.user_account.command.UserAccountCreationCommand;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -35,13 +36,23 @@ public final class EmployeeCreationRequest {
   @NotNull @Positive
   private Long departmentId;
 
-  public EmployeeCreationCommand toCommand() {
+  @NotNull
+  private Boolean active;
+
+  public EmployeeCreationCommand toEmployeeCommand() {
     return EmployeeCreationCommand.builder()
+      .departmentId(departmentId)
+      .build();
+  }
+
+  public UserAccountCreationCommand toUserAccountCommand() {
+    return UserAccountCreationCommand.builder()
       .firstName(firstName)
       .lastName(lastName)
       .birthday(birthday)
       .email(email)
-      .departmentId(departmentId)
+      .password(email)
+      .active(active)
       .build();
   }
 }

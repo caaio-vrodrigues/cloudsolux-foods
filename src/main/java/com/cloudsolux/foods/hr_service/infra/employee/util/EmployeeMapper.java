@@ -14,10 +14,7 @@ public final class EmployeeMapper {
 
     return EmployeeEntity.builder()
       .id(domain.getId())
-      .firstName(domain.getFirstName())
-      .lastName(domain.getLastName())
-      .birthday(domain.getBirthday())
-      .email(domain.getEmail())
+      .userAccountId(domain.getUserAccountId())
       .departmentId(domain.getDepartmentId())
       .build();
   }
@@ -27,10 +24,7 @@ public final class EmployeeMapper {
 
     return Employee.builder()
       .id(entity.getId())
-      .firstName(entity.getFirstName())
-      .lastName(entity.getLastName())
-      .birthday(entity.getBirthday())
-      .email(entity.getEmail())
+      .userAccountId(entity.getUserAccountId())
       .departmentId(entity.getDepartmentId())
       .build();
   }

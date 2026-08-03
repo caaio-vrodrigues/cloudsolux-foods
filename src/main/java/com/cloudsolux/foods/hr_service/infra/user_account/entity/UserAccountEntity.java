@@ -1,4 +1,6 @@
-package com.cloudsolux.foods.hr_service.infra.user_account;
+package com.cloudsolux.foods.hr_service.infra.user_account.entity;
+
+import java.time.LocalDate;
 
 import com.cloudsolux.foods.global_services.domain.global.model.Role;
 
@@ -25,16 +27,27 @@ import lombok.EqualsAndHashCode.Include;
 @Table(name="user_account")
 public final class UserAccountEntity {
   
-  @Include
   @Id
-  @Column(name="employee_id")
-  private Long employeeId;
+  private Long id;
+
+  @Column(name="first_name", nullable=false)
+  private String firstName;
+
+  @Column(name="last_name", nullable=false)
+  private String lastName;
+
+  @Column(name="birthday", nullable=false)
+  private LocalDate birthday;
+
+  @Include
+  @Column(name="email", nullable=false, unique=true)
+  private String email;
 
   @Enumerated(EnumType.STRING)
-  @Column(name="role", nullable=false, updatable=false)
+  @Column(name="role", nullable=false)
   private Role role;
 
-  @Column(name="password", nullable=false, updatable=false)
+  @Column(name="password", nullable=false)
   private String password;
 
   @Column(name="active")
@@ -42,6 +55,7 @@ public final class UserAccountEntity {
 
   @Override
   public String toString() {
-    return "UserAccountEntity: ['employeeId="+employeeId+"', 'role="+role+"', 'active="+active+"']";
+    return "UserAccountEntity: ['id="+id+"', 'firstName="+firstName+"', 'lastName="+lastName+"', 'birthday="
+      +birthday+"', 'email="+email+"', 'role="+role+"', 'active="+active+"']";
   }
 }

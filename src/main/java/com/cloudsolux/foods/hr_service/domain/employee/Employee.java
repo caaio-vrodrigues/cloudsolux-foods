@@ -1,6 +1,5 @@
 package com.cloudsolux.foods.hr_service.domain.employee;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
@@ -8,33 +7,22 @@ import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux
 public final class Employee {
   
   private final Long id;
-  private final String firstName;
-  private final String lastName;
-  private final LocalDate birthday;
-  private final String email;
+  private final Long userAccountId;
   private final Long departmentId;
 
   private Employee(EmployeeBuilder builder) {
     EmployeeValidatorAux.validatePositiveLong(builder.id, "id");
-    EmployeeValidatorAux.validateString(builder.firstName, "firstName");
-    EmployeeValidatorAux.validateString(builder.lastName, "lastName");
-    EmployeeValidatorAux.validateArgument(builder.birthday, "birthday");
-    EmployeeValidatorAux.validateEmail(builder.email, "email");
+    EmployeeValidatorAux.validatePositiveLong(builder.userAccountId, "userAccountId");
     EmployeeValidatorAux.validatePositiveLong(builder.departmentId, "departmentId");
+
     id = builder.id;
-    firstName = builder.firstName;
-    lastName = builder.lastName;
-    birthday = builder.birthday;
-    email = builder.email;
+    userAccountId = builder.userAccountId;
     departmentId = builder.departmentId;
   }
 
   public static class EmployeeBuilder {
     private Long id;
-    private String firstName;
-    private String lastName;
-    private LocalDate birthday;
-    private String email;
+    private Long userAccountId;
     private Long departmentId;
 
     public EmployeeBuilder id(Long id) {
@@ -42,23 +30,8 @@ public final class Employee {
       return this;
     }
 
-    public EmployeeBuilder firstName(String firstName) {
-      this.firstName = firstName;
-      return this;
-    }
-
-    public EmployeeBuilder lastName(String lastName) {
-      this.lastName = lastName;
-      return this;
-    }
-
-    public EmployeeBuilder birthday(LocalDate birthday) {
-      this.birthday = birthday;
-      return this;
-    }
-
-    public EmployeeBuilder email(String email) {
-      this.email = email;
+    public EmployeeBuilder userAccountId(Long userAccountId) {
+      this.userAccountId = userAccountId;
       return this;
     }
 
@@ -80,20 +53,8 @@ public final class Employee {
     return id;
   }
 
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public LocalDate getBirthday() {
-    return birthday;
-  }
-
-  public String getEmail() {
-    return email;
+  public Long getUserAccountId() {
+    return userAccountId;
   }
 
   public Long getDepartmentId() {
@@ -104,17 +65,16 @@ public final class Employee {
   public boolean equals(Object o) {
 		if(this == o) return true;
 		if(!(o instanceof Employee other)) return false;
-		return Objects.equals(email, other.getEmail());
+		return Objects.equals(id, other.id);
 	}
 	
   @Override
 	public int hashCode() {
-		return Objects.hash(email);
+		return Objects.hash(id);
 	}
 
   @Override
   public String toString() {
-    return "Employee: ['id="+id+"', 'firstName="+firstName+"', 'lastName="+lastName+"', "+
-      "'birthday="+birthday+"', 'email="+email+"', 'departmentId="+departmentId+"']";
+    return "Employee: ['id="+id+"', 'userAccountId="+userAccountId+"', 'departmentId="+departmentId+"']";
   }
 }

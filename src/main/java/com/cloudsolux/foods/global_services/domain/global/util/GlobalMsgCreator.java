@@ -1,6 +1,7 @@
 package com.cloudsolux.foods.global_services.domain.global.util;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 
@@ -103,5 +104,13 @@ public final class GlobalMsgCreator {
 
   public static String notFoundMsg(String className, Long departmentId) {
     return "Não foi possível encontrar '"+className+"' para o id: ['"+departmentId+"'].";
+  }
+
+  public static String invalidPasswordHashMsg(String className, String fieldName) {
+    return "Falha ao processar '"+className+"'. Senha inválida para o argumento: ['"+fieldName+"'].";
+  }
+
+  public static String minimumAgeSixteenMsg(String className, String argumentName, LocalDate birthday) {
+    return "Falha ao processar '"+className+"'. A idade mínima exigida é de '16' anos. Valor recebido: ['"+argumentName+"="+birthday+"'].";
   }
 }
