@@ -66,6 +66,10 @@ public final class GlobalMsgCreator {
     return "Falha ao processar '"+className+"'. Valor igual ou menor que '0' para o argumento: ['"+argumentName+"': '"+value+"'].";
   }
 
+  public static String positiveOrZeroMsg(String className, String argumentName, BigDecimal amount) {
+    return "Falha ao processar '"+className+"'. Valor menor que '0' para o argumento: ['"+argumentName+"': '"+amount+"'].";
+  }
+
   public static String invalidUnitOfMeasureMsg(
     String className, UnitOfMeasure incomingUnitOfMeasure, UnitOfMeasure currentUnitOfMeasure
   ) {
@@ -114,5 +118,9 @@ public final class GlobalMsgCreator {
 
   public static String minimumAgeSixteenMsg(String className, String argumentName, LocalDate birthday) {
     return "Falha ao processar '"+className+"'. A idade mínima exigida é de '16' anos. Valor recebido: ['"+argumentName+"="+birthday+"'].";
+  }
+
+  public static String underZeroResult(String className, String argumentName, BigDecimal requestedAmount, BigDecimal availableAmount) {
+    return "Falha ao processar '"+className+"'. Resultado do cálculo menor que '0' para o campo: '["+argumentName+"]'. Valor recebido: ['"+requestedAmount+"']. Valor disponível: ['"+availableAmount+"'].";
   }
 }

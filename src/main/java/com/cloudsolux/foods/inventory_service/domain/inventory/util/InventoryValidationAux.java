@@ -78,4 +78,14 @@ public final class InventoryValidationAux {
         GlobalMsgCreator.emptyImplementationList("Inventory", implementationsType))
     );
   }
+
+  public static void validatePositiveOrZeroBigDecimal(BigDecimal amount, String argumentName) {
+    ValidationAux.validatePositiveOrZeroBigDecimal(
+      amount, 
+      () -> new InventoryInvalidDependencyException(GlobalMsgCreator
+        .nullArgumentMsg("Inventory", argumentName)), 
+      () -> new InventoryInvalidDependencyException(GlobalMsgCreator
+        .positiveOrZeroMsg("Inventory", argumentName, amount))
+    );
+  }
 }

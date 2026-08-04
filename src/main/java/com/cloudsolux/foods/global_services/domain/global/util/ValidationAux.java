@@ -112,4 +112,15 @@ public final class ValidationAux {
     LocalDate minimumBirthday = LocalDate.now().minusYears(16);
     if(birthday.isAfter(minimumBirthday)) throw underSixteenSupplier.get();
   }
+
+  public static void validatePositiveOrZeroBigDecimal(
+    BigDecimal amount,
+    Supplier<RuntimeException> nullSupplier,
+    Supplier<RuntimeException> notPositiveOrZeroSupplier
+  ) {
+    if(amount == null) throw nullSupplier.get();
+
+    boolean lessThanZero = amount.compareTo(BigDecimal.ZERO) < 0;
+    if(lessThanZero) throw notPositiveOrZeroSupplier.get();
+  }
 }

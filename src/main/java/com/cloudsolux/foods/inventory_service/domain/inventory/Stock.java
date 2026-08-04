@@ -14,7 +14,7 @@ public final class Stock {
 	private final UnitOfMeasure unitOfMeasure;
 	
 	private Stock(StockBuilder builder) {
-		InventoryValidationAux.validatePositiveBigDecimal(builder.amount, "amount");
+		InventoryValidationAux.validatePositiveOrZeroBigDecimal(builder.amount, "amount");
 		InventoryValidationAux.validateArgument(builder.unitOfMeasure, "UnitOfMeasure");
 		amount = builder.amount;
 		unitOfMeasure = builder.unitOfMeasure;
