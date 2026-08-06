@@ -13,7 +13,7 @@ import com.cloudsolux.foods.hr_service.api.employee.dto.EmployeeCreationRequest;
 import com.cloudsolux.foods.hr_service.app.employee.dto.EmployeeResponse;
 import com.cloudsolux.foods.hr_service.app.employee.handler.EmployeeCreationHandler;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeMsgCreator;
-import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
+import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidationAux;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -77,16 +77,12 @@ public final class EmployeeCreationController {
     @RequestBody
     EmployeeCreationRequest request
   ) {
-    EmployeeValidatorAux.validateDependency(
-      employeeCreationHandler, 
-      "EmployeeCreationHandler");
+    EmployeeValidationAux.validateDependency(employeeCreationHandler, "EmployeeCreationHandler");
 
     EmployeeResponse response = employeeCreationHandler
       .create(request.toEmployeeCommand(), request.toUserAccountCommand());
 
-    EmployeeValidatorAux.validateDependency(
-      response, 
-      "EmployeeCreationHandler");
+    EmployeeValidationAux.validateDependency(response, "EmployeeCreationHandler");
 
     URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()

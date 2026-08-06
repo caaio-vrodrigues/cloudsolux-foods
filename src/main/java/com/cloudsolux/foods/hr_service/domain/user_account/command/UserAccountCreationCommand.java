@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import com.cloudsolux.foods.global_services.domain.global.model.Role;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
+import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidationAux;
 import com.cloudsolux.foods.hr_service.domain.user_account.model.creation.UserAccountCreationKey;
 import com.cloudsolux.foods.hr_service.domain.user_account.model.persistence.UserAccountPersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.user_account.model.validation.UserAccountValidationKey;
@@ -20,14 +20,13 @@ public final class UserAccountCreationCommand {
   private final Boolean active;
  
   private UserAccountCreationCommand(UserAccountCreationCommandBuilder builder) {
-    EmployeeValidatorAux.validateString(builder.firstName, "firstName");
-    EmployeeValidatorAux.validateString(builder.lastName, "lastName");
-    EmployeeValidatorAux.validateAgeSixteen(builder.birthday, "LocalDate");
-    EmployeeValidatorAux.validateEmail(builder.email, "email");
-    EmployeeValidatorAux.validateArgument(builder.role, "role");
-    EmployeeValidatorAux.validateEncodedPassword(builder.password, "password");
-    EmployeeValidatorAux.validateArgument(builder.active, "active");
-
+    EmployeeValidationAux.validateString(builder.firstName, "firstName");
+    EmployeeValidationAux.validateString(builder.lastName, "lastName");
+    EmployeeValidationAux.validateAgeSixteen(builder.birthday, "LocalDate");
+    EmployeeValidationAux.validateEmail(builder.email, "email");
+    EmployeeValidationAux.validateArgument(builder.role, "role");
+    EmployeeValidationAux.validateEncodedPassword(builder.password, "password");
+    EmployeeValidationAux.validateArgument(builder.active, "active");
     firstName = builder.firstName;
     lastName = builder.lastName;
     birthday = builder.birthday;

@@ -5,15 +5,17 @@ import java.util.Map;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
+import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentAlreadyExistsException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidArgumentException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
+import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentNotFoundException;
 
 public final class DepartmentValidationAux {
   
   private DepartmentValidationAux() {}
 
   public static void validateArgument(Object argument, String argumentType) {
-    ValidationAux.validateArgument(
+    ValidationAux.validateNull(
       argument, 
       () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Department", argumentType))
@@ -30,8 +32,8 @@ public final class DepartmentValidationAux {
     );
   }
 
-  public static void validatePositiveLong(Long value, String argumentName) {
-    ValidationAux.validatePositiveLong(
+  public static void validatePositive(Long value, String argumentName) {
+    ValidationAux.validatePositive(
       value, 
       () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Department", argumentName)), 
@@ -41,7 +43,7 @@ public final class DepartmentValidationAux {
   }
 
   public static void validateDependency(Object dependency, String dependencyType) {
-    ValidationAux.validateDependency(
+    ValidationAux.validateNull(
       dependency, 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("Department", dependencyType))
@@ -49,7 +51,7 @@ public final class DepartmentValidationAux {
   }
 
   public static void validateDependencyMap(Map<?, ?> dependency, String dependencyType) {
-    ValidationAux.validateDependencyMap(
+    ValidationAux.validateMap(
       dependency, 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("Department", dependencyType)), 
@@ -59,7 +61,7 @@ public final class DepartmentValidationAux {
   }
 
   public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
-    ValidationAux.validateRegistryCreation(
+    ValidationAux.validateList(
       implementations, 
       () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Department", implementationsType)), 
@@ -67,4 +69,27 @@ public final class DepartmentValidationAux {
         .emptyImplementationList("Department", implementationsType))
     );
   }
+
+  public static void validateUniqueness(Boolean existsByName, String name) {
+    if(existsByName == null) 
+      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Department", "existsByName"));
+
+    if(name == null) 
+      throw new DepartmentInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Department", "name"));
+
+    if(existsByName)
+      throw new DepartmentAlreadyExistsException(DepartmentMsgCreator
+        .uniquenessViolationMsg(name));
+  }
+
+  public static void validateExistenceById(Boolean existsById, Long departmentId) {
+    ValidationAux.validateExistenceById(
+      existsById, 
+      () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Department", "existsById")), 
+      () -> new DepartmentNotFoundException(GlobalMsgCreator
+        .notFoundMsg("Department", departmentId)));
+  } 
 }

@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
+
 public final class ValidationAux {
 
   private ValidationAux() {}
 
-  public static void validateArgument(
+  public static void validateNull(
     Object argument, 
     Supplier<RuntimeException> nullSupplier
   ) {
@@ -26,7 +28,7 @@ public final class ValidationAux {
     if(value.isBlank()) throw blankSupplier.get();
   }
 
-  public static void validatePositiveLong(
+  public static void validatePositive(
     Long value,
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> notPositiveSupplier
@@ -35,40 +37,44 @@ public final class ValidationAux {
     if(value < 1) throw notPositiveSupplier.get();
   }
 
-  public static void validatePositiveBigDecimal(
+  public static void validatePositive(
     BigDecimal value,
     Supplier<RuntimeException> nullSupplier,
-    Supplier<RuntimeException> notPositiveSupplier
+    Supplier<RuntimeException> nonPositiveSupplier
   ) {
     if(value == null) throw nullSupplier.get();
 
-    boolean lessThanOne = value.compareTo(BigDecimal.ZERO) < 1;
-    if(lessThanOne) throw notPositiveSupplier.get();
+    boolean nonPositiveResult = value.compareTo(BigDecimal.ZERO) < 1;
+    if(nonPositiveResult) throw nonPositiveSupplier.get();
   }
 
-  public static void validateDependency(
-    Object dependency,
-    Supplier<RuntimeException> nullSupplier
+  public static void validatePositiveOrZero(
+    BigDecimal amount,
+    Supplier<RuntimeException> nullSupplier,
+    Supplier<RuntimeException> underZeroSupplier
   ) {
-    if(dependency == null) throw nullSupplier.get();
+    if(amount == null) throw nullSupplier.get();
+
+    boolean underZeroResult = amount.compareTo(BigDecimal.ZERO) < 0;
+    if(underZeroResult) throw underZeroSupplier.get();
   }
 
-  public static void validateDependencyMap(
-    Map<?, ?> dependency,
+  public static void validateMap(
+    Map<?, ?> map,
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> emptySupplier
   ) {
-    if(dependency == null) throw nullSupplier.get();
-    if(dependency.isEmpty()) throw emptySupplier.get();
+    if(map == null) throw nullSupplier.get();
+    if(map.isEmpty()) throw emptySupplier.get();
   }
 
-  public static void validateRegistryCreation(
-    List<?> implementations,
+  public static void validateList(
+    List<?> list,
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> emptySupplier) 
   {
-    if(implementations == null) throw nullSupplier.get();
-    if(implementations.isEmpty()) throw emptySupplier.get();
+    if(list == null) throw nullSupplier.get();
+    if(list.isEmpty()) throw emptySupplier.get();
   }
 
   public static void validateEmail(
@@ -78,9 +84,7 @@ public final class ValidationAux {
   ) {
     if(email == null) throw nullSupplier.get();
 
-    boolean invalidEmail = 
-      !email.contains("@") || 
-      !(email.length() > 4);
+    boolean invalidEmail = !email.contains("@") || !(email.length() > 4);
 
     if(invalidEmail) throw invalidEmailSupplier.get();
   }
@@ -110,17 +114,44 @@ public final class ValidationAux {
     if(birthday == null) throw nullSupplier.get();
 
     LocalDate minimumBirthday = LocalDate.now().minusYears(16);
+
     if(birthday.isAfter(minimumBirthday)) throw underSixteenSupplier.get();
   }
 
-  public static void validatePositiveOrZeroBigDecimal(
-    BigDecimal amount,
-    Supplier<RuntimeException> nullSupplier,
-    Supplier<RuntimeException> notPositiveOrZeroSupplier
+  public static void validateUnitOfMeasure(
+    UnitOfMeasure current, 
+    UnitOfMeasure received, 
+    Supplier<RuntimeException> nullCurrentSupplier, 
+    Supplier<RuntimeException> nullReceivedSupplier,
+    Supplier<RuntimeException> differentUnitOfMeasureSupplier
   ) {
-    if(amount == null) throw nullSupplier.get();
+    if(current == null) throw nullCurrentSupplier.get();
+    if(received == null) throw nullReceivedSupplier.get();
 
-    boolean lessThanZero = amount.compareTo(BigDecimal.ZERO) < 0;
-    if(lessThanZero) throw notPositiveOrZeroSupplier.get();
+    boolean differentUnitOfMeasure = current != received;
+		if(differentUnitOfMeasure) throw differentUnitOfMeasureSupplier.get();
+  }
+
+  public static void validateUnderZeroResult(
+    BigDecimal current, 
+    BigDecimal received, 
+    Supplier<RuntimeException> nullCurrentSupplier, 
+    Supplier<RuntimeException> nullReceivedSupplier, 
+    Supplier<RuntimeException> insufficientAmountSupplier
+  ) {
+    if(current == null) throw nullCurrentSupplier.get();
+    if(received == null) throw nullReceivedSupplier.get();
+    
+    boolean insufficientAmount = received.compareTo(current) > 0;
+    if(insufficientAmount) throw insufficientAmountSupplier.get();
+  }
+
+  public static void validateExistenceById(
+    Boolean existsById,
+    Supplier<RuntimeException> nullSupplier, 
+    Supplier<RuntimeException> notFoundSupplier
+  ) {
+    if(existsById == null) throw nullSupplier.get();
+    if(!existsById) throw notFoundSupplier.get();
   }
 }

@@ -12,8 +12,8 @@ public final class ExpenseItem {
 	private final ExpenseValue expenseValue;
   
   private ExpenseItem(ExpenseItemBuilder builder) {
-    ExpenseItemValidationAux.validatePositiveLong(builder.id, "id");
-    ExpenseItemValidationAux.validatePositiveLong(builder.productId, "productId");
+    ExpenseItemValidationAux.validatePositive(builder.id, "id");
+    ExpenseItemValidationAux.validatePositive(builder.productId, "productId");
     ExpenseItemValidationAux.validateArgument(builder.expenseValue, "ExpenseValue");
     id = builder.id;
 		productId = builder.productId;
@@ -66,7 +66,6 @@ public final class ExpenseItem {
   }
 
   public ExpenseItem increasePrice(BigDecimal price) {
-    ExpenseItemValidationAux.validatePositiveBigDecimal(price, "price");
     return ExpenseItem.builder()
       .id(id)
       .productId(productId)
@@ -75,7 +74,6 @@ public final class ExpenseItem {
   }
 
   public ExpenseItem decreasePrice(BigDecimal price) {
-    ExpenseItemValidationAux.validatePositiveBigDecimal(price, "price");
     return ExpenseItem.builder()
       .id(id)
       .productId(productId)
@@ -84,7 +82,6 @@ public final class ExpenseItem {
   }
 
   public ExpenseItem increaseAmount(BigDecimal amount) {
-    ExpenseItemValidationAux.validatePositiveBigDecimal(amount, "amount");
     return ExpenseItem.builder()
       .id(id)
       .productId(productId)
@@ -93,7 +90,6 @@ public final class ExpenseItem {
   }
 
   public ExpenseItem decreaseAmount(BigDecimal amount) {
-    ExpenseItemValidationAux.validatePositiveBigDecimal(amount, "amount");
     return ExpenseItem.builder()
       .id(id)
       .productId(productId)

@@ -5,7 +5,7 @@ import com.cloudsolux.foods.global_services.domain.global.exception.GlobalInvali
 public final class GlobalValidationAux {
 
   public static void validateArgument(Object argument, String argumentType) {
-    ValidationAux.validateArgument(
+    ValidationAux.validateNull(
       argument, 
       () -> new GlobalInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Global", argumentType))

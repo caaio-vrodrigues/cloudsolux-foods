@@ -21,8 +21,7 @@ public class InventoryAdaptersRegistry {
   Map<InventoryFactoryKey, InventoryFactoryPort> inventoryFactories(
     List<InventoryFactoryPort> factories
   ) {
-    InventoryValidationAux.validateRegistryCreation(
-      factories, "InventoryFactoryPort");
+    InventoryValidationAux.validateRegistryCreation(factories, "InventoryFactoryPort");
 
     return factories.stream()
       .collect(Collectors.toMap(
@@ -35,8 +34,7 @@ public class InventoryAdaptersRegistry {
   Map<InventoryPersistenceKey, InventoryPersistencePort> inventoryPersistences(
     List<InventoryPersistencePort> persistences
   ) {
-    InventoryValidationAux.validateRegistryCreation(
-      persistences, "InventoryPersistencePort");
+    InventoryValidationAux.validateRegistryCreation(persistences, "InventoryPersistencePort");
 
     return persistences.stream()
       .collect(Collectors.toMap(

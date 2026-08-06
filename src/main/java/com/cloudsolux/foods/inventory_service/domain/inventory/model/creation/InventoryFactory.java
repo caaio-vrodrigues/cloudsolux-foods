@@ -5,5 +5,5 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.command.Inventory
 
 public interface InventoryFactory extends InventoryFactoryPort {
   
-  Inventory create(InventoryCreationCommand command);
+  Inventory create(InventoryCreationCommand command, Long id);
 }

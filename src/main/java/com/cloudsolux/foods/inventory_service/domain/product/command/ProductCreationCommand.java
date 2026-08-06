@@ -1,8 +1,5 @@
 package com.cloudsolux.foods.inventory_service.domain.product.command;
 
-import java.math.BigDecimal;
-
-import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
@@ -14,28 +11,20 @@ public final class ProductCreationCommand {
   private final String name;
   private final String model;
   private final String brand;
-	private final BigDecimal amount;
-	private final UnitOfMeasure unitOfMeasure;
 
   private ProductCreationCommand(ProductCreationCommandBuilder builder) {
     ProductValidationAux.validateString(builder.name, "name");
     ProductValidationAux.validateString(builder.model, "model");
     ProductValidationAux.validateString(builder.brand, "brand");
-    ProductValidationAux.validatePositiveBigDecimal(builder.amount, "amount");
-    ProductValidationAux.validateArgument(builder.unitOfMeasure, "UnitOfMeasure");
     name = builder.name;
     model = builder.model;
     brand = builder.brand;
-    amount = builder.amount;
-    unitOfMeasure = builder.unitOfMeasure;
   }
 
   public static class ProductCreationCommandBuilder {
     private String name;
     private String model;
     private String brand;
-    private BigDecimal amount;
-    private UnitOfMeasure unitOfMeasure;
 
     public ProductCreationCommandBuilder name(String name) {
       this.name = name;
@@ -49,16 +38,6 @@ public final class ProductCreationCommand {
 
     public ProductCreationCommandBuilder brand(String brand) {
       this.brand = brand;
-      return this;
-    }
-
-    public ProductCreationCommandBuilder amount(BigDecimal amount) {
-      this.amount = amount;
-      return this;
-    }
-
-    public ProductCreationCommandBuilder unitOfMeasure(UnitOfMeasure unitOfMeasure) {
-      this.unitOfMeasure = unitOfMeasure;
       return this;
     }
 
@@ -83,7 +62,7 @@ public final class ProductCreationCommand {
     return ProductPersistenceKey.PRODUCT_PERSISTENCE;
   }
 
-  public IdControlKey getIdControlKey() {
+  public IdControlKey getCatalogIdKey() {
     return IdControlKey.CATALOG_ID;
   }
 
@@ -97,13 +76,5 @@ public final class ProductCreationCommand {
 
   public String getBrand() {
     return brand;
-  }
-
-  public BigDecimal getAmount() {
-    return amount;
-  }
-
-  public UnitOfMeasure getUnitOfMeasure() {
-    return unitOfMeasure;
   }
 }

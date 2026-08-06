@@ -9,28 +9,19 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryVal
 
 public final class InventoryCreationCommand {
   
-  private final Long id;
   private final BigDecimal amount;
 	private final UnitOfMeasure unitOfMeasure;
 
   private InventoryCreationCommand(InventoryCreationCommandBuilder builder) {
-    InventoryValidationAux.validatePositiveLong(builder.id, "id");
-    InventoryValidationAux.validatePositiveBigDecimal(builder.amount, "amount");
+    InventoryValidationAux.validatePositive(builder.amount, "amount");
     InventoryValidationAux.validateArgument(builder.unitOfMeasure, "unitOfMeasure");
-    id = builder.id;
     amount = builder.amount;
     unitOfMeasure = builder.unitOfMeasure;
   }
 
   public static class InventoryCreationCommandBuilder {
-    private Long id;
     private BigDecimal amount;
 	  private UnitOfMeasure unitOfMeasure;
-
-    public InventoryCreationCommandBuilder id(Long id) {
-      this.id = id;
-      return this;
-    }
 
     public InventoryCreationCommandBuilder amount(BigDecimal amount) {
       this.amount = amount;
@@ -57,10 +48,6 @@ public final class InventoryCreationCommand {
 
   public InventoryPersistenceKey getPersistenceKey() {
     return InventoryPersistenceKey.INVENTORY_PERSISTENCE;
-  }
-
-  public Long getId() {
-    return id;
   }
 
   public BigDecimal getAmount() {

@@ -12,7 +12,7 @@ import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCr
 import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationPort;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistencePort;
-import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
+import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidationAux;
 
 @Configuration
 public class EmployeeAdaptersRegistry {
@@ -21,10 +21,7 @@ public class EmployeeAdaptersRegistry {
   Map<EmployeeCreationKey, EmployeeCreationPort> employeeFactories(
     List<EmployeeCreationPort> factories
   ) {
-    EmployeeValidatorAux.validateRegistryCreation(
-      factories, 
-      "EmployeeCreationPort"
-    );
+    EmployeeValidationAux.validateRegistryCreation(factories, "EmployeeCreationPort");
 
     return factories.stream().collect(Collectors.toMap(
       EmployeeCreationPort::getKey, 
@@ -36,10 +33,7 @@ public class EmployeeAdaptersRegistry {
   Map<EmployeePersistenceKey, EmployeePersistencePort> employeePersistences(
     List<EmployeePersistencePort> persistences
   ) {
-    EmployeeValidatorAux.validateRegistryCreation(
-      persistences, 
-      "EmployeePersistencePort"
-    );
+    EmployeeValidationAux.validateRegistryCreation(persistences, "EmployeePersistencePort");
 
     return persistences.stream().collect(Collectors.toMap(
       EmployeePersistencePort::getKey, 

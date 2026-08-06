@@ -3,8 +3,6 @@ package com.cloudsolux.foods.global_services.infra.id_control.util;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.id_control.IdControl;
-import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
-import com.cloudsolux.foods.global_services.domain.id_control.util.IdControlMsgCreator;
 import com.cloudsolux.foods.global_services.domain.id_control.util.IdControlValidationAux;
 import com.cloudsolux.foods.global_services.infra.id_control.entity.IdControlEntity;
 
@@ -14,10 +12,7 @@ public final class IdControlUpdater {
   public IdControlEntity update(IdControlEntity entity, IdControl domain) {
     IdControlValidationAux.validateArgument(entity, "IdControlEntity");
     IdControlValidationAux.validateArgument(domain, "IdControl");
-
-    if(entity.getKey() != domain.getKey())
-      throw new IdControlInvalidArgumentException(IdControlMsgCreator
-        .unrelatedKeysMsg(entity.getKey(), domain.getKey()));
+    IdControlValidationAux.validateIdControlKey(entity.getKey(), domain.getKey());
 
     return entity.toBuilder()
       .nextValue(domain.getNextValue())

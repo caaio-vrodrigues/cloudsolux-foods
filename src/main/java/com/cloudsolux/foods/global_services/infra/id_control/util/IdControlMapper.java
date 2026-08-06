@@ -10,8 +10,7 @@ import com.cloudsolux.foods.global_services.infra.id_control.entity.IdControlEnt
 public final class IdControlMapper {
   
   public IdControl toDomain(IdControlEntity entity) {
-    IdControlValidationAux.validateArgument(
-      entity, "IdControlEntity");
+    IdControlValidationAux.validateArgument(entity, "IdControlEntity");
 
     return IdControl.builder()
       .key(entity.getKey())
@@ -20,8 +19,7 @@ public final class IdControlMapper {
   }
 
   public IdControlEntity toEntity(IdControl domain) {
-    IdControlValidationAux.validateArgument(
-      domain, "IdControl");
+    IdControlValidationAux.validateArgument(domain, "IdControl");
 
     return IdControlEntity.builder()
       .key(domain.getKey())

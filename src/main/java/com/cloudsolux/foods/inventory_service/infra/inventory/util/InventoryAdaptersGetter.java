@@ -21,18 +21,14 @@ public final class InventoryAdaptersGetter {
 
   public InventoryFactoryPort getFactory(InventoryFactoryKey key) {
     InventoryValidationAux.validateArgument(key, "InventoryFactoryKey");
-
-    InventoryValidationAux.validateDependencyMap(
-      inventoryFactories, "InventoryFactoryPort");
+    InventoryValidationAux.validateDependencyMap(inventoryFactories, "InventoryFactoryPort");
 
     return inventoryFactories.get(key);
   }
 
   public InventoryPersistencePort getPersistence(InventoryPersistenceKey key) {
     InventoryValidationAux.validateArgument(key, "InventoryPersistenceKey");
-
-    InventoryValidationAux.validateDependencyMap(
-      inventoryPersistences, "InventoryPersistencePort");
+    InventoryValidationAux.validateDependencyMap(inventoryPersistences, "InventoryPersistencePort");
 
     return inventoryPersistences.get(key);
   }

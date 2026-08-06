@@ -10,7 +10,7 @@ public final class Department {
 	private final String name;
   
   private Department(DepartmentBuilder builder) {
-    DepartmentValidationAux.validatePositiveLong(builder.id, "id");
+    DepartmentValidationAux.validatePositive(builder.id, "id");
     DepartmentValidationAux.validateString(builder.name, "name");
     id = builder.id;
     name = builder.name;

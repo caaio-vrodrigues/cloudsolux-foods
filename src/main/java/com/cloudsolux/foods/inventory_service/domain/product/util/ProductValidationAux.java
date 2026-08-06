@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
+import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductAlreadyExistsException;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
 import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidDependencyException;
 
@@ -14,7 +15,7 @@ public final class ProductValidationAux {
   private ProductValidationAux() {}
 
   public static void validateArgument(Object argument, String argumentType) {
-    ValidationAux.validateArgument(
+    ValidationAux.validateNull(
       argument, 
       () -> new ProductInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Product", argumentType))
@@ -31,8 +32,8 @@ public final class ProductValidationAux {
     );
   }
 
-  public static void validatePositiveBigDecimal(BigDecimal value, String argumentName) {
-    ValidationAux.validatePositiveBigDecimal(
+  public static void validatePositive(BigDecimal value, String argumentName) {
+    ValidationAux.validatePositive(
       value, 
       () -> new ProductInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Product", argumentName)), 
@@ -40,8 +41,8 @@ public final class ProductValidationAux {
         .positiveMsg("Product", argumentName, value)));
   }
 
-  public static void validatePositiveLong(Long value, String argumentName) {
-    ValidationAux.validatePositiveLong(
+  public static void validatePositive(Long value, String argumentName) {
+    ValidationAux.validatePositive(
       value, 
       () -> new ProductInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Product", argumentName)), 
@@ -50,7 +51,7 @@ public final class ProductValidationAux {
   }
 
   public static void validateDependency(Object dependency, String dependencyType) {
-    ValidationAux.validateDependency(
+    ValidationAux.validateNull(
       dependency, 
       () -> new ProductInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("Product", dependencyType))
@@ -58,7 +59,7 @@ public final class ProductValidationAux {
   }
 
   public static void validateDependencyMap(Map<?, ?> dependency, String dependencyType) {
-    ValidationAux.validateDependencyMap(
+    ValidationAux.validateMap(
       dependency, 
       () -> new ProductInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("Product", dependencyType)), 
@@ -67,11 +68,35 @@ public final class ProductValidationAux {
   }
 
   public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
-    ValidationAux.validateRegistryCreation(
+    ValidationAux.validateList(
       implementations, 
       () -> new ProductInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Product", implementationsType)), 
       () -> new ProductInvalidDependencyException(
         GlobalMsgCreator.emptyImplementationList("Product", implementationsType)));
+  }
+
+  public static void validateUniqueness(
+    Boolean existsByConstraint, String name, String model, String brand
+  ) {
+    if(existsByConstraint == null)
+      throw new ProductInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Product", "existsByConstraint"));
+
+    if(name == null)
+      throw new ProductInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Product", "name"));
+    
+    if(model == null)
+      throw new ProductInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Product", "model"));
+      
+    if(brand == null)
+      throw new ProductInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Product", "brand"));
+
+    if(existsByConstraint) 
+      throw new ProductAlreadyExistsException(
+        ProductMsgCreator.uniquenessViolationMsg(name, model, brand));
   }
 }

@@ -18,10 +18,8 @@ public final class DepartmentCreationAdapter implements DepartmentCreation {
 
   @Override
   public Department create(DepartmentCreationCommand command, Long id) {
-    DepartmentValidationAux
-      .validateArgument(command, "DepartmentCreationCommand");
-    DepartmentValidationAux
-      .validatePositiveLong(id, "id");
+    DepartmentValidationAux.validateArgument(command, "DepartmentCreationCommand");
+    DepartmentValidationAux.validatePositive(id, "id");
       
     return Department.builder()
       .id(id)

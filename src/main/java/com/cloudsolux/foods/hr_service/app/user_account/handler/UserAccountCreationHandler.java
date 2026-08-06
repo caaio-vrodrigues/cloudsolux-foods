@@ -22,7 +22,7 @@ public class UserAccountCreationHandler {
   @Transactional
   public UserAccount create(UserAccountCreationCommand command, Long userAccountId) {
     UserAccountValidationAux.validateArgument(command, "UserAccountCreationCommand");
-    UserAccountValidationAux.validatePositiveLong(userAccountId, "userAccountId");
+    UserAccountValidationAux.validatePositive(userAccountId, "userAccountId");
     UserAccountValidationAux.validateDependency(adapters, "UserAccountAdaptersGetter");
 
     UserAccountValidation validator = (UserAccountValidation) adapters

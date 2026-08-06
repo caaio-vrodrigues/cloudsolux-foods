@@ -5,12 +5,9 @@ import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentAlreadyExistsException;
 import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentDataAccessException;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentNotFoundException;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
-import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 import com.cloudsolux.foods.hr_service.infra.department.repo.DepartmentRepo;
 
@@ -49,20 +46,29 @@ public final class DepartmentValidationAdapter implements DepartmentValidation {
         .accessFailureMsg("Department"));
     }
 
-    DepartmentValidationAux.validateDependency(existsByName, "DepartmentRepo");
-
-    if(existsByName)
-      throw new DepartmentAlreadyExistsException(DepartmentMsgCreator
-        .uniquenessViolationMsg(command.getName()));
+    DepartmentValidationAux.validateUniqueness(existsByName, command.getName());
   }
 
   @Override
   public void validateExistence(Long departmentId) {
-    DepartmentValidationAux.validatePositiveLong(departmentId, "departmentId");
+    DepartmentValidationAux.validatePositive(departmentId, "departmentId");
     DepartmentValidationAux.validateDependency(repo, "DepartmentRepo");
 
-    if(!repo.existsById(departmentId)) 
-      throw new DepartmentNotFoundException(GlobalMsgCreator
-        .notFoundMsg("Department", departmentId));
+    boolean existsById;
+
+    try {
+      existsById = repo.existsById(departmentId);
+    }
+    catch(DataAccessException e) {
+      log.error(
+        GlobalMsgCreator.accessFailureLogMsg("Department")+" {}",
+        e.getMessage(), 
+        e
+      );
+      throw new DepartmentDataAccessException(GlobalMsgCreator
+        .accessFailureMsg("Department"));
+    }
+
+    DepartmentValidationAux.validateExistenceById(existsById, departmentId);
   }
 }

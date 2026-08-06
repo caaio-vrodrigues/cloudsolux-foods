@@ -22,15 +22,16 @@ public final class ProductResponseGenerator {
       throw new ProductInvalidArgumentException(ProductMsgCreator
         .unrelatedDomainsOnResponseCreation(
           product.getId(), inventory.getCatalogId()
-        ));
+        )
+      );
 
     return ProductResponse.builder()
       .id(product.getId())
       .name(product.getName())
       .model(product.getModel())
       .brand(product.getBrand())
-      .amount(inventory.getStock().getAmount())
-      .unitOfMeasure(inventory.getStock().getUnitOfMeasure())
+      .amount(inventory.getAmount())
+      .unitOfMeasure(inventory.getUnitOfMeasure())
       .build();
   }
 }

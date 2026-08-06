@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
 import com.cloudsolux.foods.inventory_service.domain.inventory.exception.InventoryInvalidArgumentException;
@@ -14,7 +15,7 @@ public final class InventoryValidationAux {
   private InventoryValidationAux() {}
 
   public static void validateArgument(Object argument, String argumentType) {
-    ValidationAux.validateArgument(
+    ValidationAux.validateNull(
       argument, 
       () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Inventory", argumentType))
@@ -31,8 +32,8 @@ public final class InventoryValidationAux {
     );
   }
 
-  public static void validatePositiveBigDecimal(BigDecimal value, String argumentName) {
-    ValidationAux.validatePositiveBigDecimal(
+  public static void validatePositive(BigDecimal value, String argumentName) {
+    ValidationAux.validatePositive(
       value, 
       () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Inventory", argumentName)), 
@@ -41,8 +42,8 @@ public final class InventoryValidationAux {
     );
   }
 
-  public static void validatePositiveLong(Long value, String argumentName) {
-    ValidationAux.validatePositiveLong(
+  public static void validatePositive(Long value, String argumentName) {
+    ValidationAux.validatePositive(
       value, 
       () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Inventory", argumentName)), 
@@ -52,7 +53,7 @@ public final class InventoryValidationAux {
   }
 
   public static void validateDependency(Object dependency, String dependencyType) {
-    ValidationAux.validateDependency(
+    ValidationAux.validateNull(
       dependency, 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("Inventory", dependencyType))
@@ -60,7 +61,7 @@ public final class InventoryValidationAux {
   }
 
   public static void validateDependencyMap(Map<?, ?> dependency, String dependencyType) {
-    ValidationAux.validateDependencyMap(
+    ValidationAux.validateMap(
       dependency, 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("Inventory", dependencyType)), 
@@ -70,7 +71,7 @@ public final class InventoryValidationAux {
   }
 
   public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
-    ValidationAux.validateRegistryCreation(
+    ValidationAux.validateList(
       implementations, 
       () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Inventory", implementationsType)), 
@@ -79,13 +80,47 @@ public final class InventoryValidationAux {
     );
   }
 
-  public static void validatePositiveOrZeroBigDecimal(BigDecimal amount, String argumentName) {
-    ValidationAux.validatePositiveOrZeroBigDecimal(
+  public static void validatePositiveOrZero(BigDecimal amount, String argumentName) {
+    ValidationAux.validatePositiveOrZero(
       amount, 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
         .nullArgumentMsg("Inventory", argumentName)), 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
         .positiveOrZeroMsg("Inventory", argumentName, amount))
     );
+  }
+
+  public static void validateUnitOfMeasure(
+    UnitOfMeasure current, 
+    UnitOfMeasure received, 
+    String currentArgumentName, 
+    String receivedArgumentName
+  ) {
+    ValidationAux.validateUnitOfMeasure(
+      current, 
+      received, 
+      () -> new InventoryInvalidDependencyException(GlobalMsgCreator
+        .nullArgumentMsg("Inventory", currentArgumentName)),
+      () -> new InventoryInvalidDependencyException(GlobalMsgCreator
+        .nullArgumentMsg("Inventory", receivedArgumentName)),
+      () -> new InventoryInvalidArgumentException(GlobalMsgCreator
+        .invalidUnitOfMeasureMsg("Inventory", received, current)));
+  }
+
+  public static void validateUnderZeroResult(
+    BigDecimal current, 
+    BigDecimal received, 
+    String currentArgumentName, 
+    String receivedArgumentName
+  ) {
+    ValidationAux.validateUnderZeroResult(
+      current, 
+      received, 
+      () -> new InventoryInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Inventory", currentArgumentName)),
+      () -> new InventoryInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Inventory", receivedArgumentName)),
+      () -> new InventoryInvalidArgumentException(GlobalMsgCreator
+        .underZeroResult("Inventory", currentArgumentName, received, current)));
   }
 }

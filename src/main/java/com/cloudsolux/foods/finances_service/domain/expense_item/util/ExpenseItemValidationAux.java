@@ -10,8 +10,8 @@ public final class ExpenseItemValidationAux {
  
   private ExpenseItemValidationAux() {}
 
-  public static void validatePositiveBigDecimal(BigDecimal value, String argumentName) {
-    ValidationAux.validatePositiveBigDecimal(
+  public static void validatePositive(BigDecimal value, String argumentName) {
+    ValidationAux.validatePositive(
       value, 
       () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("ExpenseItem", argumentName)), 
@@ -20,8 +20,8 @@ public final class ExpenseItemValidationAux {
     );
   }
 
-  public static void validatePositiveLong(Long value, String argumentName) {
-    ValidationAux.validatePositiveLong(
+  public static void validatePositive(Long value, String argumentName) {
+    ValidationAux.validatePositive(
       value, 
       () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("ExpenseItem", argumentName)), 
@@ -30,8 +30,8 @@ public final class ExpenseItemValidationAux {
     );
   }
 
-  public static void validatePositiveOrZeroBigDecimal(BigDecimal amount, String argumentName) {
-    ValidationAux.validatePositiveOrZeroBigDecimal(
+  public static void validatePositiveOrZero(BigDecimal amount, String argumentName) {
+    ValidationAux.validatePositiveOrZero(
       amount, 
       () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("ExpenseItem", argumentName)), 
@@ -41,10 +41,27 @@ public final class ExpenseItemValidationAux {
   }
 
   public static void validateArgument(Object argument, String argumentType) {
-    ValidationAux.validateArgument(
+    ValidationAux.validateNull(
       argument, 
       () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("ExpenseItem", argumentType))
     );
+  }
+
+  public static void validateUnderZeroResult(
+    BigDecimal current, 
+    BigDecimal received, 
+    String currentArgumentName, 
+    String receivedArgumentName
+  ) {
+    ValidationAux.validateUnderZeroResult(
+      current, 
+      received, 
+      () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("ExpenseItem", currentArgumentName)),
+      () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("ExpenseItem", receivedArgumentName)),
+      () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
+        .underZeroResult("ExpenseItem", currentArgumentName, received, current)));
   }
 }

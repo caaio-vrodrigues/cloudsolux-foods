@@ -1,15 +1,17 @@
 package com.cloudsolux.foods.inventory_service.domain.inventory;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
+import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 
 public final class Inventory {
   private final Long catalogId;
-	private Stock stock;
+	private final Stock stock;
 	
 	private Inventory(InventoryBuilder builder) {
-		InventoryValidationAux.validatePositiveLong(builder.catalogId, "catalogId");
+		InventoryValidationAux.validatePositive(builder.catalogId, "catalogId");
 		InventoryValidationAux.validateArgument(builder.stock, "Stock");
 		catalogId = builder.catalogId;
 		stock = builder.stock;
@@ -42,18 +44,26 @@ public final class Inventory {
 		return catalogId;
 	}
 	
-	public Stock getStock() {
-		return stock;
+	public UnitOfMeasure getUnitOfMeasure() {
+		return stock.getUnitOfMeasure();
 	}
 	
-	public void receiveStock(Stock incoming) {
-		InventoryValidationAux.validateArgument(incoming, "Stock");
-		stock = stock.add(incoming);
+	public BigDecimal getAmount() {
+		return stock.getAmount();
 	}
 	
-	public void dispatchStock(Stock outgoing) {
-		InventoryValidationAux.validateArgument(outgoing, "Stock");
-		stock = stock.subtract(outgoing);
+	public Inventory receiveStock(Stock incoming) {
+		return Inventory.builder()
+			.catalogId(catalogId)
+			.stock(stock.add(incoming))
+			.build();
+	}
+	
+	public Inventory dispatchStock(Stock outgoing) {
+		return Inventory.builder()
+			.catalogId(catalogId)
+			.stock(stock.subtract(outgoing))
+			.build();
 	}
 	
 	@Override

@@ -3,14 +3,15 @@ package com.cloudsolux.foods.global_services.domain.id_control.util;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
-import com.cloudsolux.foods.hr_service.domain.department.exception.DepartmentInvalidDependencyException;
+import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidDependencyException;
+import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 
 public final class IdControlValidationAux {
   
   private IdControlValidationAux() {}
 
   public static void validateArgument(Object argument, String argumentType) {
-    ValidationAux.validateArgument(
+    ValidationAux.validateNull(
       argument, 
       () -> new IdControlInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("IdControl", argumentType))
@@ -18,20 +19,32 @@ public final class IdControlValidationAux {
   }
 
   public static void validateDependency(Object dependency, String dependencyType) {
-    ValidationAux.validateDependency(
+    ValidationAux.validateNull(
       dependency, 
-      () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
+      () -> new IdControlInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("IdControl", dependencyType))
     );
   }
 
-  public static void validatePositiveLong(Long value, String argumentName) {
-    ValidationAux.validatePositiveLong(
+  public static void validatePositive(Long value, String argumentName) {
+    ValidationAux.validatePositive(
       value, 
       () -> new IdControlInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("IdControl", argumentName)), 
       () -> new IdControlInvalidArgumentException(GlobalMsgCreator
         .positiveMsg("IdControl", argumentName, value))
     );
+  }
+
+  public static void validateIdControlKey(
+    IdControlKey current, IdControlKey received
+  ) {
+    if(current == null || received == null)
+      throw new IdControlInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("IdControl", "IdControlKey"));
+
+    if(!current.equals(received)) 
+      throw new IdControlInvalidArgumentException(IdControlMsgCreator
+        .unrelatedKeysMsg(current, received));
   }
 }

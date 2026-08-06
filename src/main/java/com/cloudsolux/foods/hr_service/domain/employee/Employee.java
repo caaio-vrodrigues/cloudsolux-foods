@@ -2,7 +2,7 @@ package com.cloudsolux.foods.hr_service.domain.employee;
 
 import java.util.Objects;
 
-import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
+import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidationAux;
 
 public final class Employee {
   
@@ -11,9 +11,9 @@ public final class Employee {
   private final Long departmentId;
 
   private Employee(EmployeeBuilder builder) {
-    EmployeeValidatorAux.validatePositiveLong(builder.id, "id");
-    EmployeeValidatorAux.validatePositiveLong(builder.userAccountId, "userAccountId");
-    EmployeeValidatorAux.validatePositiveLong(builder.departmentId, "departmentId");
+    EmployeeValidationAux.validatePositive(builder.id, "id");
+    EmployeeValidationAux.validatePositive(builder.userAccountId, "userAccountId");
+    EmployeeValidationAux.validatePositive(builder.departmentId, "departmentId");
 
     id = builder.id;
     userAccountId = builder.userAccountId;

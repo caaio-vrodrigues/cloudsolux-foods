@@ -23,8 +23,7 @@ public class DepartmentAdaptersRegistry {
   Map<DepartmentValidationKey, DepartmentValidationPort> departmentValidators(
     List<DepartmentValidationPort> validators
   ) {
-    DepartmentValidationAux.validateRegistryCreation(
-      validators, "DepartmentValidationPort");
+    DepartmentValidationAux.validateRegistryCreation(validators, "DepartmentValidationPort");
 
     return validators.stream().collect(Collectors.toMap(
       DepartmentValidationPort::getKey, 
@@ -36,8 +35,7 @@ public class DepartmentAdaptersRegistry {
   Map<DepartmentCreationKey, DepartmentCreationPort> departmentFactories(
     List<DepartmentCreationPort> factories
   ) {
-    DepartmentValidationAux.validateRegistryCreation(
-      factories, "DepartmentCreationPort");
+    DepartmentValidationAux.validateRegistryCreation(factories, "DepartmentCreationPort");
 
     return factories.stream().collect(Collectors.toMap(
       DepartmentCreationPort::getKey, 
@@ -49,8 +47,7 @@ public class DepartmentAdaptersRegistry {
   Map<DepartmentPersistenceKey, DepartmentPersistencePort> departmentPersistences(
     List<DepartmentPersistencePort> persistences
   ) {
-    DepartmentValidationAux.validateRegistryCreation(
-      persistences, "DepartmentPersistencePort");
+    DepartmentValidationAux.validateRegistryCreation(persistences, "DepartmentPersistencePort");
 
     return persistences.stream().collect(Collectors.toMap(
       DepartmentPersistencePort::getKey, 

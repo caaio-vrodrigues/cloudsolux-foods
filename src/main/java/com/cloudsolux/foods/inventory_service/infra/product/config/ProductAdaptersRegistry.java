@@ -23,8 +23,7 @@ public class ProductAdaptersRegistry {
   Map<ProductFactoryKey, ProductFactoryPort> productFactories(
     List<ProductFactoryPort> factories
   ) {
-    ProductValidationAux.validateRegistryCreation(
-      factories, "ProductFactoryPort");
+    ProductValidationAux.validateRegistryCreation(factories, "ProductFactoryPort");
     
     return factories.stream()
       .collect(Collectors.toMap(
@@ -37,8 +36,7 @@ public class ProductAdaptersRegistry {
   Map<ProductValidationKey, ProductValidationPort> productValidators(
     List<ProductValidationPort> validators
   ) {
-    ProductValidationAux.validateRegistryCreation(
-      validators, "ProductValidationPort");
+    ProductValidationAux.validateRegistryCreation(validators, "ProductValidationPort");
 
     return validators.stream()
       .collect(Collectors.toMap(
@@ -51,8 +49,7 @@ public class ProductAdaptersRegistry {
   Map<ProductPersistenceKey, ProductPersistencePort> productPersistences(
     List<ProductPersistencePort> savers
   ) {
-    ProductValidationAux.validateRegistryCreation(
-      savers, "ProductPersistencePort");
+    ProductValidationAux.validateRegistryCreation(savers, "ProductPersistencePort");
 
     return savers.stream()
       .collect(Collectors.toMap(

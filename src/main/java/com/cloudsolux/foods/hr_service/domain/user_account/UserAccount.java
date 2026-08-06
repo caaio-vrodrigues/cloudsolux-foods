@@ -18,7 +18,7 @@ public final class UserAccount {
   private final Boolean active;
   
   private UserAccount(UserAccountBuilder builder) {
-    UserAccountValidationAux.validatePositiveLong(builder.id, "id");
+    UserAccountValidationAux.validatePositive(builder.id, "id");
     UserAccountValidationAux.validateString(builder.firstName, "firstName");
     UserAccountValidationAux.validateString(builder.lastName, "lastName");
     UserAccountValidationAux.validateAgeSixteen(builder.birthday, "birthday");
@@ -26,7 +26,6 @@ public final class UserAccount {
     UserAccountValidationAux.validateArgument(builder.role, "Role");
     UserAccountValidationAux.validateEncodedPassword(builder.password, "password");
     UserAccountValidationAux.validateArgument(builder.active, "Boolean");
-
     id = builder.id;
     firstName = builder.firstName;
     lastName = builder.lastName;

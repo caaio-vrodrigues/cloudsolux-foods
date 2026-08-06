@@ -10,8 +10,7 @@ import com.cloudsolux.foods.hr_service.infra.department.entity.DepartmentEntity;
 public final class DepartmentMapper {
  
   public DepartmentEntity toEntity(Department domain) {
-    DepartmentValidationAux.validateArgument(
-      domain, "Department");
+    DepartmentValidationAux.validateArgument(domain, "Department");
 
     return DepartmentEntity.builder()
       .id(domain.getId())
@@ -20,8 +19,7 @@ public final class DepartmentMapper {
   }
 
   public Department toDomain(DepartmentEntity entity) {
-    DepartmentValidationAux.validateArgument(
-      entity, "DepartmentEntity");
+    DepartmentValidationAux.validateArgument(entity, "DepartmentEntity");
 
     return Department.builder()
       .id(entity.getId())

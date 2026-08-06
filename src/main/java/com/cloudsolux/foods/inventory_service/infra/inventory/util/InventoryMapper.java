@@ -15,8 +15,8 @@ public final class InventoryMapper {
     InventoryValidationAux.validateArgument(domain, "Inventory");
 
     StockEmbeddable stock = StockEmbeddable.builder()
-      .amount(domain.getStock().getAmount())
-      .unitOfMeasure(domain.getStock().getUnitOfMeasure())
+      .amount(domain.getAmount())
+      .unitOfMeasure(domain.getUnitOfMeasure())
       .build();
 
     return InventoryEntity.builder()

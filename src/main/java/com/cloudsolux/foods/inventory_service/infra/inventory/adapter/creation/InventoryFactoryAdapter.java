@@ -18,9 +18,8 @@ public final class InventoryFactoryAdapter implements InventoryFactory {
   }
 
   @Override
-  public Inventory create(InventoryCreationCommand command) {
-    InventoryValidationAux.validateArgument(
-      command, "InventoryCreationCommand");
+  public Inventory create(InventoryCreationCommand command, Long id) {
+    InventoryValidationAux.validateArgument(command, "InventoryCreationCommand");
 
     Stock stock = Stock.builder()
       .amount(command.getAmount())
@@ -28,7 +27,7 @@ public final class InventoryFactoryAdapter implements InventoryFactory {
       .build();
 
     return Inventory.builder()
-      .catalogId(command.getId())
+      .catalogId(id)
       .stock(stock)
       .build();
   }

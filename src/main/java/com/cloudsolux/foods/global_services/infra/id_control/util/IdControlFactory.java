@@ -10,10 +10,7 @@ import com.cloudsolux.foods.global_services.domain.id_control.util.IdControlVali
 public final class IdControlFactory {
   
   public IdControl create(IdControlKey key) {
-    IdControlValidationAux.validateArgument(
-      key, 
-      "IdControlKey"
-    );
+    IdControlValidationAux.validateArgument(key, "IdControlKey");
 
     return IdControl.builder()
       .key(key)

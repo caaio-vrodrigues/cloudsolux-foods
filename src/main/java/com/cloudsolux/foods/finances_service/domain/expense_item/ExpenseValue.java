@@ -3,9 +3,7 @@ package com.cloudsolux.foods.finances_service.domain.expense_item;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-import com.cloudsolux.foods.finances_service.domain.expense_item.exception.ExpenseItemInvalidArgumentException;
 import com.cloudsolux.foods.finances_service.domain.expense_item.util.ExpenseItemValidationAux;
-import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 
 public final class ExpenseValue {
 
@@ -13,8 +11,8 @@ public final class ExpenseValue {
 	private final BigDecimal amount;
   
   private ExpenseValue(ExpenseValueBuilder builder) {
-    ExpenseItemValidationAux.validatePositiveBigDecimal(builder.price, "price");
-    ExpenseItemValidationAux.validatePositiveOrZeroBigDecimal(builder.amount, "amount");
+    ExpenseItemValidationAux.validatePositive(builder.price, "price");
+    ExpenseItemValidationAux.validatePositiveOrZero(builder.amount, "amount");
     price = builder.price;
     amount = builder.amount;
   }
@@ -43,7 +41,8 @@ public final class ExpenseValue {
   }
 
   public ExpenseValue increasePrice(BigDecimal price) {
-    ExpenseItemValidationAux.validatePositiveBigDecimal(price, "price");
+    ExpenseItemValidationAux.validatePositive(price, "price");
+
     return ExpenseValue.builder()
       .amount(amount)
       .price(this.price.add(price))
@@ -51,11 +50,11 @@ public final class ExpenseValue {
   }
 
   public ExpenseValue decreasePrice(BigDecimal price) {
-    ExpenseItemValidationAux.validatePositiveBigDecimal(price, "price");
+    ExpenseItemValidationAux.validatePositive(price, "price");
 
-    if(this.price.compareTo(price) < 0) 
-      throw new ExpenseItemInvalidArgumentException(GlobalMsgCreator
-        .underZeroResult("ExpenseValue", "price", price, this.price));
+    ExpenseItemValidationAux.validateUnderZeroResult(
+      this.price, price, "price", "price"
+    );
 
     return ExpenseValue.builder()
       .amount(amount)
@@ -64,7 +63,8 @@ public final class ExpenseValue {
   }
 
   public ExpenseValue increaseAmount(BigDecimal amount) {
-    ExpenseItemValidationAux.validatePositiveBigDecimal(amount, "amount");
+    ExpenseItemValidationAux.validatePositive(amount, "amount");
+    
     return ExpenseValue.builder()
       .amount(this.amount.add(amount))
       .price(price)
@@ -72,11 +72,11 @@ public final class ExpenseValue {
   }
 
   public ExpenseValue decreaseAmount(BigDecimal amount) {
-    ExpenseItemValidationAux.validatePositiveBigDecimal(amount, "amount");
+    ExpenseItemValidationAux.validatePositive(amount, "amount");
 
-    if(this.amount.compareTo(amount) < 0) 
-      throw new ExpenseItemInvalidArgumentException(GlobalMsgCreator
-        .underZeroResult("ExpenseValue", "amount", amount, this.amount));
+    ExpenseItemValidationAux.validateUnderZeroResult(
+      this.amount, amount, "amount", "amount"
+    );
 
     return ExpenseValue.builder()
       .amount(this.amount.subtract(amount))

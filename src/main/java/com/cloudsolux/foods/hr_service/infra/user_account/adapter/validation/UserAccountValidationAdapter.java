@@ -4,11 +4,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.hr_service.domain.user_account.exception.UserAccountAlreadyExistsException;
 import com.cloudsolux.foods.hr_service.domain.user_account.exception.UserAccountDataAccessException;
 import com.cloudsolux.foods.hr_service.domain.user_account.model.validation.UserAccountValidation;
 import com.cloudsolux.foods.hr_service.domain.user_account.model.validation.UserAccountValidationKey;
-import com.cloudsolux.foods.hr_service.domain.user_account.util.UserAccountMsgCreator;
 import com.cloudsolux.foods.hr_service.domain.user_account.util.UserAccountValidationAux;
 import com.cloudsolux.foods.hr_service.infra.user_account.repo.UserAccountRepo;
 
@@ -47,10 +45,6 @@ public final class UserAccountValidationAdapter implements UserAccountValidation
         .accessFailureMsg("UserAccount"));
     }
 
-    UserAccountValidationAux.validateDependency(existsByEmail, "UserAccountRepo");
-
-    if(existsByEmail) 
-      throw new UserAccountAlreadyExistsException(UserAccountMsgCreator
-        .uniquenessViolationMsg(email));
+    UserAccountValidationAux.validateUniqueness(existsByEmail, email);
   }
 }

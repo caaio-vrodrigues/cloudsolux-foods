@@ -2,14 +2,14 @@ package com.cloudsolux.foods.hr_service.domain.employee.command;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistenceKey;
-import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
+import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidationAux;
 
 public final class EmployeeCreationCommand {
   
   private final Long departmentId;
 
   private EmployeeCreationCommand(EmployeeCreationCommandBuilder builder) {
-    EmployeeValidatorAux.validatePositiveLong(builder.departmentId, "departmentId");
+    EmployeeValidationAux.validatePositive(builder.departmentId, "departmentId");
     departmentId = builder.departmentId;
   }
 

@@ -36,6 +36,7 @@ public final class InventoryPersistenceAdapter implements InventoryPersistence {
     InventoryValidationAux.validateDependency(repo, "InventoryRepo");
 
     InventoryEntity entity = mapper.toEntity(inventory);
+    InventoryValidationAux.validateDependency(entity, "InventoryMapper");
 
     try {
       repo.save(entity);

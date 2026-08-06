@@ -10,9 +10,7 @@ import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.In
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistence;
 import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
-import com.cloudsolux.foods.inventory_service.domain.product.command.ProductCreationCommand;
 import com.cloudsolux.foods.inventory_service.infra.inventory.util.InventoryAdaptersGetter;
-import com.cloudsolux.foods.inventory_service.infra.inventory.util.InventoryCommandGenerator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,34 +18,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class InventoryCreationHandler {
 
-  private final InventoryCommandGenerator commandGenerator;
   private final InventoryAdaptersGetter adapters;
 
   @Transactional
-  public Inventory create(ProductCreationCommand productCommand, Long id) {
-    InventoryValidationAux
-      .validateArgument(productCommand, "ProductCreationCommand");
-    InventoryValidationAux
-      .validatePositiveLong(id, "id");
-    InventoryValidationAux
-      .validateDependency(commandGenerator, "InventoryCommandGenerator");
-    InventoryValidationAux
-      .validateDependency(adapters, "InventoryAdaptersGetter");
-
-    InventoryCreationCommand command = commandGenerator
-      .generateCreationCommand(productCommand, id);
+  public Inventory create(InventoryCreationCommand command, Long id) {
+    InventoryValidationAux.validateArgument(command, "ProductCreationCommand");
+    InventoryValidationAux.validatePositive(id, "id");
+    InventoryValidationAux.validateDependency(adapters, "InventoryAdaptersGetter");
 
     InventoryFactory factory = (InventoryFactory) adapters
       .getFactory(InventoryFactoryKey.INVENTORY_CREATION);
-    InventoryValidationAux
-      .validateDependency(factory, "InventoryAdaptersGetter");
+    InventoryValidationAux.validateDependency(factory, "InventoryAdaptersGetter");
 
-    Inventory inventory = factory.create(command);
+    Inventory inventory = factory.create(command, id);
 
     InventoryPersistence persistence = (InventoryPersistence) adapters
       .getPersistence(InventoryPersistenceKey.INVENTORY_PERSISTENCE);
-    InventoryValidationAux
-      .validateDependency(persistence, "InventoryAdaptersGetter");
+    InventoryValidationAux.validateDependency(persistence, "InventoryAdaptersGetter");
 
     persistence.save(inventory);
     return inventory;

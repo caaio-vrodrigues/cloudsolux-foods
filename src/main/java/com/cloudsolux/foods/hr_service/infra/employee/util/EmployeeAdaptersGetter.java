@@ -8,7 +8,7 @@ import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCr
 import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationPort;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistencePort;
-import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
+import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidationAux;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,11 +20,9 @@ public final class EmployeeAdaptersGetter {
   private final Map<EmployeePersistenceKey, EmployeePersistencePort> employeePersistences;
 
   public EmployeeCreationPort getFactories(EmployeeCreationKey key) {
-    EmployeeValidatorAux.validateArgument(
-      key, 
-      "EmployeeCreationKey");
+    EmployeeValidationAux.validateArgument(key, "EmployeeCreationKey");
 
-    EmployeeValidatorAux.validateDependencyMap(
+    EmployeeValidationAux.validateDependencyMap(
       employeeFactories, 
       "Map<EmployeeCreationKey, EmployeeCreationPort>");
 
@@ -32,11 +30,9 @@ public final class EmployeeAdaptersGetter {
   }
 
   public EmployeePersistencePort getPersistences(EmployeePersistenceKey key) {
-    EmployeeValidatorAux.validateArgument(
-      key, 
-      "EmployeePersistenceKey");
+    EmployeeValidationAux.validateArgument(key, "EmployeePersistenceKey");
 
-    EmployeeValidatorAux.validateDependencyMap(
+    EmployeeValidationAux.validateDependencyMap(
       employeePersistences, 
       "Map<EmployeePersistenceKey, EmployeePersistencePort>");
 

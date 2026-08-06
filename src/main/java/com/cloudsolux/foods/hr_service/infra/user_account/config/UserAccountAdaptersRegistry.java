@@ -23,9 +23,7 @@ public class UserAccountAdaptersRegistry {
   Map<UserAccountValidationKey, UserAccountValidationPort> userAccountValidators(
     List<UserAccountValidationPort> validators
   ) {
-    UserAccountValidationAux.validateRegistryCreation(
-      validators, "UserAccountValidationPort"
-    );
+    UserAccountValidationAux.validateRegistryCreation(validators, "UserAccountValidationPort");
 
     return validators.stream().collect(Collectors.toMap(
       UserAccountValidationPort::getKey, 
@@ -37,9 +35,7 @@ public class UserAccountAdaptersRegistry {
   Map<UserAccountCreationKey, UserAccountCreationPort> userAccountFactories(
     List<UserAccountCreationPort> factories
   ) {
-    UserAccountValidationAux.validateRegistryCreation(
-      factories, "UserAccountCreationPort"
-    );
+    UserAccountValidationAux.validateRegistryCreation(factories, "UserAccountCreationPort");
 
     return factories.stream().collect(Collectors.toMap(
       UserAccountCreationPort::getKey, 
@@ -51,9 +47,7 @@ public class UserAccountAdaptersRegistry {
   Map<UserAccountPersistenceKey, UserAccountPersistencePort> userAccountPersistences(
     List<UserAccountPersistencePort> persistences
   ) {
-    UserAccountValidationAux.validateRegistryCreation(
-      persistences, "UserAccountPersistencePort"
-    );
+    UserAccountValidationAux.validateRegistryCreation(persistences, "UserAccountPersistencePort");
 
     return persistences.stream().collect(Collectors.toMap(
       UserAccountPersistencePort::getKey, 

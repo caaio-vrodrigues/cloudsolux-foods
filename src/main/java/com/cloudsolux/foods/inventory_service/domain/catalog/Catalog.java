@@ -2,14 +2,22 @@ package com.cloudsolux.foods.inventory_service.domain.catalog;
 
 import java.util.Objects;
 
-import com.cloudsolux.foods.inventory_service.domain.catalog.util.CatalogValidationAux;
+import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
+import com.cloudsolux.foods.inventory_service.domain.catalog.exception.CatalogInvalidArgumentException;
 
 public abstract class Catalog {
 
   private final Long id;
 
   protected Catalog(Long id) {
-    CatalogValidationAux.validatePositiveLong(id, "id");
+    if(id == null) 
+      throw new CatalogInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Catalog", "id"));
+
+    if(id < 1) 
+      throw new CatalogInvalidArgumentException(GlobalMsgCreator
+        .positiveMsg("Catalog", "id", id));
+
     this.id = id;
   }
 

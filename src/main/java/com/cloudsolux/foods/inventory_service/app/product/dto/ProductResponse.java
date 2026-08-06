@@ -7,6 +7,7 @@ import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +32,7 @@ public final class ProductResponse {
   @NotBlank
   private String brand;
 
-  @NotNull @Positive
+  @NotNull @PositiveOrZero
 	private BigDecimal amount;
 
   @NotNull

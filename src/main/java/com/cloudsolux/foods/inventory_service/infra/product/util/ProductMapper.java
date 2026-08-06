@@ -10,8 +10,7 @@ import com.cloudsolux.foods.inventory_service.infra.product.entity.ProductEntity
 public final class ProductMapper {
 
   public Product toDomain(ProductEntity entity) {
-    ProductValidationAux.validateArgument(
-      entity, "ProductEntity");
+    ProductValidationAux.validateArgument(entity, "ProductEntity");
 
     return Product.builder()
       .id(entity.getId())
@@ -22,8 +21,7 @@ public final class ProductMapper {
   }
 
   public ProductEntity toEntity(Product domain) {
-    ProductValidationAux.validateArgument(
-      domain, "Product");
+    ProductValidationAux.validateArgument(domain, "Product");
 
     return ProductEntity.builder()
       .id(domain.getId())

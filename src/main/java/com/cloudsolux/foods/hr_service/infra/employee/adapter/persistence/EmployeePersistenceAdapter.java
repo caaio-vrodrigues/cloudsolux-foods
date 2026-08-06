@@ -8,7 +8,7 @@ import com.cloudsolux.foods.hr_service.domain.employee.Employee;
 import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeePersistenceException;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistence;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistenceKey;
-import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidatorAux;
+import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidationAux;
 import com.cloudsolux.foods.hr_service.infra.employee.entity.EmployeeEntity;
 import com.cloudsolux.foods.hr_service.infra.employee.repo.EmployeeRepo;
 import com.cloudsolux.foods.hr_service.infra.employee.util.EmployeeMapper;
@@ -31,12 +31,12 @@ public final class EmployeePersistenceAdapter implements EmployeePersistence {
 
   @Override
   public void save(Employee employee) {
-    EmployeeValidatorAux.validateArgument(employee, "Employee");
-    EmployeeValidatorAux.validateDependency(mapper, "EmployeeMapper");
-    EmployeeValidatorAux.validateDependency(repo, "EmployeeRepo");
+    EmployeeValidationAux.validateArgument(employee, "Employee");
+    EmployeeValidationAux.validateDependency(mapper, "EmployeeMapper");
+    EmployeeValidationAux.validateDependency(repo, "EmployeeRepo");
 
     EmployeeEntity entity = mapper.toEntity(employee);
-    EmployeeValidatorAux.validateDependency(entity, "EmployeeMapper");
+    EmployeeValidationAux.validateDependency(entity, "EmployeeMapper");
 
     try {
       repo.save(entity);

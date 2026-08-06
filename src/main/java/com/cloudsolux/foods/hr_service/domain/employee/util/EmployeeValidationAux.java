@@ -9,12 +9,12 @@ import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
 import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeeInvalidArgumentException;
 import com.cloudsolux.foods.hr_service.domain.employee.exception.EmployeeInvalidDependencyException;
 
-public final class EmployeeValidatorAux {
+public final class EmployeeValidationAux {
   
-  private EmployeeValidatorAux() {}
+  private EmployeeValidationAux() {}
 
   public static void validateArgument(Object argument, String argumentType) {
-    ValidationAux.validateArgument(
+    ValidationAux.validateNull(
       argument, 
       () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Employee", argumentType))
@@ -31,8 +31,8 @@ public final class EmployeeValidatorAux {
     );
   }
 
-  public static void validatePositiveLong(Long value, String argumentName) {
-    ValidationAux.validatePositiveLong(
+  public static void validatePositive(Long value, String argumentName) {
+    ValidationAux.validatePositive(
       value, 
       () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Employee", argumentName)), 
@@ -42,7 +42,7 @@ public final class EmployeeValidatorAux {
   }
 
   public static void validateDependency(Object dependency, String dependencyType) {
-    ValidationAux.validateDependency(
+    ValidationAux.validateNull(
       dependency, 
       () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("Employee", dependencyType))
@@ -50,7 +50,7 @@ public final class EmployeeValidatorAux {
   }
 
   public static void validateDependencyMap(Map<?, ?> dependency, String dependencyType) {
-    ValidationAux.validateDependencyMap(
+    ValidationAux.validateMap(
       dependency, 
       () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
         .nullDependencyMsg("Employee", dependencyType)), 
@@ -60,7 +60,7 @@ public final class EmployeeValidatorAux {
   }
 
   public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
-    ValidationAux.validateRegistryCreation(
+    ValidationAux.validateList(
       implementations, 
       () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Employee", implementationsType)), 

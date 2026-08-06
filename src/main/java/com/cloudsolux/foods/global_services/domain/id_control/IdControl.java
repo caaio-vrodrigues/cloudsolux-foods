@@ -12,7 +12,7 @@ public final class IdControl {
 
   private IdControl(IdControlBuilder builder) {
     IdControlValidationAux.validateArgument(builder.key, "IdControlKey");
-    IdControlValidationAux.validatePositiveLong(builder.nextValue, "nextValue");
+    IdControlValidationAux.validatePositive(builder.nextValue, "nextValue");
     key = builder.key;
     nextValue = builder.nextValue;
   }
