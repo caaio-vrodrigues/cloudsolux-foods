@@ -39,7 +39,7 @@ public class IdControlGeneratorHandler {
     IdControl domain;
 
     if(entity == null) {
-      domain = factory.create(key);
+      domain = factory.create(key, 1L);
       IdControlValidationAux.validateDependency(domain, "IdControlFactory");
     }
     else {

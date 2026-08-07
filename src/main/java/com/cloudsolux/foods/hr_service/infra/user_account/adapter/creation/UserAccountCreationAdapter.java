@@ -19,7 +19,6 @@ public final class UserAccountCreationAdapter implements UserAccountCreation {
   @Override
   public UserAccount create(UserAccountCreationCommand command, Long id) {
     UserAccountValidationAux.validateArgument(command, "UserAccountCreationCommand");
-    UserAccountValidationAux.validatePositive(id, "id");
     
     return UserAccount.builder()
       .id(id)

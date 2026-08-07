@@ -15,7 +15,9 @@ public final class EmployeeCreationAdapter implements EmployeeCreation {
   }
 
   @Override
-  public Employee create(Long employeeId, Long userAccountId, Long departmentId) {
+  public Employee create(
+    Long employeeId, Long userAccountId, Long departmentId
+  ) {
     return Employee.builder()
       .id(employeeId)
       .userAccountId(userAccountId)

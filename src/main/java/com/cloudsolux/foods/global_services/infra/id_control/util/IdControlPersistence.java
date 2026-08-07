@@ -22,7 +22,6 @@ public final class IdControlPersistence {
   private final IdControlMapper mapper;
 
   public void save(IdControl domain) {
-    IdControlValidationAux.validateArgument(domain, "IdControl");
     IdControlValidationAux.validateDependency(repo, "IdControlRepo");
     IdControlValidationAux.validateDependency(mapper, "IdControlMapper");
 

@@ -16,4 +16,8 @@ public final class ProductMsgCreator {
   public static String unrelatedDomainsOnResponseCreation(Long productId, Long catalogId) {
     return "Falha ao processar 'Product'. Os domínios fornecidos para criação do DTO de resposta não possuem o mesmo 'id'. [Product: 'id="+productId+"'], [Inventory: 'catalogId="+catalogId+"'].";
   }
+
+  public static String unrelatedIdMsg(Long productId, Long inventoryId) {
+    return "Falha ao processar 'Product'. Os argumentos fornecidos para os campos 'id' das entidades Product e Inventory são diferentes: ['productId="+productId+"', '"+inventoryId+"="+inventoryId+"'].";
+  }
 }

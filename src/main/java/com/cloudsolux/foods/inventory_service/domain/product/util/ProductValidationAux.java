@@ -99,4 +99,16 @@ public final class ProductValidationAux {
       throw new ProductAlreadyExistsException(
         ProductMsgCreator.uniquenessViolationMsg(name, model, brand));
   }
+
+  public static void validateIdCorrelation(Long productId, Long inventoryId) {
+    ValidationAux.validateSameLong(
+      productId, 
+      inventoryId, 
+      () -> new ProductInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Product", "product.id")), 
+      () -> new ProductInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Product", "inventory.catalogId")), 
+      () -> new ProductInvalidArgumentException(ProductMsgCreator
+        .unrelatedIdMsg(productId, inventoryId)));
+  }
 }

@@ -24,21 +24,30 @@ public final class ProductAdaptersGetter {
 
   public ProductFactoryPort getProductFactory(ProductFactoryKey key) {
     ProductValidationAux.validateArgument(key, "ProductFactoryKey");
-    ProductValidationAux.validateDependencyMap(productFactories, "ProductFactoryPort");
+
+    ProductValidationAux.validateDependencyMap(
+      productFactories, 
+      "Map<ProductFactoryKey, ProductFactoryPort>");
 
     return productFactories.get(key);
   }
 
   public ProductValidationPort getValidator(ProductValidationKey key) {
     ProductValidationAux.validateArgument(key, "ProductValidationKey");
-    ProductValidationAux.validateDependencyMap(productValidators, "ProductValidationPort");
+
+    ProductValidationAux.validateDependencyMap(
+      productValidators, 
+      "Map<ProductValidationKey, ProductValidationPort>");
 
     return productValidators.get(key);
   }
 
   public ProductPersistencePort getPersistence(ProductPersistenceKey key) {
     ProductValidationAux.validateArgument(key, "ProductPersistenceKey");
-    ProductValidationAux.validateDependencyMap(productPersistences, "ProductPersistencePort");
+    
+    ProductValidationAux.validateDependencyMap(
+      productPersistences, 
+      "Map<ProductPersistenceKey, ProductPersistencePort>");
 
     return productPersistences.get(key);
   }

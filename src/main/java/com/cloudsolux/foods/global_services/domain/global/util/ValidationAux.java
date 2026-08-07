@@ -118,7 +118,7 @@ public final class ValidationAux {
     if(birthday.isAfter(minimumBirthday)) throw underSixteenSupplier.get();
   }
 
-  public static void validateUnitOfMeasure(
+  public static void validateSameUnitOfMeasure(
     UnitOfMeasure current, 
     UnitOfMeasure received, 
     Supplier<RuntimeException> nullCurrentSupplier, 
@@ -153,5 +153,17 @@ public final class ValidationAux {
   ) {
     if(existsById == null) throw nullSupplier.get();
     if(!existsById) throw notFoundSupplier.get();
+  }
+
+  public static void validateSameLong(
+    Long firstLong, 
+    Long secondLong, 
+    Supplier<RuntimeException> nullFirstLongSupplier, 
+    Supplier<RuntimeException> nullSecondLongSupplier, 
+    Supplier<RuntimeException> differentLongSupplier
+  ) {
+    if(firstLong == null) throw nullFirstLongSupplier.get();
+    if(secondLong == null) throw nullSecondLongSupplier.get();
+    if(!firstLong.equals(secondLong)) throw differentLongSupplier.get();
   }
 }

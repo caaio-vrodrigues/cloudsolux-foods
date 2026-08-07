@@ -8,10 +8,10 @@ import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey
 @Component
 public final class IdControlFactory {
   
-  public IdControl create(IdControlKey key) {
+  public IdControl create(IdControlKey key, Long value) {
     return IdControl.builder()
       .key(key)
-      .nextValue(1L)
+      .nextValue(value)
       .build();
   }
 }

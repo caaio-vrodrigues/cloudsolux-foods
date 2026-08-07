@@ -53,7 +53,7 @@ public final class Stock {
 		InventoryValidationAux.validateArgument(incoming, "Stock");
 		InventoryValidationAux.validatePositive(incoming.amount, "incoming.amount");
 
-		InventoryValidationAux.validateUnitOfMeasure(
+		InventoryValidationAux.validateSameUnitOfMeasure(
 			unitOfMeasure, 
 			incoming.unitOfMeasure, 
 			"unitOfMeasure", 
@@ -77,7 +77,7 @@ public final class Stock {
 			"outgoing.amount"
 		);
 
-		InventoryValidationAux.validateUnitOfMeasure(
+		InventoryValidationAux.validateSameUnitOfMeasure(
 			unitOfMeasure, 
 			outgoing.unitOfMeasure, 
 			"unitOfMeasure", 

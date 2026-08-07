@@ -90,13 +90,13 @@ public final class InventoryValidationAux {
     );
   }
 
-  public static void validateUnitOfMeasure(
+  public static void validateSameUnitOfMeasure(
     UnitOfMeasure current, 
     UnitOfMeasure received, 
     String currentArgumentName, 
     String receivedArgumentName
   ) {
-    ValidationAux.validateUnitOfMeasure(
+    ValidationAux.validateSameUnitOfMeasure(
       current, 
       received, 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator

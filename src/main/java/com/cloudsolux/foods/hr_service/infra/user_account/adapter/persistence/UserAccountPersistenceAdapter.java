@@ -31,7 +31,6 @@ public final class UserAccountPersistenceAdapter implements UserAccountPersisten
 
   @Override
   public void save(UserAccount domain) {
-    UserAccountValidationAux.validateArgument(domain, "UserAccount");
     UserAccountValidationAux.validateDependency(mapper, "UserAccountMapper");
     UserAccountValidationAux.validateDependency(repo, "UserAccountRepo");
 

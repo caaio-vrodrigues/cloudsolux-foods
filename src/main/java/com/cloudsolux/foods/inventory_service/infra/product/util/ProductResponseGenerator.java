@@ -1,14 +1,10 @@
 package com.cloudsolux.foods.inventory_service.infra.product.util;
 
-import java.util.Objects;
-
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;
 import com.cloudsolux.foods.inventory_service.domain.product.Product;
-import com.cloudsolux.foods.inventory_service.domain.product.exception.ProductInvalidArgumentException;
-import com.cloudsolux.foods.inventory_service.domain.product.util.ProductMsgCreator;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 
 @Component
@@ -19,13 +15,7 @@ public final class ProductResponseGenerator {
   ) {
     ProductValidationAux.validateArgument(product, "Product");
     ProductValidationAux.validateArgument(inventory, "Inventory");
-
-    if(!Objects.equals(product.getId(), inventory.getCatalogId()))
-      throw new ProductInvalidArgumentException(ProductMsgCreator
-        .unrelatedDomainsOnResponseCreation(
-          product.getId(), inventory.getCatalogId()
-        )
-      );
+    ProductValidationAux.validateIdCorrelation(product.getId(), inventory.getCatalogId());
 
     return ProductResponse.builder()
       .id(product.getId())

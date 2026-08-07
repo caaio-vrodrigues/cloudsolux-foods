@@ -31,7 +31,6 @@ public final class EmployeePersistenceAdapter implements EmployeePersistence {
 
   @Override
   public void save(Employee employee) {
-    EmployeeValidationAux.validateArgument(employee, "Employee");
     EmployeeValidationAux.validateDependency(mapper, "EmployeeMapper");
     EmployeeValidationAux.validateDependency(repo, "EmployeeRepo");
 
