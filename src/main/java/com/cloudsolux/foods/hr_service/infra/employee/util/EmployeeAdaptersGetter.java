@@ -19,7 +19,7 @@ public final class EmployeeAdaptersGetter {
   private final Map<EmployeeCreationKey, EmployeeCreationPort> employeeFactories;
   private final Map<EmployeePersistenceKey, EmployeePersistencePort> employeePersistences;
 
-  public EmployeeCreationPort getFactories(EmployeeCreationKey key) {
+  public EmployeeCreationPort getFactory(EmployeeCreationKey key) {
     EmployeeValidationAux.validateArgument(key, "EmployeeCreationKey");
 
     EmployeeValidationAux.validateDependencyMap(
@@ -29,7 +29,7 @@ public final class EmployeeAdaptersGetter {
     return employeeFactories.get(key);
   }
 
-  public EmployeePersistencePort getPersistences(EmployeePersistenceKey key) {
+  public EmployeePersistencePort getPersistence(EmployeePersistenceKey key) {
     EmployeeValidationAux.validateArgument(key, "EmployeePersistenceKey");
 
     EmployeeValidationAux.validateDependencyMap(

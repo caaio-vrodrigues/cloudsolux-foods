@@ -10,6 +10,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +27,11 @@ import lombok.EqualsAndHashCode.Include;
 @Entity
 @Table(name="user_account")
 public final class UserAccountEntity {
+
+  @Version
+  private Long version;
   
+  @Include
   @Id
   private Long id;
 
@@ -39,7 +44,6 @@ public final class UserAccountEntity {
   @Column(name="birthday", nullable=false)
   private LocalDate birthday;
 
-  @Include
   @Column(name="email", nullable=false, unique=true)
   private String email;
 

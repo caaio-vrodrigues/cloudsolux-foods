@@ -30,7 +30,7 @@ public final class DepartmentPersistenceAdapter implements DepartmentPersistence
   }
 
   @Override
-  public void saveDepartment(Department domain) {
+  public void save(Department domain) {
     DepartmentValidationAux.validateArgument(domain, "Department");
     DepartmentValidationAux.validateDependency(repo, "DepartmentRepo");
     DepartmentValidationAux.validateDependency(mapper, "DepartmentMapper");

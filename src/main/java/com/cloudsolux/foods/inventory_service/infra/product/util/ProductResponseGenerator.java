@@ -1,5 +1,7 @@
 package com.cloudsolux.foods.inventory_service.infra.product.util;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
@@ -18,7 +20,7 @@ public final class ProductResponseGenerator {
     ProductValidationAux.validateArgument(product, "Product");
     ProductValidationAux.validateArgument(inventory, "Inventory");
 
-    if(product.getId() != inventory.getCatalogId())
+    if(!Objects.equals(product.getId(), inventory.getCatalogId()))
       throw new ProductInvalidArgumentException(ProductMsgCreator
         .unrelatedDomainsOnResponseCreation(
           product.getId(), inventory.getCatalogId()

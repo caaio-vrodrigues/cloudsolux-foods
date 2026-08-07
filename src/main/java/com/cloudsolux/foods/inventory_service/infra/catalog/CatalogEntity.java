@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded=true)
 @Inheritance(strategy=InheritanceType.JOINED)
-@AllArgsConstructor(access=AccessLevel.PRIVATE)
+@AllArgsConstructor(access=AccessLevel.PROTECTED)
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @SuperBuilder
 @Entity

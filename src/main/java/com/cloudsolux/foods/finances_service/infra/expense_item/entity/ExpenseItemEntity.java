@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,9 @@ import lombok.EqualsAndHashCode.Include;
 @Table(name="expense_item")
 @Entity
 public final class ExpenseItemEntity {
+
+  @Version
+  private Long version;
   
   @Include
   @Id

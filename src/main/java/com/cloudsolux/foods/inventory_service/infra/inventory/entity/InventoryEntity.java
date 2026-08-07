@@ -1,21 +1,22 @@
 package com.cloudsolux.foods.inventory_service.infra.inventory.entity;
 
-import java.util.Objects;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode.Include;
 
 @AllArgsConstructor(access=AccessLevel.PRIVATE)
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
+@EqualsAndHashCode(onlyExplicitlyIncluded=true)
 @Table(name="inventory")
 @Entity
 @Builder
@@ -25,26 +26,16 @@ public final class InventoryEntity {
 	@Version
 	private Long version;
 
+	@Include
 	@Id
+	@Column(name="id")
 	private Long catalogId;
 	
-	@Embedded @Valid
+	@Embedded
 	private StockEmbeddable stock;
 
 	@Override
-	public boolean equals(Object o) {
-		if(this == o) return true;
-		if(!(o instanceof InventoryEntity other)) return false;
-		return Objects.equals(catalogId, other.catalogId);
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(catalogId);
-	}
-
-	@Override
 	public String toString() {
-		return "InventoryEntity: ['catalogId="+catalogId+"']";
+		return "InventoryEntity: ['catalogId="+catalogId+"', "+stock+"]";
 	}
 }

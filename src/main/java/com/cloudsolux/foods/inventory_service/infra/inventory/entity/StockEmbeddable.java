@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public final class StockEmbeddable {
   
-  @Column(name="amount", nullable=false)
+  @Column(name="amount", nullable=false, precision=19, scale=4)
 	private BigDecimal amount;
 	
 	@Enumerated(EnumType.STRING)

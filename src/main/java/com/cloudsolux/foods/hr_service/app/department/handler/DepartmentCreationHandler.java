@@ -56,7 +56,7 @@ public class DepartmentCreationHandler {
     DepartmentValidationAux.validateDependency(
       persistence, "DepartmentAdaptersGetter");
 
-    persistence.saveDepartment(department);
+    persistence.save(department);
 
     return responseGenerator.toDepartmentResponse(department);
   }

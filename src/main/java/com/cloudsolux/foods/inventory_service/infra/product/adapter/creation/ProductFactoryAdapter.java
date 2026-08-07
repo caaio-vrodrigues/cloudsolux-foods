@@ -19,7 +19,6 @@ public final class ProductFactoryAdapter implements ProductFactory {
   @Override
   public Product create(ProductCreationCommand command, Long id) {
     ProductValidationAux.validateArgument(command, "ProductCreationCommand");
-    ProductValidationAux.validatePositive(id, "id");
 
     return Product.builder()
       .id(id)

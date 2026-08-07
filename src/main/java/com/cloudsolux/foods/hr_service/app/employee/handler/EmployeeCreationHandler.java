@@ -53,7 +53,7 @@ public class EmployeeCreationHandler {
       .generateId(employeeCreationCommand.getEmployeeIdControlKey());
 
     EmployeeCreation factory = (EmployeeCreation) adapters
-      .getFactories(employeeCreationCommand.getFactoryKey());
+      .getFactory(employeeCreationCommand.getFactoryKey());
     EmployeeValidationAux.validateDependency(factory, "EmployeeAdaptersGetter");
 
     departmentValidator.validateExistence(employeeCreationCommand.getDepartmentId());
@@ -63,7 +63,7 @@ public class EmployeeCreationHandler {
     );
 
     EmployeePersistence persistence = (EmployeePersistence) adapters
-      .getPersistences(employeeCreationCommand.getPersistenceKey());
+      .getPersistence(employeeCreationCommand.getPersistenceKey());
     EmployeeValidationAux.validateDependency(persistence, "EmployeeAdaptersGetter");
 
     persistence.save(employee);
