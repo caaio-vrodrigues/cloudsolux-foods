@@ -8,7 +8,7 @@ import com.cloudsolux.foods.global_services.domain.id_control.util.IdControlVali
 public final class IdControl {
 
   private final IdControlKey key;
-  private Long nextValue;
+  private final Long nextValue;
 
   private IdControl(IdControlBuilder builder) {
     IdControlValidationAux.validateArgument(builder.key, "IdControlKey");
@@ -40,8 +40,11 @@ public final class IdControl {
     return new IdControlBuilder();
   }
 
-  public void increment() {
-		nextValue++;
+  public IdControl increment() {
+    return IdControl.builder()
+      .key(key)
+      .nextValue(nextValue + 1)
+      .build();
 	}
 
   public IdControlKey getKey() {

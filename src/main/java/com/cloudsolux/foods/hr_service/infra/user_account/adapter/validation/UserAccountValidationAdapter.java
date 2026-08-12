@@ -28,7 +28,6 @@ public final class UserAccountValidationAdapter implements UserAccountValidation
   @Override
   public void validateUniqueness(String email) {
     UserAccountValidationAux.validateEmail(email, "email");
-    UserAccountValidationAux.validateDependency(repo, "UserAccountRepo");
 
     Boolean existsByEmail;
 

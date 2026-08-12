@@ -29,14 +29,13 @@ public final class ProductValidationAdapter implements ProductValidation {
   @Override
   public void validateProductUniqueness(ProductCreationCommand command) {
     ProductValidationAux.validateArgument(command, "ProductCreationCommand");
-    ProductValidationAux.validateDependency(repo, "ProductRepo");
 
     boolean existsByConstraint;
 
     try {
-      existsByConstraint = repo.existsByNameAndModelAndBrand(
-        command.getName(), command.getModel(), command.getBrand()
-      );
+      existsByConstraint = repo
+        .existsByNameAndModelAndBrand(
+          command.getName(), command.getModel(), command.getBrand());
     }
     catch(DataAccessException e) {
       log.error(
@@ -48,8 +47,10 @@ public final class ProductValidationAdapter implements ProductValidation {
         .accessFailureMsg("Product"));
     }
 
+    ProductValidationAux.validateDependencyResult(
+      existsByConstraint, "ProductRepo", "boolean");
+
     ProductValidationAux.validateUniqueness(
-      existsByConstraint, command.getName(), command.getModel(), command.getBrand()
-    );
+      existsByConstraint, command.getName(), command.getModel(), command.getBrand());
   }
 }

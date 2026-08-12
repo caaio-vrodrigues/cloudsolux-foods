@@ -42,11 +42,13 @@ public final class DepartmentValidationAux {
     );
   }
 
-  public static void validateDependency(Object dependency, String dependencyType) {
+  public static void validateDependencyResult(
+    Object dependency, String dependencyType, String resultType
+  ) {
     ValidationAux.validateNull(
       dependency, 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("Department", dependencyType))
+        .nullDependencyResultMsg("Department", dependencyType, resultType))
     );
   }
 
@@ -54,7 +56,7 @@ public final class DepartmentValidationAux {
     ValidationAux.validateMap(
       dependency, 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("Department", dependencyType)), 
+        .nullArgumentMsg("Department", dependencyType)), 
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
         .emptyDependencyList("Department", dependencyType))
     );

@@ -18,11 +18,13 @@ public final class IdControlValidationAux {
     );
   }
 
-  public static void validateDependency(Object dependency, String dependencyType) {
+  public static void validateDependencyResult(
+    Object dependency, String dependencyType, String resultType
+  ) {
     ValidationAux.validateNull(
       dependency, 
       () -> new IdControlInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("IdControl", dependencyType))
+        .nullDependencyResultMsg("IdControl", dependencyType, resultType))
     );
   }
 
@@ -39,9 +41,13 @@ public final class IdControlValidationAux {
   public static void validateIdControlKey(
     IdControlKey current, IdControlKey received
   ) {
-    if(current == null || received == null)
+    if(current == null)
       throw new IdControlInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("IdControl", "IdControlKey"));
+        .nullArgumentMsg("IdControl", "current"));
+
+    if(received == null)
+      throw new IdControlInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("IdControl", "received"));
 
     if(!current.equals(received)) 
       throw new IdControlInvalidArgumentException(IdControlMsgCreator

@@ -33,28 +33,26 @@ public class ProductCreationHandler {
     ProductCreationCommand productCommand, InventoryCreationCommand inventoryCommand
   ) {
     ProductValidationAux.validateArgument(productCommand, "ProductCreationCommand");
-    ProductValidationAux.validateDependency(adapters, "ProductAdaptersGetter");
-    ProductValidationAux.validateDependency(idGenerator, "IdControlGeneratorHandler");
-    ProductValidationAux.validateDependency(inventoryHandler, "InventoryCreationHandler");
-    ProductValidationAux.validateDependency(responseGenerator, "ProductResponseGenerator");
 
     ProductValidation validator = (ProductValidation) adapters
       .getValidator(productCommand.getRequestValidationKey());
-    ProductValidationAux.validateDependency(validator, "ProductAdaptersGetter");
+    ProductValidationAux.validateDependencyResult(
+      validator, "ProductAdaptersGetter", "ProductValidation");
 
     validator.validateProductUniqueness(productCommand);
-
     Long id = idGenerator.generateId(productCommand.getCatalogIdKey());
 
     ProductFactory factory = (ProductFactory) adapters
       .getProductFactory(productCommand.getProductCreationKey());
-    ProductValidationAux.validateDependency(factory, "ProductAdaptersGetter");
+    ProductValidationAux.validateDependencyResult(
+      factory, "ProductAdaptersGetter", "ProductFactory");
 
     Product product = factory.create(productCommand, id);
 
     ProductPersistence persistence = (ProductPersistence) adapters
       .getPersistence(productCommand.getProductSavingKey());
-    ProductValidationAux.validateDependency(persistence, "ProductAdaptersGetter");
+    ProductValidationAux.validateDependencyResult(
+      persistence, "ProductAdaptersGetter", "ProductPersistence");
 
     persistence.save(product);
     Inventory inventory = inventoryHandler.create(inventoryCommand, id);

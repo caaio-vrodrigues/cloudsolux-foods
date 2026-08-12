@@ -129,14 +129,14 @@ public final class UserAccount {
 
   @Override
   public int hashCode() {
-    return Objects.hash(email);
+    return Objects.hash(id);
   }
 
   @Override
   public boolean equals(Object o) {
     if(this == o) return true;
 		if(!(o instanceof UserAccount other)) return false;
-		return Objects.equals(email, other.email);
+		return Objects.equals(id, other.id);
   }
 
   @Override

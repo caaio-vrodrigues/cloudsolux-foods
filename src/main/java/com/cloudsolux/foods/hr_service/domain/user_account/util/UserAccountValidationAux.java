@@ -74,11 +74,13 @@ public final class UserAccountValidationAux {
     );
   }
 
-  public static void validateDependency(Object dependency, String dependencyType) {
+  public static void validateDependencyResult(
+    Object dependency, String dependencyType, String resultType
+  ) {
     ValidationAux.validateNull(
       dependency, 
       () -> new UserAccountInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("UserAccount", dependencyType))
+        .nullDependencyResultMsg("UserAccount", dependencyType, resultType))
     );
   }
 
@@ -86,7 +88,7 @@ public final class UserAccountValidationAux {
     ValidationAux.validateMap(
       dependency, 
       () -> new UserAccountInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("UserAccount", dependencyType)), 
+        .nullArgumentMsg("UserAccount", dependencyType)), 
       () -> new UserAccountInvalidDependencyException(GlobalMsgCreator
         .emptyDependencyList("UserAccount", dependencyType))
     );

@@ -11,7 +11,7 @@ public final class ExpenseValue {
 	private final BigDecimal amount;
   
   private ExpenseValue(ExpenseValueBuilder builder) {
-    ExpenseItemValidationAux.validatePositive(builder.price, "price");
+    ExpenseItemValidationAux.validatePositiveOrZero(builder.price, "price");
     ExpenseItemValidationAux.validatePositiveOrZero(builder.amount, "amount");
     price = builder.price;
     amount = builder.amount;
@@ -41,7 +41,7 @@ public final class ExpenseValue {
   }
 
   public ExpenseValue increasePrice(BigDecimal price) {
-    ExpenseItemValidationAux.validatePositive(price, "price");
+    ExpenseItemValidationAux.validatePositiveOrZero(price, "price");
 
     return ExpenseValue.builder()
       .amount(amount)
@@ -50,7 +50,7 @@ public final class ExpenseValue {
   }
 
   public ExpenseValue decreasePrice(BigDecimal price) {
-    ExpenseItemValidationAux.validatePositive(price, "price");
+    ExpenseItemValidationAux.validatePositiveOrZero(price, "price");
 
     ExpenseItemValidationAux.validateUnderZeroResult(
       this.price, price, "price", "price"
@@ -63,7 +63,7 @@ public final class ExpenseValue {
   }
 
   public ExpenseValue increaseAmount(BigDecimal amount) {
-    ExpenseItemValidationAux.validatePositive(amount, "amount");
+    ExpenseItemValidationAux.validatePositiveOrZero(amount, "amount");
     
     return ExpenseValue.builder()
       .amount(this.amount.add(amount))
@@ -72,7 +72,7 @@ public final class ExpenseValue {
   }
 
   public ExpenseValue decreaseAmount(BigDecimal amount) {
-    ExpenseItemValidationAux.validatePositive(amount, "amount");
+    ExpenseItemValidationAux.validatePositiveOrZero(amount, "amount");
 
     ExpenseItemValidationAux.validateUnderZeroResult(
       this.amount, amount, "amount", "amount"

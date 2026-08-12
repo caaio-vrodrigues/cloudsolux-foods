@@ -31,11 +31,9 @@ public final class DepartmentPersistenceAdapter implements DepartmentPersistence
 
   @Override
   public void save(Department domain) {
-    DepartmentValidationAux.validateDependency(repo, "DepartmentRepo");
-    DepartmentValidationAux.validateDependency(mapper, "DepartmentMapper");
-
     DepartmentEntity entity = mapper.toEntity(domain);
-    DepartmentValidationAux.validateDependency(entity, "DepartmentMapper");
+    DepartmentValidationAux.validateDependencyResult(
+      entity, "DepartmentMapper", "DepartmentEntity");
 
     try{
       repo.save(entity);

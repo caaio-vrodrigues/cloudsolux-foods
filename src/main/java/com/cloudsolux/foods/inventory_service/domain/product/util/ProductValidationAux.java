@@ -50,11 +50,13 @@ public final class ProductValidationAux {
         .positiveMsg("Product", argumentName, value)));
   }
 
-  public static void validateDependency(Object dependency, String dependencyType) {
+  public static void validateDependencyResult(
+    Object dependency, String dependencyType, String resultType
+  ) {
     ValidationAux.validateNull(
       dependency, 
       () -> new ProductInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("Product", dependencyType))
+        .nullDependencyResultMsg("Product", dependencyType, resultType))
     );
   }
 
@@ -62,7 +64,7 @@ public final class ProductValidationAux {
     ValidationAux.validateMap(
       dependency, 
       () -> new ProductInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("Product", dependencyType)), 
+        .nullArgumentMsg("Product", dependencyType)), 
       () -> new ProductInvalidDependencyException(GlobalMsgCreator
         .emptyDependencyList("Product", dependencyType)));
   }

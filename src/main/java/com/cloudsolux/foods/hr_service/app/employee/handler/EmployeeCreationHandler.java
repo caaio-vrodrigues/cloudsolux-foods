@@ -34,37 +34,28 @@ public class EmployeeCreationHandler {
     EmployeeCreationCommand employeeCreationCommand, 
     UserAccountCreationCommand userAccountCreationCommand
   ) {
-    EmployeeValidationAux.validateArgument(userAccountCreationCommand, "UserAccountCreationCommand");
-    EmployeeValidationAux.validateDependency(userAccountHandler, "UserAccountCreationHandler");
-    EmployeeValidationAux.validateDependency(idGenerator, "IdControlGeneratorHandler");
-
-    Long userAccountId = idGenerator
-      .generateId(userAccountCreationCommand.getUserAccountIdControlKey());
-
-    UserAccount userAccount = userAccountHandler
-      .create(userAccountCreationCommand, userAccountId);
-
     EmployeeValidationAux.validateArgument(employeeCreationCommand, "EmployeeCreationCommand");
-    EmployeeValidationAux.validateDependency(adapters, "EmployeeAdaptersGetter");
-    EmployeeValidationAux.validateDependency(departmentValidator, "DepartmentValidationAdapter");
-    EmployeeValidationAux.validateDependency(responseGenerator, "EmployeeResponseGenerator");
+    EmployeeValidationAux.validateArgument(userAccountCreationCommand, "UserAccountCreationCommand");
 
-    Long employeeId = idGenerator
-      .generateId(employeeCreationCommand.getEmployeeIdControlKey());
+    Long userAccountId = idGenerator.generateId(userAccountCreationCommand.getUserAccountIdControlKey());
+    UserAccount userAccount = userAccountHandler.create(userAccountCreationCommand, userAccountId);
+
+    Long employeeId = idGenerator.generateId(employeeCreationCommand.getEmployeeIdControlKey());
 
     EmployeeCreation factory = (EmployeeCreation) adapters
       .getFactory(employeeCreationCommand.getFactoryKey());
-    EmployeeValidationAux.validateDependency(factory, "EmployeeAdaptersGetter");
+    EmployeeValidationAux.validateDependencyResult(
+      factory, "EmployeeAdaptersGetter", "EmployeeCreation");
 
     departmentValidator.validateExistence(employeeCreationCommand.getDepartmentId());
 
     Employee employee = factory.create(
-      employeeId, userAccountId, employeeCreationCommand.getDepartmentId()
-    );
+      employeeId, userAccountId, employeeCreationCommand.getDepartmentId());
 
     EmployeePersistence persistence = (EmployeePersistence) adapters
       .getPersistence(employeeCreationCommand.getPersistenceKey());
-    EmployeeValidationAux.validateDependency(persistence, "EmployeeAdaptersGetter");
+    EmployeeValidationAux.validateDependencyResult(
+      persistence, "EmployeeAdaptersGetter", "EmployeePersistence");
 
     persistence.save(employee);
 

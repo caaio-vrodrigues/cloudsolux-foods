@@ -9,4 +9,8 @@ public class IdControlMsgCreator {
   public static String unrelatedKeysMsg(IdControlKey currentKey, IdControlKey incomingKey) {
     return "Falha ao processar 'IdControl'. Valores divergentes para as chaves fornecidas: ['chave-atual="+currentKey+"', 'chave-recebida="+incomingKey+"'].";
   }
+
+  public static String notFoundMsg(IdControlKey key) {
+    return "Não foi possível encontrar 'IdControl' para a chave: ['IdControlKey="+key+"'].";
+  }
 }

@@ -77,12 +77,10 @@ public final class EmployeeCreationController {
     @RequestBody
     EmployeeCreationRequest request
   ) {
-    EmployeeValidationAux.validateDependency(employeeCreationHandler, "EmployeeCreationHandler");
-
     EmployeeResponse response = employeeCreationHandler
-      .create(request.toEmployeeCommand(), request.toUserAccountCommand());
-
-    EmployeeValidationAux.validateDependency(response, "EmployeeCreationHandler");
+      .create(request.toEmployeeCommand(), request.toUserAccountCommand());				
+    EmployeeValidationAux.validateDependencyResult(
+			response, "EmployeeCreationHandler", "EmployeeResponse");
 
     URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()

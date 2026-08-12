@@ -26,19 +26,12 @@ public class DepartmentCreationHandler {
 
   @Transactional
   public DepartmentResponse create(DepartmentCreationCommand command) {
-    DepartmentValidationAux
-      .validateArgument(command, "DepartmentCreationCommand");
-    DepartmentValidationAux
-      .validateDependency(adapters, "DepartmentAdaptersGetter");
-    DepartmentValidationAux
-      .validateDependency(idGeneration, "IdControlGeneratorHandler");
-    DepartmentValidationAux
-      .validateDependency(responseGenerator, "DepartmentResponseGenerator");
+    DepartmentValidationAux.validateArgument(command, "DepartmentCreationCommand");
 
     DepartmentValidation validator = (DepartmentValidation) adapters
       .getValidator(command.getValidationKey());
-    DepartmentValidationAux.validateDependency(
-      validator, "DepartmentAdaptersGetter");
+    DepartmentValidationAux.validateDependencyResult(
+      validator, "DepartmentAdaptersGetter", "DepartmentValidation");
 
     validator.validateUniqueness(command);
 
@@ -46,15 +39,15 @@ public class DepartmentCreationHandler {
 
     DepartmentCreation factory = (DepartmentCreation) adapters
       .getFactory(command.getFactoryKey());
-    DepartmentValidationAux.validateDependency(
-      factory, "DepartmentAdaptersGetter");
+    DepartmentValidationAux.validateDependencyResult(
+      factory, "DepartmentAdaptersGetter", "DepartmentCreation");
 
     Department department = factory.create(command, id);
 
     DepartmentPersistence persistence = (DepartmentPersistence) adapters
       .getPersistence(command.getPersistenceKey());
-    DepartmentValidationAux.validateDependency(
-      persistence, "DepartmentAdaptersGetter");
+    DepartmentValidationAux.validateDependencyResult(
+      persistence, "DepartmentAdaptersGetter", "DepartmentPersistence");
 
     persistence.save(department);
 

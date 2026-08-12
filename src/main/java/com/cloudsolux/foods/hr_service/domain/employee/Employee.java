@@ -14,7 +14,6 @@ public final class Employee {
     EmployeeValidationAux.validatePositive(builder.id, "id");
     EmployeeValidationAux.validatePositive(builder.userAccountId, "userAccountId");
     EmployeeValidationAux.validatePositive(builder.departmentId, "departmentId");
-
     id = builder.id;
     userAccountId = builder.userAccountId;
     departmentId = builder.departmentId;

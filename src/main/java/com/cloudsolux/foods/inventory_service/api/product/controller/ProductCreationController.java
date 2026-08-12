@@ -76,13 +76,10 @@ public final class ProductCreationController {
 		@Valid
 		ProductCreationRequest dto 	
  	) {
-		ProductValidationAux.validateDependency(productCreationHandler, "ProductCreationHandler");
-
-		ProductResponse resp = productCreationHandler.create(
-			dto.toProductCommand(), dto.toInventoryCommand()
-		);
-
-		ProductValidationAux.validateDependency(resp, "ProductResponse");
+		ProductResponse resp = productCreationHandler
+			.create(dto.toProductCommand(), dto.toInventoryCommand());
+		ProductValidationAux.validateDependencyResult(
+			resp, "ProductCreationHandler", "ProductResponse");
 
 		URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()

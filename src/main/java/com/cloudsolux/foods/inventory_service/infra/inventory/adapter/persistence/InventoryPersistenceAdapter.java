@@ -31,11 +31,9 @@ public final class InventoryPersistenceAdapter implements InventoryPersistence {
 
   @Override
   public void save(Inventory inventory) {
-    InventoryValidationAux.validateDependency(mapper, "InventoryMapper");
-    InventoryValidationAux.validateDependency(repo, "InventoryRepo");
-
     InventoryEntity entity = mapper.toEntity(inventory);
-    InventoryValidationAux.validateDependency(entity, "InventoryMapper");
+    InventoryValidationAux.validateDependencyResult(
+      entity, "InventoryMapper", "InventoryEntity");
 
     try {
       repo.save(entity);

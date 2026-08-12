@@ -29,7 +29,6 @@ public final class DepartmentValidationAdapter implements DepartmentValidation {
   @Override
   public void validateUniqueness(DepartmentCreationCommand command) {
     DepartmentValidationAux.validateArgument(command, "DepartmentCreationCommand");
-    DepartmentValidationAux.validateDependency(repo, "DepartmentRepo");
 
     boolean existsByName;
    
@@ -52,7 +51,6 @@ public final class DepartmentValidationAdapter implements DepartmentValidation {
   @Override
   public void validateExistence(Long departmentId) {
     DepartmentValidationAux.validatePositive(departmentId, "departmentId");
-    DepartmentValidationAux.validateDependency(repo, "DepartmentRepo");
 
     boolean existsById;
 

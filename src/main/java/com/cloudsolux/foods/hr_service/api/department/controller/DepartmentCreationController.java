@@ -77,9 +77,9 @@ public final class DepartmentCreationController {
     @Valid
     DepartmentCreationRequest request
   ) {
-		DepartmentValidationAux.validateDependency(handler, "DepartmentCreationHandler");
     DepartmentResponse response = handler.create(request.toCommand());
-		DepartmentValidationAux.validateDependency(response, "DepartmentResponse");
+		DepartmentValidationAux.validateDependencyResult(
+			response, "DepartmentCreationHandler", "DepartmentResponse");
 
     URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()

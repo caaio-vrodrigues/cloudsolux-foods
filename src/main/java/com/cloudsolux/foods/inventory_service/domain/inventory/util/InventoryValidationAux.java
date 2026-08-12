@@ -52,11 +52,13 @@ public final class InventoryValidationAux {
     );
   }
 
-  public static void validateDependency(Object dependency, String dependencyType) {
+  public static void validateDependencyResult(
+    Object dependency, String dependencyType, String resultType
+  ) {
     ValidationAux.validateNull(
       dependency, 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("Inventory", dependencyType))
+        .nullDependencyResultMsg("Inventory", dependencyType, resultType))
     );
   }
 
@@ -64,7 +66,7 @@ public final class InventoryValidationAux {
     ValidationAux.validateMap(
       dependency, 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("Inventory", dependencyType)), 
+        .nullArgumentMsg("Inventory", dependencyType)), 
       () -> new InventoryInvalidDependencyException(GlobalMsgCreator
         .emptyDependencyList("Inventory", dependencyType))
     );
@@ -83,9 +85,9 @@ public final class InventoryValidationAux {
   public static void validatePositiveOrZero(BigDecimal amount, String argumentName) {
     ValidationAux.validatePositiveOrZero(
       amount, 
-      () -> new InventoryInvalidDependencyException(GlobalMsgCreator
+      () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Inventory", argumentName)), 
-      () -> new InventoryInvalidDependencyException(GlobalMsgCreator
+      () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .positiveOrZeroMsg("Inventory", argumentName, amount))
     );
   }
@@ -99,9 +101,9 @@ public final class InventoryValidationAux {
     ValidationAux.validateSameUnitOfMeasure(
       current, 
       received, 
-      () -> new InventoryInvalidDependencyException(GlobalMsgCreator
+      () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Inventory", currentArgumentName)),
-      () -> new InventoryInvalidDependencyException(GlobalMsgCreator
+      () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Inventory", receivedArgumentName)),
       () -> new InventoryInvalidArgumentException(GlobalMsgCreator
         .invalidUnitOfMeasureMsg("Inventory", received, current)));

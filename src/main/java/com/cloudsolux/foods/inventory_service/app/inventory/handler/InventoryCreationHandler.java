@@ -22,19 +22,20 @@ public class InventoryCreationHandler {
 
   @Transactional
   public Inventory create(InventoryCreationCommand command, Long id) {
-    InventoryValidationAux.validateArgument(command, "ProductCreationCommand");
+    InventoryValidationAux.validateArgument(command, "InventoryCreationCommand");
     InventoryValidationAux.validatePositive(id, "id");
-    InventoryValidationAux.validateDependency(adapters, "InventoryAdaptersGetter");
 
     InventoryFactory factory = (InventoryFactory) adapters
       .getFactory(InventoryFactoryKey.INVENTORY_CREATION);
-    InventoryValidationAux.validateDependency(factory, "InventoryAdaptersGetter");
+    InventoryValidationAux.validateDependencyResult(
+      factory, "InventoryAdaptersGetter", "InventoryFactory");
 
     Inventory inventory = factory.create(command, id);
 
     InventoryPersistence persistence = (InventoryPersistence) adapters
       .getPersistence(InventoryPersistenceKey.INVENTORY_PERSISTENCE);
-    InventoryValidationAux.validateDependency(persistence, "InventoryAdaptersGetter");
+    InventoryValidationAux.validateDependencyResult(
+      persistence, "InventoryAdaptersGetter", "InventoryPersistence");
 
     persistence.save(inventory);
     return inventory;

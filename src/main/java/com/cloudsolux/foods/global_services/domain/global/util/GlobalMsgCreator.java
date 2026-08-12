@@ -92,8 +92,8 @@ public final class GlobalMsgCreator {
     return "Falha ao acessar os dados. Não foi possível acessar as entidades ['"+className+"']. Verifique o banco de dados e a integridade dos dados retornados.";
   }
 
-  public static String nullDependencyMsg(String className, String dependencyType) {
-    return "Falha ao processar '"+className+"'. Valor 'null' ao acessar dependência: ['"+dependencyType+"'].";
+  public static String nullDependencyResultMsg(String className, String dependencyType, String expectedResultType) {
+    return "Falha ao processar '"+className+"'. Resultado nulo retornado por serviço da dependência: ['"+dependencyType+"']. Resultado esperrado: ['"+expectedResultType+"'], resultado obtido: ['null']";
   }
 
   public static String emptyDependencyList(String className, String dependencyType) {
@@ -108,8 +108,8 @@ public final class GlobalMsgCreator {
     return "Falha ao processar '"+className+"'. E-mail inválido para o argumento: ['"+argumentName+"="+email+"'].";
   }
 
-  public static String notFoundMsg(String className, Long departmentId) {
-    return "Não foi possível encontrar '"+className+"' para o id: ['"+departmentId+"'].";
+  public static String notFoundMsg(String className, Long id) {
+    return "Não foi possível encontrar '"+className+"' para o id: ['"+id+"'].";
   }
 
   public static String invalidPasswordHashMsg(String className, String fieldName) {

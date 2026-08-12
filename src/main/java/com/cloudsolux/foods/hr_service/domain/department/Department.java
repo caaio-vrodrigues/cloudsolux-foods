@@ -49,14 +49,14 @@ public final class Department {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name);
+    return Objects.hash(id);
   }
 
   @Override
   public boolean equals(Object o) {
     if(this == o) return true;
 		if(!(o instanceof Department other)) return false;
-		return Objects.equals(name, other.name);
+		return Objects.equals(id, other.id);
   }
 
   @Override

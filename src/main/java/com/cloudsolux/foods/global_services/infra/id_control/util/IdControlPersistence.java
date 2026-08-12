@@ -21,15 +21,14 @@ public final class IdControlPersistence {
   private final IdControlRepo repo;
   private final IdControlMapper mapper;
 
-  public void save(IdControl domain) {
-    IdControlValidationAux.validateDependency(repo, "IdControlRepo");
-    IdControlValidationAux.validateDependency(mapper, "IdControlMapper");
-
+  public IdControlEntity save(IdControl domain) {
     IdControlEntity entity = mapper.toEntity(domain);
-    IdControlValidationAux.validateDependency(entity, "IdControlMapper");
+
+    IdControlValidationAux.validateDependencyResult(
+      entity, "IdControlMapper", "IdControlEntity");
 
     try{
-      repo.save(entity);
+      return repo.save(entity);
     }
     catch(DataAccessException e) {
       log.error(
@@ -44,7 +43,6 @@ public final class IdControlPersistence {
 
   public void save(IdControlEntity entity) {
     IdControlValidationAux.validateArgument(entity, "IdControlEntity");
-    IdControlValidationAux.validateDependency(repo, "IdControlRepo");
     
     try{
       repo.save(entity);

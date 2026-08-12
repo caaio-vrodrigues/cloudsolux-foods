@@ -31,11 +31,9 @@ public final class ProductPersistenceAdapter implements ProductPersistence {
 
   @Override
   public void save(Product product) {
-    ProductValidationAux.validateDependency(repo, "ProductRepo");
-    ProductValidationAux.validateDependency(mapper, "ProductMapper");
-
     ProductEntity entity = mapper.toEntity(product);
-    ProductValidationAux.validateDependency(entity, "ProductMapper");
+    ProductValidationAux.validateDependencyResult(
+      entity, "ProductMapper", "ProductEntity");
 
     try{
       repo.save(entity);

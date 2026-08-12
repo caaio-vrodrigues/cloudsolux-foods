@@ -4,10 +4,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudsolux.foods.global_services.domain.id_control.IdControl;
+import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlNotFoundException;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
+import com.cloudsolux.foods.global_services.domain.id_control.util.IdControlMsgCreator;
 import com.cloudsolux.foods.global_services.domain.id_control.util.IdControlValidationAux;
 import com.cloudsolux.foods.global_services.infra.id_control.entity.IdControlEntity;
-import com.cloudsolux.foods.global_services.infra.id_control.util.IdControlFactory;
 import com.cloudsolux.foods.global_services.infra.id_control.util.IdControlFinder;
 import com.cloudsolux.foods.global_services.infra.id_control.util.IdControlMapper;
 import com.cloudsolux.foods.global_services.infra.id_control.util.IdControlPersistence;
@@ -20,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class IdControlGeneratorHandler {
 
   private final IdControlFinder finder;
-  private final IdControlFactory factory;
   private final IdControlMapper mapper;
   private final IdControlUpdater updater;
   private final IdControlPersistence persistence;
@@ -28,36 +28,19 @@ public class IdControlGeneratorHandler {
   @Transactional
   public Long generateId(IdControlKey key) {
     IdControlValidationAux.validateArgument(key, "IdControlKey");
-    IdControlValidationAux.validateDependency(finder, "IdControlFinder");
-    IdControlValidationAux.validateDependency(factory, "IdControlFactory");
-    IdControlValidationAux.validateDependency(mapper, "IdControlMapper");
-    IdControlValidationAux.validateDependency(persistence, "IdControlPersistence");
 
     IdControlEntity entity = finder.findByKey(key)
-      .orElseGet(() -> null);
-      
-    IdControl domain;
+      .orElseThrow(() -> new IdControlNotFoundException(IdControlMsgCreator.notFoundMsg(key)));
 
-    if(entity == null) {
-      domain = factory.create(key, 1L);
-      IdControlValidationAux.validateDependency(domain, "IdControlFactory");
-    }
-    else {
-      domain = mapper.toDomain(entity);
-      IdControlValidationAux.validateDependency(domain, "IdControlMapper");
-    }
+    IdControl domain = mapper.toDomain(entity);
+    IdControlValidationAux.validateDependencyResult(domain, "IdControlMapper", "IdControl");
 
     Long id = domain.getNextValue();
-    domain.increment();
+    IdControl updatedDomain = domain.increment();
 
-    if(entity == null) {
-      persistence.save(domain);
-    }
-    else {
-      IdControlEntity updatedEntity = updater.update(entity, domain);
-      persistence.save(updatedEntity);
-    }
-    
+    IdControlEntity updatedEntity = updater.update(entity, updatedDomain);
+    persistence.save(updatedEntity);
+
     return id;
   }
 }

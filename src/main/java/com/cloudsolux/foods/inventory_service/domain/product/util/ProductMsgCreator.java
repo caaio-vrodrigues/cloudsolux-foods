@@ -10,7 +10,7 @@ public final class ProductMsgCreator {
   private ProductMsgCreator() {}
 
   public static String uniquenessViolationMsg(String name, String model, String brand) {
-    return "Falha ao processar 'Product'. Os argumentos fornecidos para criação do produto já estão em uso: [name="+name+"', model='"+model+"', brand='"+brand+"'].";
+    return "Falha ao processar 'Product'. Os argumentos fornecidos para criação do produto já estão em uso: ['name="+name+"', 'model="+model+"', 'brand="+brand+"'].";
   }
 
   public static String unrelatedDomainsOnResponseCreation(Long productId, Long catalogId) {
@@ -18,6 +18,6 @@ public final class ProductMsgCreator {
   }
 
   public static String unrelatedIdMsg(Long productId, Long inventoryId) {
-    return "Falha ao processar 'Product'. Os argumentos fornecidos para os campos 'id' das entidades Product e Inventory são diferentes: ['productId="+productId+"', '"+inventoryId+"="+inventoryId+"'].";
+    return "Falha ao processar 'Product'. Os argumentos fornecidos para os campos 'id' das entidades Product e Inventory são diferentes: ['productId="+productId+"', 'inventoryId="+inventoryId+"'].";
   }
 }

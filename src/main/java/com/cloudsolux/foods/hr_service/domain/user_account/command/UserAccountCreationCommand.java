@@ -4,10 +4,10 @@ import java.time.LocalDate;
 
 import com.cloudsolux.foods.global_services.domain.global.model.Role;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidationAux;
 import com.cloudsolux.foods.hr_service.domain.user_account.model.creation.UserAccountCreationKey;
 import com.cloudsolux.foods.hr_service.domain.user_account.model.persistence.UserAccountPersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.user_account.model.validation.UserAccountValidationKey;
+import com.cloudsolux.foods.hr_service.domain.user_account.util.UserAccountValidationAux;
 
 public final class UserAccountCreationCommand {
 
@@ -20,13 +20,13 @@ public final class UserAccountCreationCommand {
   private final Boolean active;
  
   private UserAccountCreationCommand(UserAccountCreationCommandBuilder builder) {
-    EmployeeValidationAux.validateString(builder.firstName, "firstName");
-    EmployeeValidationAux.validateString(builder.lastName, "lastName");
-    EmployeeValidationAux.validateAgeSixteen(builder.birthday, "LocalDate");
-    EmployeeValidationAux.validateEmail(builder.email, "email");
-    EmployeeValidationAux.validateArgument(builder.role, "role");
-    EmployeeValidationAux.validateEncodedPassword(builder.password, "password");
-    EmployeeValidationAux.validateArgument(builder.active, "active");
+    UserAccountValidationAux.validateString(builder.firstName, "firstName");
+    UserAccountValidationAux.validateString(builder.lastName, "lastName");
+    UserAccountValidationAux.validateAgeSixteen(builder.birthday, "LocalDate");
+    UserAccountValidationAux.validateEmail(builder.email, "email");
+    UserAccountValidationAux.validateArgument(builder.role, "role");
+    UserAccountValidationAux.validateEncodedPassword(builder.password, "password");
+    UserAccountValidationAux.validateArgument(builder.active, "Boolean");
     firstName = builder.firstName;
     lastName = builder.lastName;
     birthday = builder.birthday;

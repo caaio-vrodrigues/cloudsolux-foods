@@ -1,6 +1,5 @@
 package com.cloudsolux.foods.hr_service.domain.employee.util;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -41,11 +40,13 @@ public final class EmployeeValidationAux {
     );
   }
 
-  public static void validateDependency(Object dependency, String dependencyType) {
+  public static void validateDependencyResult(
+    Object dependency, String dependencyType, String resultType
+  ) {
     ValidationAux.validateNull(
       dependency, 
       () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("Employee", dependencyType))
+        .nullDependencyResultMsg("Employee", dependencyType, resultType))
     );
   }
 
@@ -53,7 +54,7 @@ public final class EmployeeValidationAux {
     ValidationAux.validateMap(
       dependency, 
       () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyMsg("Employee", dependencyType)), 
+        .nullArgumentMsg("Employee", dependencyType)), 
       () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
         .emptyDependencyList("Employee", dependencyType))
     );
@@ -66,38 +67,6 @@ public final class EmployeeValidationAux {
         .nullArgumentMsg("Employee", implementationsType)), 
       () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
         .emptyImplementationList("Employee", implementationsType))
-    );
-  }
-
-  public static void validateEmail(String email, String argumentName) {
-    ValidationAux.validateEmail(
-      email, 
-      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Employee", argumentName)),
-      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .invalidEmailFormatMsg("Employee", email, argumentName))
-    );
-  }
-
-  public static void validateAgeSixteen(LocalDate birthday, String argumentName) {
-    ValidationAux.validateAgeSixteen(
-      birthday,
-      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Employee", argumentName)),
-      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .minimumAgeSixteenMsg("Employee", argumentName, birthday))
-    );
-  }
-
-  public static void validateEncodedPassword(String encoded, String argumentName) {
-    ValidationAux.validateEncodedPassword(
-      encoded, 
-      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Employee", argumentName)), 
-      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .emptyArgumentMsg("Employee", argumentName)), 
-      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .invalidPasswordHashMsg("Employee", argumentName))
     );
   }
 }

@@ -23,23 +23,25 @@ public class UserAccountCreationHandler {
   public UserAccount create(UserAccountCreationCommand command, Long userAccountId) {
     UserAccountValidationAux.validateArgument(command, "UserAccountCreationCommand");
     UserAccountValidationAux.validatePositive(userAccountId, "userAccountId");
-    UserAccountValidationAux.validateDependency(adapters, "UserAccountAdaptersGetter");
 
     UserAccountValidation validator = (UserAccountValidation) adapters
       .getValidator(command.getValidationKey());
-    UserAccountValidationAux.validateDependency(validator, "UserAccountAdaptersGetter");
+    UserAccountValidationAux.validateDependencyResult(
+      validator, "UserAccountAdaptersGetter", "UserAccountValidation");
 
     validator.validateUniqueness(command.getEmail());
 
     UserAccountCreation factory = (UserAccountCreation) adapters
       .getFactory(command.getCreationKey());
-    UserAccountValidationAux.validateDependency(factory, "UserAccountAdaptersGetter");
+    UserAccountValidationAux.validateDependencyResult(
+      factory, "UserAccountAdaptersGetter", "UserAccountCreation");
 
     UserAccount userAccount = factory.create(command, userAccountId);
 
     UserAccountPersistence persistence = (UserAccountPersistence) adapters
       .getPersistence(command.getPersistenceKey());
-    UserAccountValidationAux.validateDependency(persistence, "UserAccountAdaptersGetter");
+    UserAccountValidationAux.validateDependencyResult(
+      persistence, "UserAccountAdaptersGetter", "UserAccountPersistence");
 
     persistence.save(userAccount);
     return userAccount;
