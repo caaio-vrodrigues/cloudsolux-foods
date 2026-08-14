@@ -1,6 +1,7 @@
 package com.cloudsolux.foods.global_services.domain.global.util;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -105,20 +106,15 @@ public final class ValidationAux {
   public static void validateList(
     List<?> list,
     Supplier<RuntimeException> nullSupplier,
-    Supplier<RuntimeException> nullElementSupplier,
     Supplier<RuntimeException> emptySupplier
   ) {
     if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
       .nullArgumentMsg("Global", "nullSupplier"));
 
-    if(nullElementSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullElementSupplier"));
-
     if(emptySupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
       .nullArgumentMsg("Global", "emptySupplier"));
 
     if(list == null) throw nullSupplier.get();
-    if(list.contains(null)) throw nullElementSupplier.get();
     if(list.isEmpty()) throw emptySupplier.get();
   }
 
@@ -262,5 +258,20 @@ public final class ValidationAux {
     if(firstLong == null) throw nullFirstLongSupplier.get();
     if(secondLong == null) throw nullSecondLongSupplier.get();
     if(!firstLong.equals(secondLong)) throw differentLongSupplier.get();
+  }
+
+  public static void validateInstant(
+    Instant instant, 
+    Supplier<RuntimeException> nullSupplier, 
+    Supplier<RuntimeException> invalidInstantSupplier 
+  ) {
+    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
+      .nullArgumentMsg("Global", "nullSupplier"));
+
+    if(invalidInstantSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
+      .nullArgumentMsg("Global", "invalidInstantSupplier"));
+
+    if(instant == null) throw nullSupplier.get();
+    if(instant.isBefore(Instant.EPOCH)) throw invalidInstantSupplier.get();
   }
 }

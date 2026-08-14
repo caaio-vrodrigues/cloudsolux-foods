@@ -99,8 +99,6 @@ public final class UserAccountValidationAux {
       implementations, 
       () -> new UserAccountInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("UserAccount", implementationsType)),
-      () -> new UserAccountInvalidArgumentException(GlobalMsgCreator
-        .nullListElementMsg("UserAccount", implementationsType)),
       () -> new UserAccountInvalidDependencyException(GlobalMsgCreator
         .emptyImplementationList("UserAccount", implementationsType))
     );

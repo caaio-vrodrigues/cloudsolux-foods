@@ -74,8 +74,6 @@ public final class ProductValidationAux {
       implementations, 
       () -> new ProductInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Product", implementationsType)), 
-        () -> new ProductInvalidArgumentException(GlobalMsgCreator
-        .nullListElementMsg("Product", implementationsType)),
       () -> new ProductInvalidDependencyException(
         GlobalMsgCreator.emptyImplementationList("Product", implementationsType)));
   }

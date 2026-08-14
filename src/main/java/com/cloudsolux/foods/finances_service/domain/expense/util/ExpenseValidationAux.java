@@ -1,8 +1,10 @@
 package com.cloudsolux.foods.finances_service.domain.expense.util;
 
+import java.time.Instant;
 import java.util.List;
 
 import com.cloudsolux.foods.finances_service.domain.expense.exception.ExpenseInvalidArgumentException;
+import com.cloudsolux.foods.finances_service.domain.expense.exception.ExpenseInvalidDependencyException;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
 
@@ -44,9 +46,27 @@ public final class ExpenseValidationAux {
       () -> new ExpenseInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Expense", listType)),
       () -> new ExpenseInvalidArgumentException(GlobalMsgCreator
-        .nullListElementMsg("Expense", listType)),
-      () -> new ExpenseInvalidArgumentException(GlobalMsgCreator
         .emptyList("Expense", listType))
+    );
+  }
+
+  public static void validateInstant(Instant purchaseDate, String argumentName) {
+    ValidationAux.validateInstant(
+      purchaseDate,
+      () -> new ExpenseInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("Expense", argumentName)),
+      () -> new ExpenseInvalidArgumentException(GlobalMsgCreator
+        .invalidInstant("Expense", argumentName, purchaseDate))
+    );
+  }
+
+  public static void validateDependencyResult(
+    Object dependency, String dependencyType, String resultType
+  ) {
+    ValidationAux.validateNull(
+      dependency, 
+      () -> new ExpenseInvalidDependencyException(GlobalMsgCreator
+        .nullDependencyResultMsg("Expense", dependencyType, resultType))
     );
   }
 }

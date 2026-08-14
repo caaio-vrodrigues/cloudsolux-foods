@@ -1,6 +1,7 @@
 package com.cloudsolux.foods.global_services.domain.global.util;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
@@ -130,5 +131,9 @@ public final class GlobalMsgCreator {
 
   public static String nullListElementMsg(String className, String listType) {
     return "Falha ao processar '"+className+"'. Lista de '"+listType+"' possui elementos 'null'.";
+  }
+
+  public static String invalidInstant(String className, String argumentName, Instant purchaseDate) {
+    return "Falha ao processar '"+className+"'. Data recebida inválida: ['"+argumentName+"'='"+purchaseDate+"'].";
   }
 }

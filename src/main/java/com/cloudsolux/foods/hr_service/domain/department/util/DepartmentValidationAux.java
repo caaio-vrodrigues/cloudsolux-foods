@@ -67,8 +67,6 @@ public final class DepartmentValidationAux {
       implementations, 
       () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("Department", implementationsType)),
-      () -> new DepartmentInvalidArgumentException(GlobalMsgCreator
-        .nullListElementMsg("Department", implementationsType)),
       () -> new DepartmentInvalidDependencyException(GlobalMsgCreator
         .emptyImplementationList("Department", implementationsType))
     );
