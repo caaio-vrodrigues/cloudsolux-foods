@@ -2,9 +2,14 @@ package com.cloudsolux.foods.finances_service.infra.expense_item.entity;
 
 import java.math.BigDecimal;
 
+import com.cloudsolux.foods.finances_service.infra.expense.entity.ExpenseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import lombok.AccessLevel;
@@ -22,7 +27,7 @@ import lombok.EqualsAndHashCode.Include;
 @Builder
 @Table(name="expense_item")
 @Entity
-public final class ExpenseItemEntity {
+public class ExpenseItemEntity {
 
   @Version
   private Long version;
@@ -34,6 +39,10 @@ public final class ExpenseItemEntity {
 
   @Column(name="product_id", nullable=false)
 	private Long productId;
+
+  @ManyToOne(fetch=FetchType.LAZY)
+  @JoinColumn(name="expense_id", nullable=false)
+  private ExpenseEntity expense;
 
   @Column(name="price", nullable=false)
 	private BigDecimal price;

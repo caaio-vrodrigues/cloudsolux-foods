@@ -64,7 +64,9 @@ public final class EmployeeValidationAux {
     ValidationAux.validateList(
       implementations, 
       () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Employee", implementationsType)), 
+        .nullArgumentMsg("Employee", implementationsType)),
+      () -> new EmployeeInvalidArgumentException(GlobalMsgCreator
+        .nullListElementMsg("Employee", implementationsType)),
       () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
         .emptyImplementationList("Employee", implementationsType))
     );

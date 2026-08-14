@@ -105,15 +105,20 @@ public final class ValidationAux {
   public static void validateList(
     List<?> list,
     Supplier<RuntimeException> nullSupplier,
+    Supplier<RuntimeException> nullElementSupplier,
     Supplier<RuntimeException> emptySupplier
   ) {
     if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
       .nullArgumentMsg("Global", "nullSupplier"));
 
+    if(nullElementSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
+      .nullArgumentMsg("Global", "nullElementSupplier"));
+
     if(emptySupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
       .nullArgumentMsg("Global", "emptySupplier"));
 
     if(list == null) throw nullSupplier.get();
+    if(list.contains(null)) throw nullElementSupplier.get();
     if(list.isEmpty()) throw emptySupplier.get();
   }
 

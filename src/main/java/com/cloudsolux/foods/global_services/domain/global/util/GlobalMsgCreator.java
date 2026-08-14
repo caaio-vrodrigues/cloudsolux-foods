@@ -123,4 +123,12 @@ public final class GlobalMsgCreator {
   public static String underZeroResult(String className, String argumentName, BigDecimal requestedAmount, BigDecimal availableAmount) {
     return "Falha ao processar '"+className+"'. Resultado do cálculo menor que '0' para o campo: '["+argumentName+"]'. Valor recebido: ['"+requestedAmount+"']. Valor disponível: ['"+availableAmount+"'].";
   }
+
+  public static String emptyList(String className, String listType) {
+    return "Falha ao processar '"+className+"'. Lista de '"+listType+"' vazia.";
+  }
+
+  public static String nullListElementMsg(String className, String listType) {
+    return "Falha ao processar '"+className+"'. Lista de '"+listType+"' possui elementos 'null'.";
+  }
 }

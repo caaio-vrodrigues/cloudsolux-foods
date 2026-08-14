@@ -76,7 +76,9 @@ public final class InventoryValidationAux {
     ValidationAux.validateList(
       implementations, 
       () -> new InventoryInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("Inventory", implementationsType)), 
+        .nullArgumentMsg("Inventory", implementationsType)),
+      () -> new InventoryInvalidArgumentException(GlobalMsgCreator
+        .nullListElementMsg("Inventory", implementationsType)),
       () -> new InventoryInvalidDependencyException(
         GlobalMsgCreator.emptyImplementationList("Inventory", implementationsType))
     );

@@ -98,7 +98,9 @@ public final class UserAccountValidationAux {
     ValidationAux.validateList(
       implementations, 
       () -> new UserAccountInvalidArgumentException(GlobalMsgCreator
-        .nullArgumentMsg("UserAccount", implementationsType)), 
+        .nullArgumentMsg("UserAccount", implementationsType)),
+      () -> new UserAccountInvalidArgumentException(GlobalMsgCreator
+        .nullListElementMsg("UserAccount", implementationsType)),
       () -> new UserAccountInvalidDependencyException(GlobalMsgCreator
         .emptyImplementationList("UserAccount", implementationsType))
     );
