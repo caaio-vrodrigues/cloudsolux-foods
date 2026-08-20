@@ -16,7 +16,7 @@ public final class Expense {
 
   private Expense(ExpenseBuilder builder) {
     ExpenseValidationAux.validatePositive(builder.id, "id");
-    ExpenseValidationAux.validateArgument(builder.purchaseDate, "purchaseDate");
+    ExpenseValidationAux.validateInstant(builder.purchaseDate, "purchaseDate");
     ExpenseValidationAux.validateList(builder.items, "items");
     ExpenseValidationAux.validateString(builder.description, "description");
     id = builder.id;

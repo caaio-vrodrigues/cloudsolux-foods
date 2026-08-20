@@ -16,6 +16,7 @@ import com.cloudsolux.foods.finances_service.app.expense.dto.ExpenseResponse;
 import com.cloudsolux.foods.finances_service.app.expense.handler.ExpenseCreationHandler;
 import com.cloudsolux.foods.finances_service.domain.expense.command.ExpenseCreationCommand;
 import com.cloudsolux.foods.finances_service.domain.expense.util.ExpenseMsgCreator;
+import com.cloudsolux.foods.finances_service.domain.expense.util.ExpenseValidationAux;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -78,7 +79,12 @@ public final class ExpenseCreationController {
     List<ExpenseCreationRequest> dto
   ) {
     List<ExpenseCreationCommand> commands = dto.stream()
-      .map(ExpenseCreationRequest::toCommand)
+      .map(command -> {
+				ExpenseValidationAux
+					.validateArgument(command, "ExpenseCreationCommand");
+					
+				return command.toCommand();
+			})
       .toList();
 
     List<ExpenseResponse> responses = creationHandler.create(commands);

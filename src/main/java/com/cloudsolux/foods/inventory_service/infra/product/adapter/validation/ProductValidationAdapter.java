@@ -47,10 +47,25 @@ public final class ProductValidationAdapter implements ProductValidation {
         .accessFailureMsg("Product"));
     }
 
-    ProductValidationAux.validateDependencyResult(
-      existsByConstraint, "ProductRepo", "boolean");
-
     ProductValidationAux.validateUniqueness(
       existsByConstraint, command.getName(), command.getModel(), command.getBrand());
+  }
+
+  @Override
+  public boolean validateExistenceById(Long id) {
+    ProductValidationAux.validatePositive(id, "id");
+
+    try {
+      return repo.existsById(id);
+    }
+    catch(DataAccessException e) {
+      log.error(
+        GlobalMsgCreator.accessFailureLogMsg("Product")+". {}", 
+        e.getMessage(), 
+        e
+      );
+      throw new ProductDataAccessException(GlobalMsgCreator
+        .accessFailureMsg("Product"));
+    }
   }
 }

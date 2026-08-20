@@ -44,10 +44,10 @@ public class ExpenseItemEntity {
   @JoinColumn(name="expense_id", nullable=false)
   private ExpenseEntity expense;
 
-  @Column(name="price", nullable=false)
+  @Column(name="price", nullable=false, precision=10, scale=2)
 	private BigDecimal price;
 
-  @Column(name="amount", nullable=false)
+  @Column(name="amount", nullable=false, precision=10, scale=2)
 	private BigDecimal amount;
 
   @Override

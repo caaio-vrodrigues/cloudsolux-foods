@@ -1,8 +1,10 @@
 package com.cloudsolux.foods.finances_service.domain.expense_item.util;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.cloudsolux.foods.finances_service.domain.expense_item.exception.ExpenseItemInvalidArgumentException;
+import com.cloudsolux.foods.finances_service.domain.expense_item.exception.ExpenseItemInvalidDependencyException;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
 
@@ -63,5 +65,35 @@ public final class ExpenseItemValidationAux {
         .nullArgumentMsg("ExpenseItem", receivedArgumentName)),
       () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
         .underZeroResult("ExpenseItem", currentArgumentName, received, current)));
+  }
+
+  public static void validateRegistryCreation(List<?> implementations, String implementationsType) {
+    ValidationAux.validateList(
+      implementations, 
+      () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("ExpenseItem", implementationsType)),
+      () -> new ExpenseItemInvalidDependencyException(GlobalMsgCreator
+        .emptyImplementationList("ExpenseItem", implementationsType))
+    );
+  }
+
+  public static void validateDependencyResult(
+    Object dependency, String dependencyType, String resultType
+  ) {
+    ValidationAux.validateNull(
+      dependency, 
+      () -> new ExpenseItemInvalidDependencyException(GlobalMsgCreator
+        .nullDependencyResultMsg("ExpenseItem", dependencyType, resultType))
+    );
+  }
+
+  public static void validateList(List<?> list, String listType) {
+    ValidationAux.validateList(
+      list, 
+      () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("ExpenseItem", listType)),
+      () -> new ExpenseItemInvalidArgumentException(GlobalMsgCreator
+        .emptyList("ExpenseItem", listType))
+    );
   }
 }
