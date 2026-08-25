@@ -2,7 +2,6 @@ package com.cloudsolux.foods.finances_service.domain.expense.command;
 
 import java.util.List;
 
-import com.cloudsolux.foods.finances_service.domain.expense.model.creation.ExpenseCreationKey;
 import com.cloudsolux.foods.finances_service.domain.expense.util.ExpenseValidationAux;
 import com.cloudsolux.foods.finances_service.domain.expense_item.command.ExpenseItemCreationCommand;
 
@@ -39,10 +38,6 @@ public final class ExpenseCreationCommand {
 
   public static ExpenseCreationCommandBuilder builder() {
     return new ExpenseCreationCommandBuilder();
-  }
-
-  public ExpenseCreationKey getFactoryKey() {
-    return ExpenseCreationKey.EXPENSE_CREATION;
   }
 
   public List<ExpenseItemCreationCommand> getItems() {

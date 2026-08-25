@@ -78,12 +78,12 @@ public final class ExpenseItemValidationAux {
   }
 
   public static void validateDependencyResult(
-    Object dependency, String dependencyType, String resultType
+    Object adapter, String dependencyName, String resultType
   ) {
     ValidationAux.validateNull(
-      dependency, 
+      adapter, 
       () -> new ExpenseItemInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyResultMsg("ExpenseItem", dependencyType, resultType))
+        .nullDependencyResultMsg("ExpenseItem", dependencyName, resultType))
     );
   }
 

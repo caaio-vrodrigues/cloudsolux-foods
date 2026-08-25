@@ -28,9 +28,8 @@ public final class ExpenseAdaptersGetter {
 
     ExpenseValidationAux.validateDependencyResult(
       factory, 
-      "Map<ExpenseCreationKey, ExpenseCreationPort>", 
-      "ExpenseCreationPort"
-    );
+      "expenseFactories", 
+      "ExpenseCreationPort");
 
     return factory;
   }
@@ -44,9 +43,8 @@ public final class ExpenseAdaptersGetter {
 
     ExpenseValidationAux.validateDependencyResult(
       persistence, 
-      "Map<ExpensePersistenceKey, ExpensePersistencePort>", 
-      "ExpensePersistencePort"
-    );
+      "expensePersistences", 
+      "ExpensePersistencePort" );
 
     return persistence;
   }

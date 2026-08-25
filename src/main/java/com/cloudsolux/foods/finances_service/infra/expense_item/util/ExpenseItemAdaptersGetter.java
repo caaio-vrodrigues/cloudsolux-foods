@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.cloudsolux.foods.finances_service.domain.expense.util.ExpenseValidationAux;
 import com.cloudsolux.foods.finances_service.domain.expense_item.model.creation.ExpenseItemCreationKey;
 import com.cloudsolux.foods.finances_service.domain.expense_item.model.creation.ExpenseItemCreationPort;
 import com.cloudsolux.foods.finances_service.domain.expense_item.model.validation.ExpenseItemValidationKey;
@@ -23,27 +22,29 @@ public final class ExpenseItemAdaptersGetter {
   public ExpenseItemCreationPort getFactory(
     ExpenseItemCreationKey key
   ) {
-    ExpenseItemCreationPort implementation = expenseItemFactories.get(key);
+    ExpenseItemValidationAux.validateArgument(key, "ExpenseItemCreationKey");
+
+    ExpenseItemCreationPort factory = expenseItemFactories.get(key);
     
     ExpenseItemValidationAux.validateDependencyResult(
-      implementation, 
-      "Map<ExpenseItemCreationKey, ExpenseItemCreationPort>", 
+      factory, 
+      "expenseItemFactories", 
       "ExpenseItemCreationPort");
 
-    return implementation;
+    return factory;
   }
 
   public ExpenseItemValidationPort getValidator(
     ExpenseItemValidationKey key
   ) {
-    ExpenseValidationAux.validateArgument(key, "ExpenseValidationKey");
+    ExpenseItemValidationAux.validateArgument(key, "ExpenseItemValidationKey");
 
     ExpenseItemValidationPort validator = expenseItemValidators.get(key);
 
-    ExpenseValidationAux.validateDependencyResult(
+    ExpenseItemValidationAux.validateDependencyResult(
       validator, 
-      "Map<ExpenseValidationKey, ExpenseValidationPort>", 
-      "ExpenseValidationPort"
+      "expenseItemValidators", 
+      "ExpenseItemValidationPort"
     );
 
     return validator;

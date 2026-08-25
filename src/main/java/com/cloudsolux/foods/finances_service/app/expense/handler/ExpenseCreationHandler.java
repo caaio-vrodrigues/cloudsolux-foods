@@ -10,6 +10,7 @@ import com.cloudsolux.foods.finances_service.app.expense_item.handler.ExpenseIte
 import com.cloudsolux.foods.finances_service.domain.expense.Expense;
 import com.cloudsolux.foods.finances_service.domain.expense.command.ExpenseCreationCommand;
 import com.cloudsolux.foods.finances_service.domain.expense.model.creation.ExpenseCreation;
+import com.cloudsolux.foods.finances_service.domain.expense.model.creation.ExpenseCreationKey;
 import com.cloudsolux.foods.finances_service.domain.expense.model.persistence.ExpensePersistence;
 import com.cloudsolux.foods.finances_service.domain.expense.model.persistence.ExpensePersistenceKey;
 import com.cloudsolux.foods.finances_service.domain.expense.util.ExpenseValidationAux;
@@ -43,7 +44,7 @@ public class ExpenseCreationHandler {
         Long id = idGenerator.generateId(IdControlKey.EXPENSE_ID);
 
         ExpenseCreation factory = (ExpenseCreation) adapters
-          .getFactory(command.getFactoryKey());
+          .getFactory(ExpenseCreationKey.EXPENSE_CREATION);
 
         return factory.create(command, id, items);
       })
