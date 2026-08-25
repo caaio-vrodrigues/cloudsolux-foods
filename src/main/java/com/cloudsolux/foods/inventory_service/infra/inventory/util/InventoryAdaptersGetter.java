@@ -26,7 +26,14 @@ public final class InventoryAdaptersGetter {
       inventoryFactories, 
       "Map<InventoryFactoryKey, InventoryFactoryPort>");
 
-    return inventoryFactories.get(key);
+    InventoryFactoryPort factory = inventoryFactories.get(key);
+
+    InventoryValidationAux.validateDependencyResult(
+      factory, 
+      "inventoryFactories", 
+      "InventoryFactoryPort");
+
+    return factory;
   }
 
   public InventoryPersistencePort getPersistence(InventoryPersistenceKey key) {
@@ -36,6 +43,13 @@ public final class InventoryAdaptersGetter {
       inventoryPersistences, 
       "Map<InventoryPersistenceKey, InventoryPersistencePort>");
 
-    return inventoryPersistences.get(key);
+    InventoryPersistencePort persistence = inventoryPersistences.get(key);
+
+    InventoryValidationAux.validateDependencyResult(
+      persistence,
+      "inventoryPersistences", 
+      "InventoryPersistencePort");
+
+    return persistence;
   }
 }

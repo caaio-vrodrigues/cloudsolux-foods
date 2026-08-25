@@ -4,13 +4,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudsolux.foods.global_services.app.id_control.handler.IdControlGeneratorHandler;
+import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 import com.cloudsolux.foods.hr_service.app.employee.dto.EmployeeResponse;
 import com.cloudsolux.foods.hr_service.app.user_account.handler.UserAccountCreationHandler;
 import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidation;
 import com.cloudsolux.foods.hr_service.domain.employee.Employee;
 import com.cloudsolux.foods.hr_service.domain.employee.command.EmployeeCreationCommand;
 import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreation;
+import com.cloudsolux.foods.hr_service.domain.employee.model.creation.EmployeeCreationKey;
 import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistence;
+import com.cloudsolux.foods.hr_service.domain.employee.model.persistence.EmployeePersistenceKey;
 import com.cloudsolux.foods.hr_service.domain.employee.util.EmployeeValidationAux;
 import com.cloudsolux.foods.hr_service.domain.user_account.UserAccount;
 import com.cloudsolux.foods.hr_service.domain.user_account.command.UserAccountCreationCommand;
@@ -36,28 +39,27 @@ public class EmployeeCreationHandler {
   ) {
     EmployeeValidationAux.validateArgument(employeeCreationCommand, "EmployeeCreationCommand");
     EmployeeValidationAux.validateArgument(userAccountCreationCommand, "UserAccountCreationCommand");
-
     departmentValidator.validateExistence(employeeCreationCommand.getDepartmentId());
 
     EmployeeCreation factory = (EmployeeCreation) adapters
-      .getFactory(employeeCreationCommand.getFactoryKey());
+      .getFactory(EmployeeCreationKey.EMPLOYEE_CREATION);
 
     EmployeePersistence persistence = (EmployeePersistence) adapters
-      .getPersistence(employeeCreationCommand.getPersistenceKey());
+      .getPersistence(EmployeePersistenceKey.EMPLOYEE_PERSISTENCE);
 
-    Long userAccountId = idGenerator
-      .generateId(userAccountCreationCommand.getUserAccountIdControlKey());
+    Long userAccountId = idGenerator.generateId(IdControlKey.USER_ACCOUNT_ID);
+    Long employeeId = idGenerator.generateId(IdControlKey.EMPLOYEE_ID);
 
-    UserAccount userAccount = userAccountHandler
-      .create(userAccountCreationCommand, userAccountId);
-
-    Long employeeId = idGenerator.generateId(employeeCreationCommand.getEmployeeIdControlKey());
-
+    UserAccount userAccount = userAccountHandler.create(
+      userAccountCreationCommand, 
+      userAccountId);
+    
     Employee employee = factory.create(
-      employeeId, userAccountId, employeeCreationCommand.getDepartmentId());
+      employeeId, 
+      userAccountId, 
+      employeeCreationCommand.getDepartmentId());
 
     persistence.save(employee);
-
     return responseGenerator.toEmployeeResponse(employee, userAccount);
   }
 }

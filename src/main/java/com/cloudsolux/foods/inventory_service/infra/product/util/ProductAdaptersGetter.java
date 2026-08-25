@@ -22,14 +22,21 @@ public final class ProductAdaptersGetter {
   private final Map<ProductValidationKey, ProductValidationPort> productValidators;
   private final Map<ProductPersistenceKey, ProductPersistencePort> productPersistences;
 
-  public ProductFactoryPort getProductFactory(ProductFactoryKey key) {
+  public ProductFactoryPort getFactory(ProductFactoryKey key) {
     ProductValidationAux.validateArgument(key, "ProductFactoryKey");
 
     ProductValidationAux.validateDependencyMap(
       productFactories, 
       "Map<ProductFactoryKey, ProductFactoryPort>");
 
-    return productFactories.get(key);
+    ProductFactoryPort factory = productFactories.get(key);
+
+    ProductValidationAux.validateDependencyResult(
+      factory, 
+      "productFactories", 
+      "ProductFactoryPort");
+
+    return factory;
   }
 
   public ProductValidationPort getValidator(ProductValidationKey key) {
@@ -39,7 +46,14 @@ public final class ProductAdaptersGetter {
       productValidators, 
       "Map<ProductValidationKey, ProductValidationPort>");
 
-    return productValidators.get(key);
+    ProductValidationPort validator = productValidators.get(key);
+
+    ProductValidationAux.validateDependencyResult(
+      validator, 
+      "productValidators", 
+      "ProductValidationPort");
+
+    return validator;
   }
 
   public ProductPersistencePort getPersistence(ProductPersistenceKey key) {
@@ -49,6 +63,13 @@ public final class ProductAdaptersGetter {
       productPersistences, 
       "Map<ProductPersistenceKey, ProductPersistencePort>");
 
-    return productPersistences.get(key);
+    ProductPersistencePort persistence = productPersistences.get(key);
+
+    ProductValidationAux.validateDependencyResult(
+      persistence, 
+      "productPersistences", 
+      "ProductPersistencePort");
+
+    return persistence;
   }
 }

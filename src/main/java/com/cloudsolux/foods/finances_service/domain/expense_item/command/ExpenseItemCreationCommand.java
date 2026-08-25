@@ -2,7 +2,6 @@ package com.cloudsolux.foods.finances_service.domain.expense_item.command;
 
 import java.math.BigDecimal;
 
-import com.cloudsolux.foods.finances_service.domain.expense_item.model.creation.ExpenseItemCreationKey;
 import com.cloudsolux.foods.finances_service.domain.expense_item.util.ExpenseItemValidationAux;
 
 public final class ExpenseItemCreationCommand {
@@ -47,10 +46,6 @@ public final class ExpenseItemCreationCommand {
 
   public static ExpenseItemCreationCommandBuilder builder() {
     return new ExpenseItemCreationCommandBuilder();
-  }
-
-  public ExpenseItemCreationKey getFactoryKey() {
-    return ExpenseItemCreationKey.EXPENSE_ITEM_CREATION;
   }
 
   public Long getProductId() {

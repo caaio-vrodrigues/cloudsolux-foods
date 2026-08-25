@@ -1,9 +1,5 @@
 package com.cloudsolux.foods.hr_service.domain.department.command;
 
-import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.hr_service.domain.department.model.creation.DepartmentCreationKey;
-import com.cloudsolux.foods.hr_service.domain.department.model.persistence.DepartmentPersistenceKey;
-import com.cloudsolux.foods.hr_service.domain.department.model.validation.DepartmentValidationKey;
 import com.cloudsolux.foods.hr_service.domain.department.util.DepartmentValidationAux;
 
 public final class DepartmentCreationCommand {
@@ -30,22 +26,6 @@ public final class DepartmentCreationCommand {
 
   public static DepartmentCreationCommandBuilder builder(){
     return new DepartmentCreationCommandBuilder();
-  }
-
-  public DepartmentValidationKey getValidationKey() {
-    return DepartmentValidationKey.VALIDATE_CREATION;
-  }
-
-  public DepartmentCreationKey getFactoryKey() {
-    return DepartmentCreationKey.DEPARTMENT_CREATION;
-  }
-
-  public DepartmentPersistenceKey getPersistenceKey() {
-    return DepartmentPersistenceKey.DEPARTMENT_PERSISTENCE;
-  }
-
-  public IdControlKey getIdGenerationKey() {
-    return IdControlKey.DEPARTMENT_ID;
   }
 
   public String getName() {

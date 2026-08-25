@@ -2,6 +2,7 @@ package com.cloudsolux.foods.finances_service.domain.expense_item.util;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.cloudsolux.foods.finances_service.domain.expense_item.exception.ExpenseItemInvalidArgumentException;
 import com.cloudsolux.foods.finances_service.domain.expense_item.exception.ExpenseItemInvalidDependencyException;
@@ -84,6 +85,16 @@ public final class ExpenseItemValidationAux {
       adapter, 
       () -> new ExpenseItemInvalidDependencyException(GlobalMsgCreator
         .nullDependencyResultMsg("ExpenseItem", dependencyName, resultType))
+    );
+  }
+
+  public static void validateDependencyMap(Map<?, ?> dependency, String dependencyType) {
+    ValidationAux.validateMap(
+      dependency, 
+      () -> new ExpenseItemInvalidDependencyException(GlobalMsgCreator
+        .nullArgumentMsg("ExpenseItem", dependencyType)), 
+      () -> new ExpenseItemInvalidDependencyException(GlobalMsgCreator
+        .emptyDependencyList("ExpenseItem", dependencyType))
     );
   }
 

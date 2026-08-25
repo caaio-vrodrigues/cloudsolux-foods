@@ -2,6 +2,7 @@ package com.cloudsolux.foods.finances_service.domain.expense.util;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 import com.cloudsolux.foods.finances_service.domain.expense.exception.ExpenseInvalidArgumentException;
 import com.cloudsolux.foods.finances_service.domain.expense.exception.ExpenseInvalidDependencyException;
@@ -67,6 +68,16 @@ public final class ExpenseValidationAux {
       adapter, 
       () -> new ExpenseInvalidDependencyException(GlobalMsgCreator
         .nullDependencyResultMsg("Expense", dependencyName, resultType))
+    );
+  }
+
+  public static void validateDependencyMap(Map<?, ?> dependency, String dependencyType) {
+    ValidationAux.validateMap(
+      dependency, 
+      () -> new ExpenseInvalidDependencyException(GlobalMsgCreator
+        .nullArgumentMsg("Expense", dependencyType)), 
+      () -> new ExpenseInvalidDependencyException(GlobalMsgCreator
+        .emptyDependencyList("Expense", dependencyType))
     );
   }
 }

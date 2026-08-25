@@ -35,23 +35,20 @@ public class ExpenseCreationHandler {
   public List<ExpenseResponse> create(List<ExpenseCreationCommand> commands) {
     ExpenseValidationAux.validateList(commands, "List<ExpenseCreationCommand>");
 
+    ExpensePersistence persistence = (ExpensePersistence) adapters
+      .getPersistence(ExpensePersistenceKey.EXPENSE_PERSISTENCE);
+
+    ExpenseCreation factory = (ExpenseCreation) adapters
+      .getFactory(ExpenseCreationKey.EXPENSE_CREATION);
+
     List<Expense> expenses = commands.stream()
       .map(command -> {
         ExpenseValidationAux.validateArgument(command, "ExpenseCreationCommand");
-
-        List<ExpenseItem> items = expenseItemHandler.create(command.getItems());
-
         Long id = idGenerator.generateId(IdControlKey.EXPENSE_ID);
-
-        ExpenseCreation factory = (ExpenseCreation) adapters
-          .getFactory(ExpenseCreationKey.EXPENSE_CREATION);
-
+        List<ExpenseItem> items = expenseItemHandler.create(command.getItems());
         return factory.create(command, id, items);
       })
       .toList();
-
-    ExpensePersistence persistence = (ExpensePersistence) adapters
-      .getPersistence(ExpensePersistenceKey.EXPENSE_PERSISTENCE);
     
     persistence.save(expenses);
     return responseFactory.toResponse(expenses);

@@ -25,6 +25,10 @@ public final class ExpenseItemAdaptersGetter {
     ExpenseItemValidationAux.validateArgument(key, "ExpenseItemCreationKey");
 
     ExpenseItemCreationPort factory = expenseItemFactories.get(key);
+
+    ExpenseItemValidationAux.validateDependencyMap(
+      expenseItemFactories, 
+      "Map<ExpenseItemCreationKey, ExpenseItemCreationPort>");
     
     ExpenseItemValidationAux.validateDependencyResult(
       factory, 
@@ -38,6 +42,10 @@ public final class ExpenseItemAdaptersGetter {
     ExpenseItemValidationKey key
   ) {
     ExpenseItemValidationAux.validateArgument(key, "ExpenseItemValidationKey");
+
+    ExpenseItemValidationAux.validateDependencyMap(
+      expenseItemValidators, 
+      "Map<ExpenseItemValidationKey, ExpenseItemValidationPort>");
 
     ExpenseItemValidationPort validator = expenseItemValidators.get(key);
 

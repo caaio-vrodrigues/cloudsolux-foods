@@ -24,6 +24,10 @@ public final class ExpenseAdaptersGetter {
   ) {
     ExpenseValidationAux.validateArgument(key, "ExpenseCreationKey");
 
+    ExpenseValidationAux.validateDependencyMap(
+      expenseFactories, 
+      "Map<ExpenseCreationKey, ExpenseCreationPort>");
+
     ExpenseCreationPort factory = expenseFactories.get(key);
 
     ExpenseValidationAux.validateDependencyResult(
@@ -38,6 +42,10 @@ public final class ExpenseAdaptersGetter {
     ExpensePersistenceKey key
   ) {
     ExpenseValidationAux.validateArgument(key, "ExpensePersistenceKey");
+
+    ExpenseValidationAux.validateDependencyMap(
+      expensePersistences, 
+      "Map<ExpensePersistenceKey, ExpensePersistencePort>");
 
     ExpensePersistencePort persistence = expensePersistences.get(key);
 

@@ -3,8 +3,6 @@ package com.cloudsolux.foods.inventory_service.domain.inventory.command;
 import java.math.BigDecimal;
 
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.creation.InventoryFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.inventory.model.persistence.InventoryPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.inventory.util.InventoryValidationAux;
 
 public final class InventoryCreationCommand {
@@ -40,14 +38,6 @@ public final class InventoryCreationCommand {
 
   public static InventoryCreationCommandBuilder builder() {
     return new InventoryCreationCommandBuilder();
-  }
-
-  public InventoryFactoryKey getFactoryKey() {
-    return InventoryFactoryKey.INVENTORY_CREATION;
-  }
-
-  public InventoryPersistenceKey getPersistenceKey() {
-    return InventoryPersistenceKey.INVENTORY_PERSISTENCE;
   }
 
   public BigDecimal getAmount() {

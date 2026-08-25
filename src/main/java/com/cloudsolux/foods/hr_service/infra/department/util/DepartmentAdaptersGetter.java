@@ -29,7 +29,14 @@ public final class DepartmentAdaptersGetter {
       departmentValidators, 
       "Map<DepartmentValidationKey, DepartmentValidationPort>");
 
-    return departmentValidators.get(key);
+    DepartmentValidationPort validator = departmentValidators.get(key);
+
+    DepartmentValidationAux.validateDependencyResult(
+      validator, 
+      "departmentValidators", 
+      "DepartmentValidationPort");
+
+    return validator;
   }
 
   public DepartmentCreationPort getFactory(DepartmentCreationKey key) {
@@ -39,7 +46,14 @@ public final class DepartmentAdaptersGetter {
       departmentFactories, 
       "Map<DepartmentCreationKey, DepartmentCreationPort>");
 
-    return departmentFactories.get(key);
+    DepartmentCreationPort factory = departmentFactories.get(key);
+
+    DepartmentValidationAux.validateDependencyResult(
+      factory, 
+      "departmentFactories", 
+      "DepartmentCreationPort");
+
+    return factory;
   }
 
   public DepartmentPersistencePort getPersistence(DepartmentPersistenceKey key) {
@@ -49,6 +63,13 @@ public final class DepartmentAdaptersGetter {
       departmentPersistences, 
       "Map<DepartmentPersistenceKey, DepartmentPersistencePort>");
 
-    return departmentPersistences.get(key);
+    DepartmentPersistencePort persistence = departmentPersistences.get(key);
+
+    DepartmentValidationAux.validateDependencyResult(
+      persistence, 
+      "departmentPersistences", 
+      "DepartmentPersistencePort");
+
+    return persistence;
   }
 }

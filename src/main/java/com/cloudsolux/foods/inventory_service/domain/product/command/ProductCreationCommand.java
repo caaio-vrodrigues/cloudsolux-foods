@@ -1,9 +1,5 @@
 package com.cloudsolux.foods.inventory_service.domain.product.command;
 
-import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
-import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
 
 public final class ProductCreationCommand {
@@ -48,22 +44,6 @@ public final class ProductCreationCommand {
 
   public static ProductCreationCommandBuilder builder() {
     return new ProductCreationCommandBuilder();
-  }
-
-  public ProductFactoryKey getProductCreationKey() {
-    return ProductFactoryKey.PRODUCT_CREATION;
-  }
-
-  public ProductValidationKey getRequestValidationKey() {
-    return ProductValidationKey.VALIDATE_CREATION_REQUEST;
-  }
-
-  public ProductPersistenceKey getProductSavingKey() {
-    return ProductPersistenceKey.PRODUCT_PERSISTENCE;
-  }
-
-  public IdControlKey getCatalogIdKey() {
-    return IdControlKey.CATALOG_ID;
   }
 
   public String getName() {

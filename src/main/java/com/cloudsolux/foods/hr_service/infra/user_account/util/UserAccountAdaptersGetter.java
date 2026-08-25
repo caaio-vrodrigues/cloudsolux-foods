@@ -29,7 +29,14 @@ public final class UserAccountAdaptersGetter {
       userAccountValidators, 
       "Map<UserAccountValidationKey, UserAccountValidationPort>");
 
-    return userAccountValidators.get(key);
+    UserAccountValidationPort validator = userAccountValidators.get(key);
+
+    UserAccountValidationAux.validateDependencyResult(
+      validator, 
+      "userAccountValidators", 
+      "UserAccountValidationPort");
+
+    return validator;
   }
 
   public UserAccountCreationPort getFactory(UserAccountCreationKey key) {
@@ -39,7 +46,14 @@ public final class UserAccountAdaptersGetter {
       userAccountFactories, 
       "Map<UserAccountCreationKey, UserAccountCreationPort>");
 
-    return userAccountFactories.get(key);
+    UserAccountCreationPort factory = userAccountFactories.get(key);
+
+    UserAccountValidationAux.validateDependencyResult(
+      factory, 
+      "userAccountFactories", 
+      "UserAccountCreationPort");
+
+    return factory;
   }
 
   public UserAccountPersistencePort getPersistence(UserAccountPersistenceKey key) {
@@ -49,6 +63,13 @@ public final class UserAccountAdaptersGetter {
       userAccountPersistences, 
       "Map<UserAccountPersistenceKey, UserAccountPersistencePort>");
 
-    return userAccountPersistences.get(key);
+    UserAccountPersistencePort persistence = userAccountPersistences.get(key);
+
+    UserAccountValidationAux.validateDependencyResult(
+      persistence, 
+      "userAccountPersistences", 
+      "UserAccountPersistencePort");
+
+    return persistence;
   }
 }

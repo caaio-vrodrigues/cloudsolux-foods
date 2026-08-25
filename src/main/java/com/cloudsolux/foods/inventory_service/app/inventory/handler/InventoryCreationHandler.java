@@ -27,16 +27,11 @@ public class InventoryCreationHandler {
 
     InventoryFactory factory = (InventoryFactory) adapters
       .getFactory(InventoryFactoryKey.INVENTORY_CREATION);
-    InventoryValidationAux.validateDependencyResult(
-      factory, "InventoryAdaptersGetter", "InventoryFactory");
-
-    Inventory inventory = factory.create(command, id);
 
     InventoryPersistence persistence = (InventoryPersistence) adapters
       .getPersistence(InventoryPersistenceKey.INVENTORY_PERSISTENCE);
-    InventoryValidationAux.validateDependencyResult(
-      persistence, "InventoryAdaptersGetter", "InventoryPersistence");
 
+    Inventory inventory = factory.create(command, id);
     persistence.save(inventory);
     return inventory;
   }
