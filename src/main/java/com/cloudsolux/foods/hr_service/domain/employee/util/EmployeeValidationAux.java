@@ -41,12 +41,12 @@ public final class EmployeeValidationAux {
   }
 
   public static void validateDependencyResult(
-    Object dependency, String dependencyType, String resultType
+    Object dependency, String dependencyName, String expectedResult
   ) {
     ValidationAux.validateNull(
       dependency, 
       () -> new EmployeeInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyResultMsg("Employee", dependencyType, resultType))
+        .nullDependencyResultMsg("Employee", dependencyName, expectedResult))
     );
   }
 

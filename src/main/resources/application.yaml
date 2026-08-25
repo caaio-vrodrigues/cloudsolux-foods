@@ -33,3 +33,7 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
   packagesToScan: com.cloudsolux.foods
+
+jwt:
+  secret: ${SPRING_JWT_PASSWORD}
+  expiration: 3600000

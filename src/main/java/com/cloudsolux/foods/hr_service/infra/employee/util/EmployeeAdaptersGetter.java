@@ -26,7 +26,14 @@ public final class EmployeeAdaptersGetter {
       employeeFactories, 
       "Map<EmployeeCreationKey, EmployeeCreationPort>");
 
-    return employeeFactories.get(key);
+    EmployeeCreationPort adapter = employeeFactories.get(key);
+
+    EmployeeValidationAux.validateDependencyResult(
+      adapter, 
+      "employeeFactories", 
+      "EmployeeCreationPort");
+
+    return adapter;
   }
 
   public EmployeePersistencePort getPersistence(EmployeePersistenceKey key) {
@@ -36,6 +43,13 @@ public final class EmployeeAdaptersGetter {
       employeePersistences, 
       "Map<EmployeePersistenceKey, EmployeePersistencePort>");
 
-    return employeePersistences.get(key);
+    EmployeePersistencePort adapter = employeePersistences.get(key);
+
+    EmployeeValidationAux.validateDependencyResult(
+      adapter, 
+      "employeePersistences", 
+      "EmployeePersistencePort");
+
+    return adapter;
   }
 }

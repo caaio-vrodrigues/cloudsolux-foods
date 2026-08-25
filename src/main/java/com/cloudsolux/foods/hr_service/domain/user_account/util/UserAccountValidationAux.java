@@ -52,6 +52,18 @@ public final class UserAccountValidationAux {
     );
   }
 
+  public static void validatePassword(String password, String argumentName) {
+    ValidationAux.validatePassword(
+      password, 
+      () -> new UserAccountInvalidArgumentException(GlobalMsgCreator
+        .nullArgumentMsg("UserAccount", argumentName)), 
+      () -> new UserAccountInvalidArgumentException(GlobalMsgCreator
+        .emptyArgumentMsg("UserAccount", argumentName)), 
+      () -> new UserAccountInvalidArgumentException(GlobalMsgCreator
+        .invalidPasswordLengthMsg("UserAccount", argumentName))
+    );
+  }
+
   public static void validateEncodedPassword(String encoded, String argumentName) {
     ValidationAux.validateEncodedPassword(
       encoded, 

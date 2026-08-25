@@ -25,7 +25,7 @@ public final class UserAccountCreationCommand {
     UserAccountValidationAux.validateAgeSixteen(builder.birthday, "LocalDate");
     UserAccountValidationAux.validateEmail(builder.email, "email");
     UserAccountValidationAux.validateArgument(builder.role, "role");
-    UserAccountValidationAux.validateEncodedPassword(builder.password, "password");
+    UserAccountValidationAux.validatePassword(builder.password, "password");
     UserAccountValidationAux.validateArgument(builder.active, "Boolean");
     firstName = builder.firstName;
     lastName = builder.lastName;

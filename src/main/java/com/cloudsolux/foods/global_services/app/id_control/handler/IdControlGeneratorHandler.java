@@ -1,4 +1,4 @@
-package com.cloudsolux.foods.global_services.app.IdControl.handler;
+package com.cloudsolux.foods.global_services.app.id_control.handler;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

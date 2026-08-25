@@ -3,7 +3,7 @@ package com.cloudsolux.foods.hr_service.app.department.handler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cloudsolux.foods.global_services.app.IdControl.handler.IdControlGeneratorHandler;
+import com.cloudsolux.foods.global_services.app.id_control.handler.IdControlGeneratorHandler;
 import com.cloudsolux.foods.hr_service.app.department.dto.DepartmentResponse;
 import com.cloudsolux.foods.hr_service.domain.department.Department;
 import com.cloudsolux.foods.hr_service.domain.department.command.DepartmentCreationCommand;

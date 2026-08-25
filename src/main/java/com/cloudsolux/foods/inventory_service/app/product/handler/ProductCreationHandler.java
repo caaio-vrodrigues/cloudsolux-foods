@@ -3,7 +3,7 @@ package com.cloudsolux.foods.inventory_service.app.product.handler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cloudsolux.foods.global_services.app.IdControl.handler.IdControlGeneratorHandler;
+import com.cloudsolux.foods.global_services.app.id_control.handler.IdControlGeneratorHandler;
 import com.cloudsolux.foods.inventory_service.app.inventory.handler.InventoryCreationHandler;
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
 import com.cloudsolux.foods.inventory_service.domain.inventory.Inventory;

@@ -1,5 +1,6 @@
 package com.cloudsolux.foods.hr_service.infra.user_account.adapter.creation;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.hr_service.domain.user_account.UserAccount;
@@ -8,8 +9,13 @@ import com.cloudsolux.foods.hr_service.domain.user_account.model.creation.UserAc
 import com.cloudsolux.foods.hr_service.domain.user_account.model.creation.UserAccountCreationKey;
 import com.cloudsolux.foods.hr_service.domain.user_account.util.UserAccountValidationAux;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public final class UserAccountCreationAdapter implements UserAccountCreation {
+
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public UserAccountCreationKey getKey() {
@@ -19,6 +25,7 @@ public final class UserAccountCreationAdapter implements UserAccountCreation {
   @Override
   public UserAccount create(UserAccountCreationCommand command, Long id) {
     UserAccountValidationAux.validateArgument(command, "UserAccountCreationCommand");
+    UserAccountValidationAux.validatePositive(id, "id");
     
     return UserAccount.builder()
       .id(id)
@@ -27,7 +34,7 @@ public final class UserAccountCreationAdapter implements UserAccountCreation {
       .birthday(command.getBirthday())
       .role(command.getRole())
       .email(command.getEmail())
-      .password(command.getPassword())
+      .password(passwordEncoder.encode(command.getPassword()))
       .active(command.getActive())
       .build();
   }

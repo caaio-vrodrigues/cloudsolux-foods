@@ -6,11 +6,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 import com.cloudsolux.foods.global_services.domain.global.exception.GlobalInvalidArgumentException;
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 
 public final class ValidationAux {
+
+  private static final Pattern EMAIL_PATTERN =
+    Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+
+  private static void validateSupplier(Object supplier, String argumentName) {
+    if(supplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
+      .nullArgumentMsg("ValidationAux", argumentName));
+  }
 
   private ValidationAux() {}
 
@@ -18,9 +27,7 @@ public final class ValidationAux {
     Object argument, 
     Supplier<RuntimeException> nullSupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
+    validateSupplier(nullSupplier, "nullSupplier");
     if(argument == null) throw nullSupplier.get();
   }
 
@@ -29,11 +36,8 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> blankSupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(blankSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "blankSupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(blankSupplier, "blankSupplier");
 
     if(value == null) throw nullSupplier.get();
     if(value.isBlank()) throw blankSupplier.get();
@@ -44,11 +48,8 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> nonPositiveSupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(nonPositiveSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nonPositiveSupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(nonPositiveSupplier, "nonPositiveSupplier");
 
     if(value == null) throw nullSupplier.get();
     if(value < 1) throw nonPositiveSupplier.get();
@@ -59,15 +60,12 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> nonPositiveSupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(nonPositiveSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nonPositiveSupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(nonPositiveSupplier, "nonPositiveSupplier");
 
     if(value == null) throw nullSupplier.get();
 
-    boolean nonPositiveResult = value.compareTo(BigDecimal.ZERO) < 1;
+    boolean nonPositiveResult = value.compareTo(BigDecimal.ZERO) <= 0;
     if(nonPositiveResult) throw nonPositiveSupplier.get();
   }
 
@@ -76,11 +74,8 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> underZeroSupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(underZeroSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "underZeroSupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(underZeroSupplier, "underZeroSupplier");
 
     if(amount == null) throw nullSupplier.get();
 
@@ -93,11 +88,8 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> emptySupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(emptySupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "emptySupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(emptySupplier, "emptySupplier");
     
     if(map == null) throw nullSupplier.get();
     if(map.isEmpty()) throw emptySupplier.get();
@@ -108,11 +100,8 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> emptySupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(emptySupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "emptySupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(emptySupplier, "emptySupplier");
 
     if(list == null) throw nullSupplier.get();
     if(list.isEmpty()) throw emptySupplier.get();
@@ -123,16 +112,28 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> invalidEmailSupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(invalidEmailSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "invalidEmailSupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(invalidEmailSupplier, "invalidEmailSupplier");
 
     if(email == null) throw nullSupplier.get();
 
-    boolean invalidEmail = !email.contains("@") || !(email.length() > 4);
+    boolean invalidEmail = !EMAIL_PATTERN.matcher(email).matches();
     if(invalidEmail) throw invalidEmailSupplier.get();
+  }
+
+  public static void validatePassword(
+    String password, 
+    Supplier<RuntimeException> nullSupplier,
+    Supplier<RuntimeException> blankSupplier, 
+    Supplier<RuntimeException> invalidPasswordSupplier
+  ) {
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(blankSupplier, "blankSupplier");
+    validateSupplier(invalidPasswordSupplier, "invalidPasswordSupplier");
+
+    if(password == null) throw nullSupplier.get();
+    if(password.isBlank()) throw blankSupplier.get();
+    if(password.length() < 8) throw invalidPasswordSupplier.get();
   }
 
   public static void validateEncodedPassword(
@@ -141,24 +142,19 @@ public final class ValidationAux {
     Supplier<RuntimeException> blankSupplier,
     Supplier<RuntimeException> invalidPasswordSupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(blankSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "blankSupplier"));
-
-    if(invalidPasswordSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "invalidPasswordSupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(blankSupplier, "blankSupplier");
+    validateSupplier(invalidPasswordSupplier, "invalidPasswordSupplier");
 
     if(encoded == null) throw nullSupplier.get();
     if(encoded.isBlank()) throw blankSupplier.get();
 
-    // boolean invalidPassword = 
-    //   !encoded.startsWith("$2a$") && 
-    //   !encoded.startsWith("$2b$") &&
-    //   !encoded.startsWith("$2y$");
+    boolean invalidPassword = 
+      !encoded.startsWith("$2a$") && 
+      !encoded.startsWith("$2b$") &&
+      !encoded.startsWith("$2y$");
 
-    // if(invalidPassword) throw invalidPasswordSupplier.get();
+    if(invalidPassword) throw invalidPasswordSupplier.get();
   }
 
   public static void validateAgeSixteen(
@@ -166,11 +162,8 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier,
     Supplier<RuntimeException> underSixteenSupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(underSixteenSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "underSixteenSupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(underSixteenSupplier, "underSixteenSupplier");
 
     if(birthday == null) throw nullSupplier.get();
 
@@ -185,14 +178,9 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullReceivedUnitOfMeasureSupplier,
     Supplier<RuntimeException> differentUnitOfMeasureSupplier
   ) {
-    if(nullCurrentUnitOfMeasureSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullCurrentUnitOfMeasureSupplier"));
-
-    if(nullReceivedUnitOfMeasureSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullReceivedUnitOfMeasureSupplier"));
-
-    if(differentUnitOfMeasureSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "differentUnitOfMeasureSupplier"));
+    validateSupplier(nullCurrentUnitOfMeasureSupplier, "nullCurrentUnitOfMeasureSupplier");
+    validateSupplier(nullReceivedUnitOfMeasureSupplier, "nullReceivedUnitOfMeasureSupplier");
+    validateSupplier(differentUnitOfMeasureSupplier, "differentUnitOfMeasureSupplier");
 
     if(current == null) throw nullCurrentUnitOfMeasureSupplier.get();
     if(received == null) throw nullReceivedUnitOfMeasureSupplier.get();
@@ -208,14 +196,9 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullReceivedValueSupplier, 
     Supplier<RuntimeException> insufficientResultSupplier
   ) {
-    if(nullCurrentValueSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(nullReceivedValueSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-      
-    if(insufficientResultSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "insufficientResultSupplier"));
+    validateSupplier(nullCurrentValueSupplier, "nullCurrentValueSupplier");
+    validateSupplier(nullReceivedValueSupplier, "nullReceivedValueSupplier");
+    validateSupplier(insufficientResultSupplier, "insufficientResultSupplier");
 
     if(current == null) throw nullCurrentValueSupplier.get();
     if(received == null) throw nullReceivedValueSupplier.get();
@@ -229,11 +212,8 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier, 
     Supplier<RuntimeException> notFoundSupplier
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(notFoundSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "notFoundSupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(notFoundSupplier, "notFoundSupplier");
 
     if(existsById == null) throw nullSupplier.get();
     if(!existsById) throw notFoundSupplier.get();
@@ -246,14 +226,9 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSecondLongSupplier, 
     Supplier<RuntimeException> differentLongSupplier
   ) {
-    if(nullFirstLongSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullFirstLongSupplier"));
-
-    if(nullSecondLongSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSecondLongSupplier"));
-
-    if(differentLongSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "differentLongSupplier"));
+    validateSupplier(nullFirstLongSupplier, "nullFirstLongSupplier");
+    validateSupplier(nullSecondLongSupplier, "nullSecondLongSupplier");
+    validateSupplier(differentLongSupplier, "differentLongSupplier");
 
     if(firstLong == null) throw nullFirstLongSupplier.get();
     if(secondLong == null) throw nullSecondLongSupplier.get();
@@ -265,11 +240,8 @@ public final class ValidationAux {
     Supplier<RuntimeException> nullSupplier, 
     Supplier<RuntimeException> invalidInstantSupplier 
   ) {
-    if(nullSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "nullSupplier"));
-
-    if(invalidInstantSupplier == null) throw new GlobalInvalidArgumentException(GlobalMsgCreator
-      .nullArgumentMsg("Global", "invalidInstantSupplier"));
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(invalidInstantSupplier, "invalidInstantSupplier");
 
     if(instant == null) throw nullSupplier.get();
     if(instant.isBefore(Instant.EPOCH)) throw invalidInstantSupplier.get();

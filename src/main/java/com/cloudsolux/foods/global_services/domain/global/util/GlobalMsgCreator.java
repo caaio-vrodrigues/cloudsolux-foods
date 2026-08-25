@@ -8,8 +8,10 @@ import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
 
 public final class GlobalMsgCreator {
 
+  public static final String RESPONSE_200 = "Operação bem-sucedida";
   public static final String RESPONSE_201 = "Criação concluída com sucesso";
   public static final String RESPONSE_400 = "Dados inválidos — violação de regras de negócio ou requisição inválida";
+  public static final String RESPONSE_401 = "Não autorizado — possível falha de autenticação";
   public static final String RESPONSE_409 = "Conflito — violação de regras de negócio";
   public static final String RESPONSE_500 = "Erro interno inesperado";
 
@@ -23,6 +25,7 @@ public final class GlobalMsgCreator {
 	public static final String POSITIVE = "Positive";
 	public static final String POSITIVE_OR_ZERO = "PositiveOrZero";
   public static final String EMAIL = "Email";
+  public static final String SIZE = "Size";
 	
 	public static final String INTERNAL_FAILURE_MSG = "Falha interna, acione o suporte";
 	public static final String NOT_BLANK_MSG = "não pode ser vazio";
@@ -33,6 +36,7 @@ public final class GlobalMsgCreator {
 	public static final String INVALID_JSON_FORMAT_MSG = "O corpo da requisição não pôde ser interpretado. Verifique a sintaxe JSON e se os tipos dos campos correspondem ao esperado pelo endpoint";
   public static final String INVALID_TYPE_MSG = "O valor fornecido para o discriminador de tipo não corresponde a nenhum tipo conhecido. Consulte a documentação da API para os tipos suportados";
   public static final String EMAIL_MSG = "possui formato inválido";
+  public static final String SIZE_MSG = "possui tamanho inválido";
 	
 	public static final String INVALID_TYPE_TITLE = "Tipo inválido";
 	public static final String INVALID_JSON_FORMAT_TITLE = "Corpo da requisição inválido";
@@ -44,6 +48,8 @@ public final class GlobalMsgCreator {
   public static final String PERSISTENCE_FAILURE_TITLE = "Falha de persistência";
   public static final String DEPENDENCY_FAILURE_TITLE = "Dependência inválida";
   public static final String NOT_FOUND_TITLE = "Não encontrado";
+  public static final String LOGIN_INVALID_CREDENTIALS_TITLE = "Falha ao autenticar credenciais";
+  public static final String LOGIN_DISABLED_TITLE = "Desativado";
   
   private GlobalMsgCreator() {}
 	
@@ -93,8 +99,8 @@ public final class GlobalMsgCreator {
     return "Falha ao acessar os dados. Não foi possível acessar as entidades ['"+className+"']. Verifique o banco de dados e a integridade dos dados retornados.";
   }
 
-  public static String nullDependencyResultMsg(String className, String dependencyType, String expectedResultType) {
-    return "Falha ao processar '"+className+"'. Resultado nulo retornado por serviço da dependência: ['"+dependencyType+"']. Resultado esperrado: ['"+expectedResultType+"'], resultado obtido: ['null']";
+  public static String nullDependencyResultMsg(String className, String dependencyName, String dependencyType) {
+    return "Falha ao processar '"+className+"'. Resultado nulo retornado por serviço da dependência: ['"+dependencyName+"']. Resultado esperado: ['"+dependencyType+"'], resultado obtido: ['null']";
   }
 
   public static String emptyDependencyList(String className, String dependencyType) {
@@ -113,8 +119,16 @@ public final class GlobalMsgCreator {
     return "Não foi possível encontrar '"+className+"' para o id: ['"+id+"'].";
   }
 
-  public static String invalidPasswordHashMsg(String className, String fieldName) {
-    return "Falha ao processar '"+className+"'. Senha inválida para o argumento: ['"+fieldName+"'].";
+  public static String invalidPasswordOnAccesMsg(String className, String argumentName) {
+    return "Falha de Segurança. Senha inválida ao tentar realizar login.";
+  }
+
+  public static String invalidPasswordLengthMsg(String className, String argumentName) {
+    return "Falha ao processar '"+className+"'. Senha inválida para o argumento: ['"+argumentName+"']. A senha fornecida deve ser maior.";
+  }
+
+  public static String invalidPasswordHashMsg(String className, String argumentName) {
+    return "Falha ao processar '"+className+"'. Senha inválida para o argumento: ['"+argumentName+"'].";
   }
 
   public static String minimumAgeSixteenMsg(String className, String argumentName, LocalDate birthday) {

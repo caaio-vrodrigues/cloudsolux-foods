@@ -16,7 +16,7 @@ import com.cloudsolux.foods.finances_service.domain.expense.util.ExpenseValidati
 import com.cloudsolux.foods.finances_service.domain.expense_item.ExpenseItem;
 import com.cloudsolux.foods.finances_service.infra.expense.util.ExpenseAdaptersGetter;
 import com.cloudsolux.foods.finances_service.infra.expense.util.ExpenseResponseCreator;
-import com.cloudsolux.foods.global_services.app.IdControl.handler.IdControlGeneratorHandler;
+import com.cloudsolux.foods.global_services.app.id_control.handler.IdControlGeneratorHandler;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 
 import lombok.RequiredArgsConstructor;

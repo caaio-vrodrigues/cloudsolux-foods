@@ -12,7 +12,7 @@ import com.cloudsolux.foods.finances_service.domain.expense_item.model.validatio
 import com.cloudsolux.foods.finances_service.domain.expense_item.model.validation.ExpenseItemValidationKey;
 import com.cloudsolux.foods.finances_service.domain.expense_item.util.ExpenseItemValidationAux;
 import com.cloudsolux.foods.finances_service.infra.expense_item.util.ExpenseItemAdaptersGetter;
-import com.cloudsolux.foods.global_services.app.IdControl.handler.IdControlGeneratorHandler;
+import com.cloudsolux.foods.global_services.app.id_control.handler.IdControlGeneratorHandler;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 
 import lombok.RequiredArgsConstructor;

@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -29,10 +31,14 @@ public final class IdControlEntity {
   @Version
   private Long version;
   
-  @Include
   @Id
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @Column(name="id")
+  private Long id;
+
+  @Include
 	@Enumerated(EnumType.STRING)
-  @Column(name="key")
+  @Column(name="key_name", nullable=false, unique=true, updatable=false)
 	private IdControlKey key;
 	
   @Column(name="next_value", nullable=false)
@@ -40,6 +46,6 @@ public final class IdControlEntity {
 
   @Override
   public String toString() {
-    return "IdControlEntity: ['key="+key+"']";
+    return "IdControlEntity: ['id="+id+"', 'key="+key+"']";
   }
 }

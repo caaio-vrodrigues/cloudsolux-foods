@@ -43,6 +43,7 @@ public final class ArgumentExceptionHandler {
 			case GlobalMsgCreator.POSITIVE -> GlobalMsgCreator.POSITIVE_MSG;
 			case GlobalMsgCreator.POSITIVE_OR_ZERO -> GlobalMsgCreator.POSITIVE_OR_ZERO_MSG;
 			case GlobalMsgCreator.EMAIL -> GlobalMsgCreator.EMAIL_MSG;
+			case GlobalMsgCreator.SIZE -> GlobalMsgCreator.SIZE_MSG;
 			default -> defaultMsg;
 		};
 
