@@ -22,10 +22,9 @@ public final class IdControlPersistence {
   private final IdControlMapper mapper;
 
   public IdControlEntity save(IdControl domain) {
-    IdControlEntity entity = mapper.toEntity(domain);
+    IdControlValidationAux.validateArgument(domain, "IdControl");
 
-    IdControlValidationAux.validateDependencyResult(
-      entity, "IdControlMapper", "IdControlEntity");
+    IdControlEntity entity = mapper.toEntity(domain);
 
     try{
       return repo.save(entity);

@@ -3,7 +3,6 @@ package com.cloudsolux.foods.global_services.domain.id_control.util;
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
 import com.cloudsolux.foods.global_services.domain.global.util.ValidationAux;
 import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidArgumentException;
-import com.cloudsolux.foods.global_services.domain.id_control.exception.IdControlInvalidDependencyException;
 import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
 
 public final class IdControlValidationAux {
@@ -15,16 +14,6 @@ public final class IdControlValidationAux {
       argument, 
       () -> new IdControlInvalidArgumentException(GlobalMsgCreator
         .nullArgumentMsg("IdControl", argumentType))
-    );
-  }
-
-  public static void validateDependencyResult(
-    Object dependency, String dependencyType, String resultType
-  ) {
-    ValidationAux.validateNull(
-      dependency, 
-      () -> new IdControlInvalidDependencyException(GlobalMsgCreator
-        .nullDependencyResultMsg("IdControl", dependencyType, resultType))
     );
   }
 

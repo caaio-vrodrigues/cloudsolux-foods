@@ -33,9 +33,8 @@ public class IdControlGeneratorHandler {
       .orElseThrow(() -> new IdControlNotFoundException(IdControlMsgCreator.notFoundMsg(key)));
 
     IdControl domain = mapper.toDomain(entity);
-    IdControlValidationAux.validateDependencyResult(domain, "IdControlMapper", "IdControl");
-
     Long id = domain.getNextValue();
+    
     IdControl updatedDomain = domain.increment();
 
     IdControlEntity updatedEntity = updater.update(entity, updatedDomain);
