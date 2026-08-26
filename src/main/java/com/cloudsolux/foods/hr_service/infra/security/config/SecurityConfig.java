@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import com.cloudsolux.foods.hr_service.domain.security.model.TokenManagerPort;
 import com.cloudsolux.foods.hr_service.infra.security.adapter.JwtAuthenticationFilter;
@@ -29,6 +30,7 @@ public class SecurityConfig {
 
   private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
   private final RestAccessDenied restAccessDenied;
+  private final CorsConfigurationSource corsConfigurationSource;
 
   @Bean
   public SecurityFilterChain securityFilterChain(
@@ -36,6 +38,7 @@ public class SecurityConfig {
     JwtAuthenticationFilter jwtAuthenticationFilter
   ) throws Exception {
     return http
+      .cors(cors -> cors.configurationSource(corsConfigurationSource)) 
       .csrf(csrf -> csrf.disable())
       .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .exceptionHandling(ex -> ex

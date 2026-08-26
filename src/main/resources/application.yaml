@@ -37,3 +37,7 @@ springdoc:
 jwt:
   secret: ${SPRING_JWT_PASSWORD}
   expiration: 3600000
+
+cors:
+  allowed-origins:
+    - "http://localhost:3000"
