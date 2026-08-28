@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+jwt:
+  expiration: 1800000
+
+cors:
+  allowed-origins:
+    - "https://app.cloudsolux.com"

@@ -14,7 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor(access=AccessLevel.PRIVATE)
+@AllArgsConstructor(access=AccessLevel.PROTECTED)
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Builder
 @Getter

@@ -1,46 +1,42 @@
 package com.cloudsolux.foods.inventory_service.api.product.controller;
 
-import java.net.URI;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cloudsolux.foods.global_services.domain.global.util.GlobalMsgCreator;
-import com.cloudsolux.foods.inventory_service.api.product.dto.ProductCreationRequest;
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;
-import com.cloudsolux.foods.inventory_service.app.product.handler.ProductCreationHandler;
+import com.cloudsolux.foods.inventory_service.app.product.handler.ProductReadingHandler;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductMsgCreator;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/products")
-public final class ProductCreationController {
+public final class ProductReadingController {
 
-  private final ProductCreationHandler productCreationHandler;
-  
+  private final ProductReadingHandler readerHandler;
+ 
   @Operation(
-    summary = ProductMsgCreator.NEW_PRODUCT_SUMMARY,
-    description = ProductMsgCreator.NEW_PRODUCT_DESCRIPTION,
+    summary = ProductMsgCreator.LISTING_PRODUCTS_SUMMARY,
+    description = ProductMsgCreator.LISTING_PRODUCTS_DESCRIPTION,
     tags = { "Produtos" },
     responses = {
 			@ApiResponse(
-				responseCode = "201",
-				description = GlobalMsgCreator.RESPONSE_201,
+				responseCode = "200",
+				description = GlobalMsgCreator.RESPONSE_200,
 				content = @Content(
-					mediaType = "application/json",
-					schema = @Schema(implementation=ProductResponse.class)
+					mediaType = "application/json"
 				)
 			),
 			@ApiResponse(
@@ -52,8 +48,8 @@ public final class ProductCreationController {
 				)
 			),
 			@ApiResponse(
-				responseCode = "409",
-				description = GlobalMsgCreator.RESPONSE_409,
+				responseCode = "401",
+				description = GlobalMsgCreator.RESPONSE_401,
 				content = @Content(
 					mediaType = "application/json",
 					schema = @Schema(implementation=ProblemDetail.class)
@@ -69,23 +65,12 @@ public final class ProductCreationController {
 			)
     }
 	)
-	@PostMapping
-	public ResponseEntity<ProductResponse> create(
-		@RequestBody 
-		@Valid
-		ProductCreationRequest dto 	
- 	) {
-		ProductResponse resp = productCreationHandler
-			.create(dto.toProductCommand(), dto.toInventoryCommand());
-
-		URI location = ServletUriComponentsBuilder
-			.fromCurrentRequest()
-			.path("/{id}")
-			.buildAndExpand(resp.getId())
-			.toUri();
-
-		return ResponseEntity
-			.created(location)
-			.body(resp);
-	}
+  @GetMapping
+  public ResponseEntity<Page<ProductResponse>> findAll(
+    @PageableDefault(size=20, sort="id")
+    Pageable pageable
+  ) {
+    Page<ProductResponse> pagedProducts = readerHandler.findAll(pageable);
+    return ResponseEntity.ok(pagedProducts);
+  }
 }

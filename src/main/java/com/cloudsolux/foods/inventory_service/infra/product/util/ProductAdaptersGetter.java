@@ -8,6 +8,8 @@ import com.cloudsolux.foods.inventory_service.domain.product.model.creation.Prod
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.reading.ProductReadingKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.reading.ProductReadingPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationPort;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
@@ -21,6 +23,7 @@ public final class ProductAdaptersGetter {
   private final Map<ProductFactoryKey, ProductFactoryPort> productFactories;
   private final Map<ProductValidationKey, ProductValidationPort> productValidators;
   private final Map<ProductPersistenceKey, ProductPersistencePort> productPersistences;
+  private final Map<ProductReadingKey, ProductReadingPort> productReaders;
 
   public ProductFactoryPort getFactory(ProductFactoryKey key) {
     ProductValidationAux.validateArgument(key, "ProductFactoryKey");
@@ -71,5 +74,22 @@ public final class ProductAdaptersGetter {
       "ProductPersistencePort");
 
     return persistence;
+  }
+
+  public ProductReadingPort getReader(ProductReadingKey key) {
+    ProductValidationAux.validateArgument(key, "ProductReadingKey");
+    
+    ProductValidationAux.validateDependencyMap(
+      productReaders, 
+      "Map<ProductReadingKey, ProductReadingPort>");
+
+    ProductReadingPort reader = productReaders.get(key);
+
+    ProductValidationAux.validateDependencyResult(
+      reader, 
+      "productReaders", 
+      "ProductReadingPort");
+
+    return reader;
   }
 }

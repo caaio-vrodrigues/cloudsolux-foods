@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.validation.FieldError;
@@ -132,5 +133,24 @@ public final class ArgumentExceptionHandler {
 
     log.error("traceId={} validationResults={}", traceId, e.getAllValidationResults());
     return setProperties(problemDetail, traceId, errorList);
+	}
+
+	@ExceptionHandler(PropertyReferenceException.class)
+	public ProblemDetail handlePropertyReferenceException(
+		PropertyReferenceException e
+	) {
+		GlobalValidationAux.validateArgument(e, "PropertyReferenceException");
+
+		String traceId = UUID.randomUUID().toString();
+
+		String errorMsg = GlobalMsgCreator.errorFieldMsg(
+			"sort",
+			"Propriedade de ordenação inválida: "+e.getPropertyName());
+
+		ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+		problemDetail.setTitle(GlobalMsgCreator.INVALID_ARGUMENT_TITLE);
+
+		log.error("traceId={} propertyReferenceException={}", traceId, e.getMessage());
+		return setProperties(problemDetail, traceId, List.of(errorMsg));
 	}
 }

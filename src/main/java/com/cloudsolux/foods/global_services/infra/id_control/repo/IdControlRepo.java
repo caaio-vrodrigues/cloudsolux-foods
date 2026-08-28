@@ -12,7 +12,7 @@ import com.cloudsolux.foods.global_services.infra.id_control.entity.IdControlEnt
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
 
-public interface IdControlRepo extends JpaRepository<IdControlEntity, IdControlKey> {
+public interface IdControlRepo extends JpaRepository<IdControlEntity, Long> {
   
   @Lock(LockModeType.PESSIMISTIC_WRITE)
   @QueryHints(@QueryHint(name="jakarta.persistence.lock.timeout", value="5000"))

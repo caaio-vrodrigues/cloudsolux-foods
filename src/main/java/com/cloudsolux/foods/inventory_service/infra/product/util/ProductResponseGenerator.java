@@ -1,5 +1,4 @@
 package com.cloudsolux.foods.inventory_service.infra.product.util;
-
 import org.springframework.stereotype.Component;
 
 import com.cloudsolux.foods.inventory_service.app.product.dto.ProductResponse;

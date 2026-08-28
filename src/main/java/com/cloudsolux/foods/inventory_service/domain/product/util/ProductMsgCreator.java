@@ -4,8 +4,11 @@ public final class ProductMsgCreator {
   
   public static final String NEW_PRODUCT_DESCRIPTION = "Registra um novo produto no sistema de catálogo e inventário." +
     " A combinação dos campos ['name', 'model' e 'brand'] deve ser única.";
+
+  public static final String LISTING_PRODUCTS_DESCRIPTION = "Listagem de todos os produtos cadastrados no sistema";
     
   public static final String NEW_PRODUCT_SUMMARY = "Cadastrar novo produto";
+  public static final String LISTING_PRODUCTS_SUMMARY = "Ler todos os produtos";
 
   private ProductMsgCreator() {}
 

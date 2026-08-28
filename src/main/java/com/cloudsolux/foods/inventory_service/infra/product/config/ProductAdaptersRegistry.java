@@ -12,6 +12,8 @@ import com.cloudsolux.foods.inventory_service.domain.product.model.creation.Prod
 import com.cloudsolux.foods.inventory_service.domain.product.model.creation.ProductFactoryPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistenceKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.persistence.ProductPersistencePort;
+import com.cloudsolux.foods.inventory_service.domain.product.model.reading.ProductReadingKey;
+import com.cloudsolux.foods.inventory_service.domain.product.model.reading.ProductReadingPort;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationKey;
 import com.cloudsolux.foods.inventory_service.domain.product.model.validation.ProductValidationPort;
 import com.cloudsolux.foods.inventory_service.domain.product.util.ProductValidationAux;
@@ -54,6 +56,19 @@ public class ProductAdaptersRegistry {
     return savers.stream()
       .collect(Collectors.toMap(
         ProductPersistencePort::getKey, 
+        Function.identity()
+      ));
+  }
+
+  @Bean
+  Map<ProductReadingKey, ProductReadingPort> productReaders(
+    List<ProductReadingPort> readers
+  ) {
+    ProductValidationAux.validateRegistryCreation(readers, "ProductReadingPort");
+
+    return readers.stream()
+      .collect(Collectors.toMap(
+        ProductReadingPort::getKey, 
         Function.identity()
       ));
   }
