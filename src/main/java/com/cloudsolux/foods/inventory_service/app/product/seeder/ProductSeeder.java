@@ -1,73 +1,24 @@
 package com.cloudsolux.foods.inventory_service.app.product.seeder;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.cloudsolux.foods.global_services.app.id_control.handler.IdControlGeneratorHandler;
 import com.cloudsolux.foods.global_services.domain.global.model.UnitOfMeasure;
-import com.cloudsolux.foods.global_services.domain.id_control.model.IdControlKey;
-import com.cloudsolux.foods.inventory_service.infra.inventory.entity.InventoryEntity;
-import com.cloudsolux.foods.inventory_service.infra.inventory.entity.StockEmbeddable;
-import com.cloudsolux.foods.inventory_service.infra.inventory.repo.InventoryRepo;
-import com.cloudsolux.foods.inventory_service.infra.product.entity.ProductEntity;
-import com.cloudsolux.foods.inventory_service.infra.product.repo.ProductRepo;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Profile("dev")
-@Component
-@RequiredArgsConstructor
-public class ProductSeeder implements CommandLineRunner {
+@AllArgsConstructor(access=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@Builder
+@Getter
+public final class ProductSeeder {
 
-  private final ProductRepo repo;
-  private final InventoryRepo inventoryRepo;
-  private final IdControlGeneratorHandler idGenerator;
-	
-
-  @Override
-  @Transactional
-  public void run(String... args) {
-    if(repo.count() >= 1) return;
-    seedProducts();
-  }
-
-  private void seedProducts() {
-    Map<Long, UnitOfMeasure> unitByProduct = new HashMap<>();
-		ProductList productList = ProductList.builder().build();
-
-    List<ProductEntity> products = productList.getSeeds().stream()
-      .map(dto -> {
-        Long id = idGenerator.generateId(IdControlKey.CATALOG_ID);
-        unitByProduct.put(id, dto.getUnitOfMeasure());
-        return ProductEntity.builder()
-          .id(id)
-          .name(dto.getName())
-          .model(dto.getModel())
-          .brand(dto.getBrand())
-          .build();
-      })
-      .collect(Collectors.toList());
-
-    repo.saveAll(products);
-
-    List<InventoryEntity> inventories = products.stream()
-      .map(product -> InventoryEntity.builder()
-        .catalogId(product.getId())
-        .stock(StockEmbeddable.builder()
-          .amount(BigDecimal.ONE)
-          .unitOfMeasure(unitByProduct.get(product.getId()))
-          .build())
-        .build())
-      .toList();
-
-    inventoryRepo.saveAll(inventories);
-  }
+	private String name;
+	private String model;
+	private String brand;
+	private UnitOfMeasure unitOfMeasure;
 }
