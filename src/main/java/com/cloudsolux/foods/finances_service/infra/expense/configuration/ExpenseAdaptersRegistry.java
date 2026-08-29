@@ -12,6 +12,8 @@ import com.cloudsolux.foods.finances_service.domain.expense.model.creation.Expen
 import com.cloudsolux.foods.finances_service.domain.expense.model.creation.ExpenseCreationPort;
 import com.cloudsolux.foods.finances_service.domain.expense.model.persistence.ExpensePersistenceKey;
 import com.cloudsolux.foods.finances_service.domain.expense.model.persistence.ExpensePersistencePort;
+import com.cloudsolux.foods.finances_service.domain.expense.model.reading.ExpenseReadingKey;
+import com.cloudsolux.foods.finances_service.domain.expense.model.reading.ExpenseReadingPort;
 
 @Configuration
 public class ExpenseAdaptersRegistry {
@@ -32,6 +34,16 @@ public class ExpenseAdaptersRegistry {
   ) {
     return persistences.stream().collect(Collectors.toMap(
       ExpensePersistencePort::getKey, 
+      Function.identity()
+    ));
+  }
+
+  @Bean
+  Map<ExpenseReadingKey, ExpenseReadingPort> expenseReaders(
+    List<ExpenseReadingPort> readers
+  ) {
+    return readers.stream().collect(Collectors.toMap(
+      ExpenseReadingPort::getKey, 
       Function.identity()
     ));
   }

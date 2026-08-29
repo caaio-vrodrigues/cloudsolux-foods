@@ -8,6 +8,8 @@ import com.cloudsolux.foods.finances_service.domain.expense.model.creation.Expen
 import com.cloudsolux.foods.finances_service.domain.expense.model.creation.ExpenseCreationPort;
 import com.cloudsolux.foods.finances_service.domain.expense.model.persistence.ExpensePersistenceKey;
 import com.cloudsolux.foods.finances_service.domain.expense.model.persistence.ExpensePersistencePort;
+import com.cloudsolux.foods.finances_service.domain.expense.model.reading.ExpenseReadingKey;
+import com.cloudsolux.foods.finances_service.domain.expense.model.reading.ExpenseReadingPort;
 import com.cloudsolux.foods.finances_service.domain.expense.util.ExpenseValidationAux;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ public final class ExpenseAdaptersGetter {
 
   private final Map<ExpenseCreationKey, ExpenseCreationPort> expenseFactories;
   private final Map<ExpensePersistenceKey, ExpensePersistencePort> expensePersistences;
+  private final Map<ExpenseReadingKey, ExpenseReadingPort> expenseReaders;
 
   public ExpenseCreationPort getFactory(
     ExpenseCreationKey key
@@ -55,5 +58,24 @@ public final class ExpenseAdaptersGetter {
       "ExpensePersistencePort" );
 
     return persistence;
+  }
+
+  public ExpenseReadingPort getReader(
+    ExpenseReadingKey key
+  ) {
+    ExpenseValidationAux.validateArgument(key, "ExpenseReadingKey");
+
+    ExpenseValidationAux.validateDependencyMap(
+      expenseReaders, 
+      "Map<ExpenseReadingKey, ExpenseReadingPort>");
+
+    ExpenseReadingPort reader = expenseReaders.get(key);
+
+    ExpenseValidationAux.validateDependencyResult(
+      reader, 
+      "expenseReaders", 
+      "ExpenseReadingPort" );
+
+    return reader;
   }
 }
