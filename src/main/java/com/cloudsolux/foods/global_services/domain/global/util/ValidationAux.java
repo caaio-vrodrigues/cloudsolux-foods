@@ -83,6 +83,20 @@ public final class ValidationAux {
     if(underZeroResult) throw underZeroSupplier.get();
   }
 
+  public static void validatePositiveOrZero(
+    Long amount,
+    Supplier<RuntimeException> nullSupplier,
+    Supplier<RuntimeException> underZeroSupplier
+  ) {
+    validateSupplier(nullSupplier, "nullSupplier");
+    validateSupplier(underZeroSupplier, "underZeroSupplier");
+
+    if(amount == null) throw nullSupplier.get();
+
+    boolean underZeroResult = amount < 0;
+    if(underZeroResult) throw underZeroSupplier.get();
+  }
+
   public static void validateMap(
     Map<?, ?> map,
     Supplier<RuntimeException> nullSupplier,

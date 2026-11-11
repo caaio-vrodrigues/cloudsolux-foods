@@ -1,0 +1,2 @@
+INSERT INTO user_account (version, id, first_name, last_name, birthday, email, role, password, active) VALUES
+  (0, 1, "caio vinicius", "rodrigues", "1992-03-20", "admin@test.com", "ADMIN", "admin1234", true)

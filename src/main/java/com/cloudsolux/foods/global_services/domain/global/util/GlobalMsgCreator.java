@@ -77,6 +77,10 @@ public final class GlobalMsgCreator {
     return "Falha ao processar '"+className+"'. Valor menor que '0' para o argumento: ['"+argumentName+"': '"+amount+"'].";
   }
 
+  public static String positiveOrZeroMsg(String className, String argumentName, Long amount) {
+    return "Falha ao processar '"+className+"'. Valor menor que '0' para o argumento: ['"+argumentName+"': '"+amount+"'].";
+  }
+
   public static String invalidUnitOfMeasureMsg(
     String className, UnitOfMeasure incomingUnitOfMeasure, UnitOfMeasure currentUnitOfMeasure
   ) {
